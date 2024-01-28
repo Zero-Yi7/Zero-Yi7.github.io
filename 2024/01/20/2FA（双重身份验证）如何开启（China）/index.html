@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.3" theme-name="Stellar" theme-version="1.26.3">
-  <meta name="robots" content="none">
+  
   <meta name="generator" content="Hexo 6.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -16,20 +16,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>Rabbit's Blog</title>
+  <title>GitHub 2FA（双重身份验证）如何开启（China） - Rabbit's Blog</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Rabbit&#39;s Blog">
-<meta property="og:url" content="https://zero-yi7.github.io/404.html">
+    <meta name="description" content="GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub 2FA（双重身份验证）如何开启（China）">
+<meta property="og:url" content="https://zero-yi7.github.io/2024/01/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-20T09:16:59.000Z">
+<meta property="article:modified_time" content="2024-01-28T12:30:46.987Z">
 <meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="Github">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="2FA">
 <meta name="twitter:card" content="summary">
   
   
   
-  
+  <meta name="keywords" content="Github,网络安全,2FA">
 
   <!-- feed -->
   
@@ -47,7 +54,9 @@
 </head>
 <body>
 
-<div class="l_body index tech" id="start" layout="404" ><aside class="l_left"><div class="sidebar-container sidebar-blur">
+
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container sidebar-blur">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
@@ -59,28 +68,68 @@
 <nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><span>博客</span></a><a class="nav-item" title="笔记" href="/wiki/" style="color:#3DC550"><span>笔记</span></a><a class="nav-item" title="友链" href="/friends/" style="color:#FA6400"><span>友链</span></a><a class="nav-item" title="关于" href="/about/" style="color:#F44336"><span>关于</span></a></nav>
 </div>
 <div class="widgets">
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2024/01/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/"><span class="title">GitHub 2FA（双重身份验证）如何开启（China）</span></a><a class="item title" href="/2024/01/28/Hexo%20%E5%92%8C%20Stellar%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/"><span class="title">Hexo 和 Stellar 搭建个人网站</span></a><a class="item title" href="/2024/01/28/Test/"><span class="title">Test Stellar</span></a><a class="item title" href="/2024/01/28/Stellar%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/"><span class="title">Stellar 主题优化</span></a></div></widget>
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-text">开启2FA的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">开启2FA的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">开启2FA的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div></div></widget>
 
 
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title active" href="/2024/01/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/"><span class="title">GitHub 2FA（双重身份验证）如何开启（China）</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="item title" href="/2024/01/28/Hexo%20%E5%92%8C%20Stellar%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/"><span class="title">Hexo 和 Stellar 搭建个人网站</span></a><a class="item title" href="/2024/01/28/Test/"><span class="title">Test Stellar</span></a><a class="item title" href="/2024/01/28/Stellar%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/"><span class="title">Stellar 主题优化</span></a></div></widget>
 </div>
 <footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
 
-<article class='md-text error-page'>
-  <h1><img id='error' src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg' alt='404'></h1>
-  <p class='what'>
-    <strong>
-      很抱歉，您访问的页面不存在
-    </strong>
-  </p>
-  <p class='why'>
-    可能是输入地址有误或该地址已被删除
-  </p>
-  <br><br>
-  <a class='button' id='back' href="/">返回主页</a>
+
+
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E8%B0%88%E9%97%B2%E8%AE%B0/">杂谈闲记</a></div>
+<div id="post-meta"><span class="author">发布于：</span><span class="created"><time datetime="2024-01-20T09:16:59.000Z">2024-01-20</time></span><span class="updated">，更新于：<time datetime="2024-01-28T12:30:46.987Z">2024-01-28</time></span></div></div>
+</div>
+<article class="md-text content"><h1 class="article-title"><span>GitHub 2FA（双重身份验证）如何开启（China）</span></h1><p>GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。</p>
+<span id="more"></span>
+
+<h2 id="开启2FA的流程"><a href="#开启2FA的流程" class="headerlink" title="开启2FA的流程"></a>开启2FA的流程</h2><p><a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%99%A8/bhghoamapcdpbohphigoooaddinpkbai">Chrom 应用商店 - 身份验证器 Authenticator Extension</a></p>
+<blockquote>
+<p>身份验证器是一个在浏览器中生成二步认证代码的工具，通过扫描二维码添加账户，提高账户安全性。</p>
+</blockquote>
+<p>要开启GitHub 2FA，你需要以下几个步骤：</p>
+<ol>
+<li>登录GitHub，点击右上角的个人资料照片，然后点击“设置”。在页面的“双因素身份验证”部分，点击“启用双因素身份验证”。</li>
+<li>选择你想要使用的2FA方法，有以下两种可选：<ul>
+<li><strong>使用TOTP应用：</strong>使用先前下载的浏览器拓展，然后扫描GitHub显示的二维码。你的应用会显示一个六位数的代码，你需要在GitHub上输入该代码进行验证。</li>
+<li><strong>使用短信：</strong>你需要输入你的国家&#x2F;地区代码和手机号码，（注：没有中国+86选项）然后点击“发送验证码”，即可通过验证。</li>
+</ul>
+</li>
+<li>在“保存恢复代码”下，点击“下载”将恢复代码下载到你的设备。恢复代码是一组16个字母和数字的组合，可以在你无法使用你的2FA方法时帮助你恢复你的账号。你应该将它们保存到一个安全的地方，如密码管理器或纸质备份。保存恢复代码后，点击“我已保存恢复代码”，以完成2FA的启用。</li>
+</ol>
+<h2 id="开启2FA的原因"><a href="#开启2FA的原因" class="headerlink" title="开启2FA的原因"></a>开启2FA的原因</h2><p>开启2FA的主要原因是为了提高你的账号安全性。GitHub是一个全球最大的开源代码托管平台，也是许多开发者和组织的重要工具。如果你的GitHub账号被盗用或滥用，可能会导致你的代码、数据、项目或声誉受到损失或威胁。开启2FA可以有效防止这种情况的发生，因为它增加了登录你的账号的难度，让黑客无法仅凭密码就入侵你的账号。</p>
+<p>开启2FA的另一个原因是为了遵守GitHub的要求。GitHub在2023年宣布，到2023年底，所有用户都必须要启用一种或多种形式的2FA，以保护软件供应链的安全。如果你不开启2FA，你可能会失去对GitHub的访问权限，或者无法参与某些需要2FA的组织或项目。</p>
+<h2 id="开启2FA的原理"><a href="#开启2FA的原理" class="headerlink" title="开启2FA的原理"></a>开启2FA的原理</h2><p>开启2FA的原理是基于一种叫做双因素身份验证（Two-Factor Authentication，简称2FA）的安全技术。2FA是一种要求用户提供两种不同的身份验证因素来证明自己身份的方法。这两种因素通常分为以下三类：</p>
+<ul>
+<li>知识因素：你知道的东西，如密码、PIN码或安全问题的答案。</li>
+<li>拥有因素：你拥有的东西，如手机、密钥或银行卡。</li>
+<li>生物因素：你本身的特征，如指纹、面部识别或虹膜扫描。</li>
+</ul>
+<p>2FA的目的是增加登录账号的难度，使得即使黑客获取了其中一个因素，也无法登录账号，除非他们也能获取另一个因素。这样，就可以有效降低账号被盗用或滥用的风险。</p>
+<p>GitHub 2FA的原理是使用密码作为第一个因素，使用OTP、短信或密钥作为第二个因素。密码是你知道的东西，OTP、短信或密钥是你拥有的东西。当你登录GitHub时，你需要输入密码和第二个因素，才能成功登录。这样，即使你的密码泄露了，潜在分子也无法登录你的账号，除非他们也能获取你的第二个因素。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>GitHub 2FA是一种保护你的GitHub账号不被盗用或滥用的安全措施。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）、短信或密钥才能登录GitHub。开启2FA的流程是选择你想要使用的2FA方法，验证你的身份，保存恢复代码。开启2FA的原因是为了提高你的账号安全性，以及遵守GitHub的要求。开启2FA的原理是使用两种不同的身份验证因素来证明你的身份，使得潜在分子无法仅凭密码就入侵你的账号。开启2FA是一种简单而有效的保护你的GitHub账号的方式，建议大家都尽快开启。</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
 </article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/01/28/Hexo%20%E5%92%8C%20Stellar%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/">Hexo 和 Stellar 搭建个人网站</a></div><div class="item" id="next"></div></section></div>
+
+
 
 
 
