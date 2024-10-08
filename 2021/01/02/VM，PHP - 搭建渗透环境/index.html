@@ -1,0 +1,938 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>VM，PHP - 搭建渗透环境 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="虚拟机 全名 用户名 密码     CentOS 7 64位  ** **   kali-linux-2022.3  ** **   Win_10  ** **   windows server 2008  ** **   Ubuntu 01  ** **   windows server 2019  ** **    VM | kali  参考： kali linux常用配置  安装 ka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VM，PHP - 搭建渗透环境">
+<meta property="og:url" content="https://zero-yi7.github.io/2021/01/02/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="虚拟机 全名 用户名 密码     CentOS 7 64位  ** **   kali-linux-2022.3  ** **   Win_10  ** **   windows server 2008  ** **   Ubuntu 01  ** **   windows server 2019  ** **    VM | kali  参考： kali linux常用配置  安装 ka">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081436835.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081436070.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437009.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437107.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437050.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437468.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437391.png">
+<meta property="article:published_time" content="2021-01-02T12:46:25.000Z">
+<meta property="article:modified_time" content="2021-01-02T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Kali">
+<meta property="article:tag" content="VM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081436835.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2021-01-02T12:46:25.000Z">2021-01-02</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2021-01-02T12:46:25.000Z">2021-01-02</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>VM，PHP - 搭建渗透环境</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><table>
+<thead>
+<tr>
+<th>虚拟机</th>
+<th>全名</th>
+<th>用户名</th>
+<th>密码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CentOS 7 64位</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+<tr>
+<td><strong>kali-linux-2022.3</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+<tr>
+<td><strong>Win_10</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+<tr>
+<td><strong>windows server 2008</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+<tr>
+<td><strong>Ubuntu 01</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+<tr>
+<td><strong>windows server 2019</strong></td>
+<td></td>
+<td>**</td>
+<td>**</td>
+</tr>
+</tbody>
+</table>
+<h2 id="VM-kali">VM | kali</h2>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://ssst0n3.github.io/post/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/kali/kali-linux%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE.html">kali linux常用配置</a></p>
+</blockquote>
+<p>安装 kali linux，下载预定制版本，VM 打开文件即可</p>
+<p><a target="_blank" rel="noopener" href="https://www.kali.org/get-kali/#kali-virtual-machines">Get Kali | Kali Linux</a></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081436835.png" alt="image-20230214230839033"></p>
+<h3 id="kali-基础配置">kali 基础配置</h3>
+<p><strong>设置中文：</strong></p>
+<p>打开命令行输入<code>sudo -s</code>获取 root 权限，然后输入<code>dpkg-reconfigure locale</code>，上下移动光标，移动到最下面的<code>zh_CN.UTF-8</code>，用空格可添加<code>*</code>代表选中了，用<code> Enter</code>来确认，最后回到命令行界面，命令行输入<code>reboot</code>重启</p>
+<h3 id="zsh">zsh</h3>
+<p><strong>oh-my-zsh</strong></p>
+<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">Oh My Zsh - 一个令人愉快的开源Zsh框架</a></p>
+<pre><code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+</code></pre>
+<p><strong>theme</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k#oh-my-zsh">https://github.com/romkatv/powerlevel10k#oh-my-zsh</a></p>
+<h2 id="kali-初始设置">kali | 初始设置</h2>
+<pre><code class="language-bash"># 更新软件源中的所有软件列表
+apt-get update
+
+# 安装https协议及CA证书
+apt-get install -y apt-transport-https ca-certificates
+</code></pre>
+<blockquote>
+<p><strong>Expand / 拓展</strong></p>
+<p>apt-get update 更新软件源中的所有软件列表。<br>
+apt-get upgrade 更新软件。<br>
+apt-get dist-upgrade 更新系统版本。如果你对新版本软件的需求不是那么迫切，可以不执行</p>
+</blockquote>
+<h2 id="kali-docker">kali | docker</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46318141/article/details/121168812">Docker | CSDN</a></p>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/60750.html">官方镜像加速 | 阿里云</a></p>
+<p><a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/?spm=a2c4g.11186623.0.0.19e6a42dj90x5j">容器镜像服务台</a></p>
+<p><strong>更新apt源满足下载要求</strong></p>
+<pre><code class="language-bash">#安装docker要求内核版本kerner&gt;=3.10
+#为此，先检查当前Linux系统的内核版本
+uname -a
+
+#新重写sources.list中内容，一个个字母删除太久了
+cho &gt; /etc/apt/sources.list
+ 
+#进入sources.lis重新编辑apt源
+vim /etc/apt/sources.list
+ 
+#直接CV大法写入下面的apt源
+
+#其他apt源
+#此处，笔者仅添加中科达和阿里的，其他注释掉
+ 
+#中科大
+deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+ 
+#阿里云
+deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+</code></pre>
+<p><strong>进行系统或工具的更新</strong></p>
+<pre><code class="language-bash">#进行系统或工具的更新（有丢丢就，先上把王者）
+#注：当出现正在设定软件包界面时，直接按tab+enter进行确认
+apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade
+ 
+#礼貌性清除更新缓存
+apt-get clean
+</code></pre>
+<p><strong>采用apt安装Docker</strong></p>
+<pre><code class="language-bash">#为什么采用apt安装？因为之后采用apt源安装Docker的其他组件时，新组件与已安装的Docker容器最为匹配。
+apt-get install docker docker-compose
+ 
+#或
+apt-get install docker.io
+</code></pre>
+<p><strong>检验Docker成功安装</strong></p>
+<pre><code class="language-bash">#启动docker服务
+service docker start
+ 
+#列出docker现有镜像
+docker images
+ 
+#运行hello-world镜像
+#但apt安装的docker没带有hello-world默认镜像呀，所以下面的命令不成功，它会帮你拉去该镜像下来
+docker run hello-world
+</code></pre>
+<p><strong>配置阿里云镜像加速</strong></p>
+<pre><code class="language-bash">#阿里云镜像加速器获取网址（需注册）：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+ 
+#镜像加速器网址写入/etc/docker/daemon.json文件(可能不存在)中
+vim /etc/docker/daemon.json
+ 
+#新建daemon.jsp文件
+touch /etc/docker/daemon.json
+ 
+#写入内容
+&#123;
+  &quot;registry-mirrors&quot;: [&quot;https://k8a02wc3.mirror.aliyuncs.com&quot;]
+&#125;
+ 
+#退出daemon.jsp,并重启docker
+ESC --&gt; :wq!
+systemctl restart docker
+ 
+#其他公开Docker镜像加速源（不需注册）
+https://docker.mirrors.ustc.edu.cn	#中科大
+http://hub-mirror.c.163.com/		#网易
+</code></pre>
+<p><strong>设置Docker开机自启</strong></p>
+<pre><code class="language-bash">#设置docker开机自启
+systemctl enable docker
+</code></pre>
+<h2 id="kali-docker-compose">kali | docker-compose</h2>
+<pre><code class="language-bash"># 安装pip3
+apt-get install python3-pip 
+
+# 安装Docker-Compose
+pip3 install docker-compose
+
+# 查看docker-compose版本
+docker-compose -v
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081436070.png" alt="230220PM09_56"></p>
+<h2 id="kali-docker-Vulhub">kali | docker Vulhub</h2>
+<p><strong>克隆下载</strong></p>
+<blockquote>
+<h3 id="Warning-注意">Warning / 注意</h3>
+<p>认准 github，第一次下载错了是 gitte，更新滞后</p>
+</blockquote>
+<pre><code class="language-bash">git clone https://github.com/vulhub/vulhub.git
+</code></pre>
+<p><strong>进入一个靶场环境目录</strong></p>
+<pre><code class="language-bash">cd /root/vulhub/weblogic/CVE-2017-10271
+</code></pre>
+<p><strong>对靶场进行编译</strong></p>
+<pre><code class="language-bash">docker-compose build
+</code></pre>
+<p><strong>运行此靶场</strong></p>
+<pre><code class="language-bash">docker-compose up -d
+</code></pre>
+<p><strong>查看启动环境</strong></p>
+<pre><code class="language-bash">docker-compose ps -a
+</code></pre>
+<p>此环境运行的端口</p>
+<p><strong>通过浏览器访问</strong><a target="_blank" rel="noopener" href="http://127.0.0.1:7001/">http://127.0.0.1:7001/</a></p>
+<p>IP地址:端口号</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437009.png" alt="230220PM09_57"></p>
+<p><strong>关闭靶场</strong></p>
+<pre><code class="language-bash">docker-compose down
+</code></pre>
+<h2 id="kali-docker-vulfocus">kali | docker vulfocus</h2>
+<h2 id="VM-Ubuntu">VM | Ubuntu</h2>
+<blockquote>
+<p>从 kali 换到 ubuntu</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43374681/article/details/129248167">VMware虚拟机安装Ubuntu（超详细图文教程）_vm安装ubuntu_Time木0101的博客-CSDN博客</a></p>
+<h3 id="1-基础环境">1. 基础环境</h3>
+<p>Python、JAVA、Docker</p>
+<p>查看一下有没有环境</p>
+<pre><code class="language-bash"># ubuntu中自带了python，所以我们不需要去安装Python
+python3 --version
+pip3 --version
+
+没有 pip，安装一下
+apt install python3-pip
+
+git --version 
+apt install git
+
+没有 vim
+sudo apt-get install vim
+</code></pre>
+<h3 id="2-美化及其效率（快照1）">2. 美化及其效率（快照1）</h3>
+<p>ubuntu自带的office，感觉体验不如国产的WPS，所以把这个给卸了，用WPS代替。</p>
+<p>sudo apt-get remove libreoffice-common</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k#oh-my-zsh">romkatv/powerlevel10k: A Zsh theme (github.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes">Themes · ohmyzsh/ohmyzsh Wiki (github.com)</a></p>
+<pre><code class="language-bash"># 安装 Zsh
+sudo apt-get update
+sudo apt-get install zsh
+
+# 更改默认Shell：运行以下命令来将默认Shell更改为Zsh：
+chsh -s $(which zsh)
+
+# chatgpt 如何美化 Zsh，需要安装Oh My Zsh
+
+sudo apt-get install curl
+sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+
+# 配置agnoster主题：打开终端，编辑~/.zshrc文件。找到ZSH_THEME行，并将其设置为ZSH_THEME=&quot;agnoster&quot;。保存并关闭文件。
+vim ~/.zshrc
+
+source ~/.zshrc
+
+# 更改终端透明度，及其设置壁纸
+</code></pre>
+<blockquote>
+<p>Zsh有许多可用的主题（也称为皮肤或外观），可以用于美化终端界面。以下是一些受欢迎的Zsh主题示例：</p>
+<ol>
+<li>agnoster：一个受欢迎的主题，具有醒目的外观和信息丰富的提示符。</li>
+<li>powerlevel10k：一个高度可定制的主题，提供丰富的特性和配置选项。</li>
+<li>robbyrussell：Oh My Zsh的默认主题，简洁而易于使用。</li>
+<li>spaceship：一个现代化的主题，提供丰富的信息和可定制的选项。</li>
+<li>bira：一个简洁但功能丰富的主题，具有易于阅读的提示符和彩色的文件路径。</li>
+<li>pure：一个极简风格的主题，只显示必要的信息。</li>
+</ol>
+</blockquote>
+<h3 id="3-Tools">3. Tools</h3>
+<blockquote>
+<p>java环境，JDK11、JDK18</p>
+<p>Python环境</p>
+<p>都通过apt安装好了，具体安装的什么版本不清楚</p>
+<p>需要安装go环境，golang</p>
+</blockquote>
+<p>在桌面添加了文件夹tools，里面放工具</p>
+<ol>
+<li>Finger</li>
+<li>onforall</li>
+<li>FofaViewer</li>
+<li>VMware tools
+<ol>
+<li>apt install open-vm-tools-desktop -y</li>
+<li>reboot</li>
+</ol>
+</li>
+<li>水泽</li>
+<li>……</li>
+</ol>
+<h3 id="4-问题">4. 问题</h3>
+<p><strong>01-2021年8月14日</strong></p>
+<blockquote>
+<p>.exe 的文件 ubuntu 无法执行</p>
+</blockquote>
+<p><strong>原因</strong></p>
+<blockquote>
+<p>在 Ubuntu 或其他类 Unix 操作系统中，无法直接执行 Windows 可执行文件（.exe 文件），因为 .exe 文件是 Windows 平台上的可执行文件格式，而 Ubuntu 使用不同的可执行文件格式。</p>
+</blockquote>
+<p><strong>解决办法</strong></p>
+<blockquote>
+<p><strong>Wine：</strong> Wine 是一个允许在类 Unix 系统上运行 Windows 程序的兼容层。你可以在 Ubuntu 上安装 Wine，然后使用 Wine 运行 .exe 文件。使用以下命令安装 Wine：</p>
+<pre><code>arduinoCopy code
+sudo apt-get install wine
+</code></pre>
+<p>然后，可以使用以下命令运行 .exe 文件：</p>
+<pre><code>bashCopy code
+wine /path/to/your/file.exe
+</code></pre>
+</blockquote>
+<h2 id="VM-Windows-Server-2019-Standard-桌面体验">VM | Windows Server 2019 Standard (桌面体验)</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wv118/article/details/124959461">VMware 虚拟机 中 windows server 2019 安装_虚拟机安装windows server 2019_学习的游戏的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/">MSDN, 我告诉你 - 做一个安静的工具站 (itellyou.cn)</a></p>
+<h2 id="本地靶场">本地靶场</h2>
+<h3 id="php-bwapp">php | bwapp</h3>
+<p>从 github 上下载到 PHP 的 WWW 文件简介</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/raesene/bWAPP">raesene/bWAPP (github.com)</a></p>
+<p>在 bwapp 目录下搜索 install.php，看目录在哪。找到目录后登录<code>http://localhost/bWAPP/app/install.php</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437107.png" alt="image-20230215113110743"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437050.png" alt="230215PM03_52"></p>
+<p>进去之后数据库即可安装成功，接着去登录页面，账号密码也在 seeting .php 文件中</p>
+<p><code>http://localhost/bWAPP/app/login.php</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437468.png" alt="230215PM03_53"></p>
+<h3 id="PHP-upload-labs">PHP | upload-labs</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">c0ny1/upload-labs: 一个想帮你总结所有类型的上传漏洞的靶场 (github.com)</a></p>
+<h2 id="kali-软件">kali | 软件</h2>
+<p>安装软件目录参考[Kali Linux <a target="_blank" rel="noopener" href="http://xn--5nqy36cxsqlxb.md">文件系统.md</a>](Kali Linux <a target="_blank" rel="noopener" href="http://xn--5nqy36cxsqlxb.md">文件系统.md</a>)</p>
+<p>/home/software --&gt; 安装软件</p>
+<p>使用 ExifTool 等特殊工具，可以轻松创建包含元数据中恶意代码的多语言 JPEG 文件。</p>
+<pre><code class="language-bash">sudo -s
+cd /software
+apt install libimage-exiftool-perl
+</code></pre>
+<h2 id="VM-Windows-Server-2008-R2">VM | Windows Server 2008 R2</h2>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/475629214">Windows Server 2008 安装教程 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50481708/article/details/125112240">在虚拟机中安装windows server 2008 - CSDN</a></p>
+</blockquote>
+<p><code>Windows Server 2008</code>是微软一个<u><em><strong>服务器操作系统</strong></em></u>的名称，美国时间<code>2008</code>年<code>2</code>月<code>27</code>,微软正式发布</p>
+<pre><code class="language-bash"># 下载地址“百度网盘”
+
+# 最低系统要求
+处理器：1.0GHz 32位
+RAM：128MB
+磁盘空间：20GB
+其他要求
+DVD 驱动器
+VGA (800 x 600) 或更高分辨率的显示器
+键盘和鼠标（或其他兼容的指点设备）
+Internet 访问（可能需要付费）
+</code></pre>
+<p><strong>安装过程</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/202410081437391.png" alt="image-20221113150541517"></p>
+<p>![image-20221113151558687](VM，PHP - 搭建渗透环境.assets/image-20221113151558687.png)</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2021/01/09/Linux%20%E3%80%81Vim%20%E5%91%BD%E4%BB%A4/">Linux Vim 命令</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2020/08/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络基础概念</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VM-kali"><span class="toc-text">VM | kali</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kali-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">kali 基础配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zsh"><span class="toc-text">zsh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-%E5%88%9D%E5%A7%8B%E8%AE%BE%E7%BD%AE"><span class="toc-text">kali | 初始设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-docker"><span class="toc-text">kali | docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-docker-compose"><span class="toc-text">kali | docker-compose</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-docker-Vulhub"><span class="toc-text">kali | docker Vulhub</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Warning-%E6%B3%A8%E6%84%8F"><span class="toc-text">Warning &#x2F; 注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-docker-vulfocus"><span class="toc-text">kali | docker vulfocus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VM-Ubuntu"><span class="toc-text">VM | Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="toc-text">1. 基础环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BE%8E%E5%8C%96%E5%8F%8A%E5%85%B6%E6%95%88%E7%8E%87%EF%BC%88%E5%BF%AB%E7%85%A71%EF%BC%89"><span class="toc-text">2. 美化及其效率（快照1）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Tools"><span class="toc-text">3. Tools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%97%AE%E9%A2%98"><span class="toc-text">4. 问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VM-Windows-Server-2019-Standard-%E6%A1%8C%E9%9D%A2%E4%BD%93%E9%AA%8C"><span class="toc-text">VM | Windows Server 2019 Standard (桌面体验)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E9%9D%B6%E5%9C%BA"><span class="toc-text">本地靶场</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#php-bwapp"><span class="toc-text">php | bwapp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP-upload-labs"><span class="toc-text">PHP | upload-labs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kali-%E8%BD%AF%E4%BB%B6"><span class="toc-text">kali | 软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VM-Windows-Server-2008-R2"><span class="toc-text">VM | Windows Server 2008 R2</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

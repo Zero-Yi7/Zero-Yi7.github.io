@@ -1,0 +1,711 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>XSS-and-Security-Labs：Upload-labs 靶场 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs  一、前端 JS 检测绕过 上传一个 php 文件，失败了，只允许图片为后缀的文件进行上传。这一关的关键是*“JavaScript 代码对文件后缀进行校验”*。JavaScript 属于前端范畴，而前端校验不会发出数据包，不会与服务器进行交互 第一种方式：浏览器直接 F12，找到checkFile()函数，进行删">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Upload-labs 靶场">
+<meta property="og:url" content="https://zero-yi7.github.io/2023/03/01/Upload-labs/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs  一、前端 JS 检测绕过 上传一个 php 文件，失败了，只允许图片为后缀的文件进行上传。这一关的关键是*“JavaScript 代码对文件后缀进行校验”*。JavaScript 属于前端范畴，而前端校验不会发出数据包，不会与服务器进行交互 第一种方式：浏览器直接 F12，找到checkFile()函数，进行删">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320495.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320329.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320762.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320517.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320020.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320820.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320773.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320821.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320144.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320335.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320146.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320839.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320298.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320521.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320348.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320249.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070321967.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070321998.png">
+<meta property="article:published_time" content="2023-03-01T12:46:25.000Z">
+<meta property="article:modified_time" content="2023-03-01T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="文件上传">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320495.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/index.html"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index.html#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202.html"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious.html"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo.html"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject.html"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda.html"><span class="toc-text">Busqueda — Hack The Box Machine</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game.html"><span class="toc-text">Google XSS Game</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges.html"><span class="toc-text">XSS Challenges</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs.html"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs.html"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs.html"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap.html"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master.html"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability.html"><span class="toc-text">已知漏洞复现与验证</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/index.html">XSS-and-Security-Labs</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2023-03-01T12:46:25.000Z">2023-03-01</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Upload-labs 靶场</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><blockquote>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a></p>
+</blockquote>
+<h2 id="一、前端-JS-检测绕过">一、前端 JS 检测绕过</h2>
+<p>上传一个 php 文件，失败了，只允许图片为后缀的文件进行上传。这一关的关键是*<u><strong>“JavaScript 代码对文件后缀进行校验”</strong></u>*。JavaScript 属于前端范畴，而前端校验不会发出数据包，不会与服务器进行交互</p>
+<p>第一种方式：浏览器直接 F12，找到<code>checkFile()</code>函数，进行删除。更为极端的方法是<code>F12 --&gt; F1 --&gt; 禁用JavaScript</code>，最后上传 PHP 木马</p>
+<p>第二种方式：用 burp 拦截上传数据包， 对文件名进行修改</p>
+<p><strong>第一种方式：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320495.png" alt="230218PM03_27"></p>
+<center style="color:#C0C0C0;text-decoration:underline">删除 checkFile() 函数</center>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320329.png" alt="230218PM03_26"></p>
+<center style="color:#C0C0C0;text-decoration:underline">极端的方法</center>
+<p>**第二种方式：**传一个<code>.jpg</code>格式的图片，用 burp 抓包<u><em>修改文件名和文件内容</em></u></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320762.png" alt="230218PM03_23"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320517.png" alt="230218PM03_24"></p>
+<h2 id="二、MIME-类型检测绕过">二、MIME 类型检测绕过</h2>
+<p>MIME 是描述*<u>消息内容类型</u>*的因特网标准——<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/media/media_mimeref.asp">MIME 参考手册</a></p>
+<p><code>Content-Type</code> 通常出现在 HTTP 请求头部中，指示<u><em><strong>请求的数据类型</strong></em></u>，或者是数据的 MIME 类型</p>
+<pre><code class="language-bash"># 常见的 MIME 类型
+text/plain：纯文本
+text/html：HTML 格式的文档
+image/png：PNG 格式的图片
+</code></pre>
+<p>这一关的关键是，使用<code>Content-Type</code>字段的值判断上传文件是否合法，只允许 image/jpeg、image/png、image/gif 文件的上传</p>
+<p>用 burp 截取并修改数据包中的 Content-Type 类型进行绕过</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320020.png" alt="230218PM04_29"></p>
+<h2 id="三、后缀检测-黑名单绕过">三、后缀检测-黑名单绕过</h2>
+<p>黑名单绕过的常见方式有：</p>
+<ul>
+<li>改变文件后缀名，使用不在黑名单中的文件后缀，例如<code>php2、php3、php4、php5、phtm</code></li>
+<li>拼接文件名</li>
+<li>使用压缩文件</li>
+<li>修改文件内容</li>
+<li>……</li>
+</ul>
+<p>通过 burp 拦截修改数据包中的文件名后缀为<code>.php5</code></p>
+<p>如果服务器是 Apache，也可用<code>.htaccess</code>来进行绕过，但是文件会在上传的过程中修改文件名</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320820.png" alt="230218PM09_32"></p>
+<h2 id="四、后缀检测-黑名单绕过（-htaccess）">四、后缀检测-黑名单绕过（.htaccess）</h2>
+<p><code>.htaccess</code>文件可以被用来限制特定的文件类型的上传或执行。从源码中得知没有对<code>.htaccess</code>限制</p>
+<p>上传<code>.htaccess</code>文件，写入以下内容</p>
+<pre><code class="language-bash"># .shell 文件会被解析为 php 文件
+AddType application/x-httpd-php .shell
+</code></pre>
+<p>然后上传一个后缀名为<code>.shell</code>的文件，执行 webshell</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320773.png" alt="230218PM10_35"></p>
+<h2 id="五、后缀检测-后缀名点空格绕过">五、后缀检测-后缀名点空格绕过</h2>
+<p>双写小数点，<code>. .</code>——中间是空格，围绕着小数点</p>
+<p>由于一些操作系统和文件系统*<u><strong>不允许文件名以点号结尾</strong></u><em>，因此上传时会</em><u><strong>自动删除</strong></u>*最后一个点号</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320821.png" alt="230218PM11_36"></p>
+<h2 id="六、后缀检测-后缀名大小写绕过">六、后缀检测-后缀名大小写绕过</h2>
+<p>观察源代码，发现服务器检查后缀忽视了“大小写”的检测，也就是没出现“strtolower() 函数”。</p>
+<p>而“strtolower() 函数”用于将字符串中的所有字符转换为小写字母</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320144.png" alt="230218PM11_38"></p>
+<h2 id="七、后缀检测-后缀名空格绕过">七、后缀检测-后缀名空格绕过</h2>
+<p>观察源代码，发现服务器检查后缀忽视了“空格”的检测，也就是没出现“trim() 函数”。</p>
+<p><code>trim()</code>是 PHP 中的一个字符串函数，用于*<u><strong>删除字符串首尾的空格</strong></u>*或其他指定字符</p>
+<p>理应加上<code>$file_ext = trim($file_ext); </code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320335.png" alt="230218PM11_39"></p>
+<h2 id="八、后缀检测-后缀名点绕过">八、后缀检测-后缀名点绕过</h2>
+<p>观察源代码，发现服务器检查后缀忽视了“后缀名点”的检测，也就是没出现“deldot() 函数”。</p>
+<blockquote>
+<p><code>deldot()</code>函数用于在文件上传*<u><strong>防止后缀名点绕过攻击</strong></u>*。该函数的作用是将文件名中的所有点（包括后缀名点和其他点）都删除，以确保文件名的完整性和正确性。</p>
+</blockquote>
+<p>上传文件并用 burp 抓包，在文件名中添加*<u><strong>额外的点</strong></u>*来绕过文件扩展名的检查</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320146.png" alt="230219AM12_41"></p>
+<h2 id="九、后缀检测-特殊字符串">九、后缀检测-特殊字符串</h2>
+<p>可以通过在文件名中添加<code>::$DATA</code>来告诉 Windows 访问文件的资源，并将其当作可执行代码来执行</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320839.png" alt="230219AM12_45"></p>
+<h2 id="十、后缀检测-点空格绕过">十、后缀检测-点空格绕过</h2>
+<p>同第五关</p>
+<p>观察代码，发现先删除文件名末尾点<code>.</code>，再首尾去空格，由此想到</p>
+<p>双写小数点，<code>. .</code>——中间是空格，围绕着小数点</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320298.png" alt="230219AM12_46"></p>
+<h2 id="十一、后缀检测-后缀名双写绕过">十一、后缀检测-后缀名双写绕过</h2>
+<p>使用了<code>str_ireplace()</code>函数，替换成空，可以用<strong>双写绕过</strong></p>
+<p>上传文件名 <code>code.p.phphp</code>，上传文件时会删除 <code>.php</code>，最后的上传文件名： <code>code.php</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320521.png" alt="230219AM12_47"></p>
+<h2 id="十二、后缀检测-GET方式00截断">十二、后缀检测-GET方式00截断</h2>
+<p>%00 截断，用在 php 版本 5.3.29以下，magic_quotes_gpc 为 Off 状态</p>
+<p>通过抓包，能够看到上传路径，使用 00 截断，抓包修改上传路径<code>save_path=../upload/code.php%00</code>，即可绕过。</p>
+<blockquote>
+<p>“00截断”（Null byte injection）是一种 Web 应用程序安全漏洞，攻击者通过在输入数据中插入 ASCII 码为 0 的 null 字符（\x00），来绕过字符串截断等安全措施，导致应用程序执行意外的操作或暴露敏感信息。</p>
+</blockquote>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320348.png" alt="230220AM10_49"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070320249.png" alt="230220AM10_48"></p>
+<h2 id="十三、后缀检测-POST方式00截断">十三、后缀检测-POST方式00截断</h2>
+<p>GET 会自行解码<code>%00</code>，POST 不会自行解码</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070321967.png" alt="230220AM11_51"></p>
+<h2 id="十四、内容检测-文件头检测绕过">十四、内容检测-文件头检测绕过</h2>
+<p>检测文件头，源码会根据图片的*<u><strong>前两个字节</strong></u>*来判定文件类型，所以需要把 webshell 的后缀改为图片格式</p>
+<p><strong>制作图片木马</strong></p>
+<pre><code class="language-bash">copy code.jpg /b + code.php /a webshell.jpg
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Upload-labs%20%E9%9D%B6%E5%9C%BA/202410070321998.png" alt="230220AM11_52"></p>
+<h2 id="十五、内容检测-getimagesize-函数">十五、内容检测-getimagesize()函数</h2>
+<p><code>getimagesize()</code>函数来验证是否是图片。依旧是生成带有 php 代码的图片，进行上传</p>
+<h2 id="十六、内容检测-exif-imagetype-函数">十六、内容检测-exif_imagetype()函数</h2>
+<p>使用<code>exif_imagetype</code>函数来检查是否是图片，读取图像的第一个字节并检查其签名。依旧是生成带有 php 代码的图片，进行上传</p>
+<h2 id="十七、内容检测-图片二次渲染绕过">十七、内容检测-图片二次渲染绕过</h2>
+<p>图片的二次渲染会把第一次渲染添加的 PHP 代码删掉。</p>
+<p>绕过的方式是，查看*<u>图片的渲染后没有修改的位置</u>*，添加一句话木马</p>
+<p>未完待续……</p>
+
+<div class="article-footer fs14"></div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/03/01/Busqueda/">Busqueda — Hack The Box Machine</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/02/28/sqli-labs-SQLMap/">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E7%AB%AF-JS-%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87"><span class="toc-text">一、前端 JS 检测绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81MIME-%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87"><span class="toc-text">二、MIME 类型检测绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E9%BB%91%E5%90%8D%E5%8D%95%E7%BB%95%E8%BF%87"><span class="toc-text">三、后缀检测-黑名单绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E9%BB%91%E5%90%8D%E5%8D%95%E7%BB%95%E8%BF%87%EF%BC%88-htaccess%EF%BC%89"><span class="toc-text">四、后缀检测-黑名单绕过（.htaccess）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E5%90%8E%E7%BC%80%E5%90%8D%E7%82%B9%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">五、后缀检测-后缀名点空格绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E5%90%8E%E7%BC%80%E5%90%8D%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">六、后缀检测-后缀名大小写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E5%90%8E%E7%BC%80%E5%90%8D%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">七、后缀检测-后缀名空格绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E5%90%8E%E7%BC%80%E5%90%8D%E7%82%B9%E7%BB%95%E8%BF%87"><span class="toc-text">八、后缀检测-后缀名点绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">九、后缀检测-特殊字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E7%82%B9%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">十、后缀检测-点空格绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-%E5%90%8E%E7%BC%80%E5%90%8D%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">十一、后缀检测-后缀名双写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-GET%E6%96%B9%E5%BC%8F00%E6%88%AA%E6%96%AD"><span class="toc-text">十二、后缀检测-GET方式00截断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%90%8E%E7%BC%80%E6%A3%80%E6%B5%8B-POST%E6%96%B9%E5%BC%8F00%E6%88%AA%E6%96%AD"><span class="toc-text">十三、后缀检测-POST方式00截断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B-%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87"><span class="toc-text">十四、内容检测-文件头检测绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%94%E3%80%81%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B-getimagesize-%E5%87%BD%E6%95%B0"><span class="toc-text">十五、内容检测-getimagesize()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B-exif-imagetype-%E5%87%BD%E6%95%B0"><span class="toc-text">十六、内容检测-exif_imagetype()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%83%E3%80%81%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B-%E5%9B%BE%E7%89%87%E4%BA%8C%E6%AC%A1%E6%B8%B2%E6%9F%93%E7%BB%95%E8%BF%87"><span class="toc-text">十七、内容检测-图片二次渲染绕过</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

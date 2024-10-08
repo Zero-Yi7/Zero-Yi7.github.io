@@ -1,0 +1,1251 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>计算机网络基础概念 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="ip 地址 Internet Protocol Address——联网协议地址（又名网际协议地址），是IP Address的缩写。 192.168.1.1 子网掩码 子网掩码：又叫网络掩码，地址掩码。子网掩码不可以单独存在，它必须结合ip地址一起使用。 作用：只有一个，就是将某个IP地址划分成网络地址和主机地址两部分。 255.255.255.0 24 位掩码可用 ip 数 251 个 32-24">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络基础概念">
+<meta property="og:url" content="https://zero-yi7.github.io/2020/08/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="ip 地址 Internet Protocol Address——联网协议地址（又名网际协议地址），是IP Address的缩写。 192.168.1.1 子网掩码 子网掩码：又叫网络掩码，地址掩码。子网掩码不可以单独存在，它必须结合ip地址一起使用。 作用：只有一个，就是将某个IP地址划分成网络地址和主机地址两部分。 255.255.255.0 24 位掩码可用 ip 数 251 个 32-24">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415482.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415806.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415290.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415997.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415034.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415714.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415312.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415804.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415596.png">
+<meta property="article:published_time" content="2020-08-09T12:46:25.000Z">
+<meta property="article:modified_time" content="2020-08-09T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415482.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2020-08-09T12:46:25.000Z">2020-08-09</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2020-08-09T12:46:25.000Z">2020-08-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>计算机网络基础概念</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="ip-地址">ip 地址</h2>
+<p>Internet Protocol Address——联网协议地址（又名网际协议地址），是IP Address的缩写。</p>
+<p><code>192.168.1.1</code></p>
+<h2 id="子网掩码">子网掩码</h2>
+<p>子网掩码：又叫网络掩码，地址掩码。子网掩码不可以单独存在，它必须结合<code>ip</code>地址一起使用。</p>
+<p>作用：只有一个，就是将某个<code>IP</code>地址划分成<u><em>网络地址和主机地址</em></u>两部分。</p>
+<p><code>255.255.255.0</code></p>
+<pre><code>24 位掩码可用 ip 数 251 个 32-24=8 11111111 共 255 个
+22 位掩码可用 ip 数 1019 个 1111111111 共 1023 个
+20 位掩码可用 ip 数 4091 个 111111111111 共 4096 个
+</code></pre>
+<h2 id="网段">网段</h2>
+<p>网段：即为广播域。</p>
+<p>效果：相同网段（广播域）可以通信 ，不同网段（广播域）不可通信。</p>
+<p><strong>区分不同网段的方法：</strong></p>
+<ul>
+<li>子网掩码中 255 所对应的位相同即为相同网段，不同即为不同网段（有意外情况）</li>
+<li>……</li>
+</ul>
+<h2 id="如何判断两个-IP-地址是否在同一个网段">如何判断两个 IP 地址是否在同一个网段</h2>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/425228726">如何判断两个IP地址是否在同一个网段？什么是子网掩码？ - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<h2 id="什么是子网掩码">什么是子网掩码</h2>
+<p>子网掩码不能单独存在，它必须结合 IP 地址一起使用。子网掩码只有一个作用，就是***<u>将某个 IP 地址划分成网络地址和主机地址两部分。</u>***</p>
+<p>说的通俗的话，就是用来分割子网和区分哪些 ip 是同一个网段的，那些不是同一网段的。</p>
+<p>例如，两个人都叫张三，但一个张三是张家村的，另一个张三是张村的，那么如何区分这两个张三分别是属于那个村的呢？得让村长来区分，就可以准确的把各自的张三领回村，那么子网掩码就相当于村长，它就是用来区分ip该ip地址是属于那个网段的。</p>
+<p>在实际项目中，我们通常会遇到这样的 ip 地址。我们可以直接的判断，<strong>他们是同属于一个网段的 ip 地址。</strong></p>
+<pre><code class="language-bash">ip地址：192.168.1.1 子网掩码：255.255.255.0
+
+ip地址：192.168.1.2 子网掩码：255.255.255.0
+</code></pre>
+<p><strong>那么对于下面这样的呢？</strong></p>
+<pre><code class="language-bash">ip地址：192.168.1.1 子网掩码：255.255.255.0
+
+ip地址：192.168.1.2 子网掩码：255.255.0.0
+</code></pre>
+<p>这两个ip地址虽然在不看掩码的情况下，比较像，但他们并不是同一个网段内的。</p>
+<p>这个可以从子网掩码来判断，</p>
+<pre><code>192.168.1.1 255.255.255.0 是属于 192.168.1.0 网段的。
+
+而 192.168.1.2 255.255.0.0 是属于 192.168.0.0 网段。
+</code></pre>
+<h2 id="如何根据掩码来确定IP地址网段">如何根据掩码来确定IP地址网段</h2>
+<p>如何<u><em><strong>确定子网掩码</strong></em></u>和**<u><em>判断 ip 地址的网段</em></u>**。</p>
+<p>通常我们在划分 vlan 的时候会使用以下例子：</p>
+<p><strong>例1：</strong></p>
+<pre><code class="language-bash">创建 vlan1：ip地址：192.168.1.1 子网掩码：255.255.255.0
+
+创建 vlan2: ip地址：192.168.2.1 子网掩码：255.255.255.0
+</code></pre>
+<p>那么他们是不是在同一个网段呢？平时配置 ip 地址较多的朋友，可以直观的判断，他们并不是属于同一个网段，那么如何计算呢？<strong>要想判断两个 ip 地址是不是在同一个网段，只需将 ip 地址与子网掩码做与运算，如果得出的结果一样，则这两个 ip 地址是同一个子网当中。</strong></p>
+<p><strong>详细计算</strong></p>
+<pre><code class="language-bash">将ip地址 192.168.1.1 转换为二进制
+
+11000000 10101000 00000001 00000001
+
+将子网掩码255.255.255.0转换成二进制
+
+11111111.11111111.11111111.00000000
+
+然后将两者相“与（and）&quot;运算：（与运算的运算规则：0&amp;0=0；0&amp;1=0；1&amp;0=0；1&amp;1=1，即：两位同时为“1”，结果才为“1”，否则为“0”。负数按补码形式参加按位与运算）
+
+11000000 10101000 00000001 00000001
+
+11111111.11111111.11111111.00000000
+
+然后得到：
+
+11000000 10101000 00000001 00000000
+
+转换成网络号就是：192.168.1.0
+
+
+
+将ip地址192.168.2.1转换为二进制
+
+11000000 10101000 00000010 00000001
+
+将子网掩码255.255.255.0转换成二进制
+
+11111111.11111111.11111111.00000000
+
+然后将两者相“与（and）&quot;运算：
+
+11000000 10101000 00000010 00000001
+
+11111111.11111111.11111111.00000000
+
+然后得到：
+
+11000000 10101000 00000010 00000000
+
+转换成网络号就是：192.168.2.0
+</code></pre>
+<p><strong>很明显，二者的结果是不一样的，一个是网段192.168.1.0，一个是网段192.168.2.0，所以不是一个网段。</strong></p>
+<p><strong>例2</strong></p>
+<pre><code>ip地址1：192.168.1.1 子网掩码：255.255.252.0
+
+ip地址2：192.168.2.1 子网掩码：255.255.252.0
+</code></pre>
+<p>很明显，我们这个和上面例1的 ip 地址是一样的，只是<strong>子网掩码不一样</strong>，如果不看子网掩码，首先可能就判断他们不是同一个网段。</p>
+<p>这里面和上面例1中唯一变化就是子网掩码从255.255.255.0换成了255.255.252.0了，那我们来看下，他们是否属于同一个网段。</p>
+<p><strong>详细计算</strong></p>
+<pre><code>将 ip 地址 192.168.1.1 转换为二进制
+
+11000000 10101000 00000001 00000001
+
+将子网掩码 255.255.252.0 转换成二进制
+
+11111111.11111111.11111100.00000000
+
+然后将两者相“与（and）&quot;运算：
+
+11000000 10101000 00000001 00000001
+
+11111111.11111111.11111100.00000000
+
+然后得到：
+
+11000000 10101000 00000000 00000000
+
+转换成网络号就是：192.168.0.0
+
+
+
+将ip地址192.168.2.1转换为二进制
+
+11000000 10101000 00000010 00000001
+
+将子网掩码255.255.252.0转换成二进制
+
+11111111.11111111.11111100.00000000
+
+然后将两者相“与（and）&quot;运算：
+
+11000000 10101000 00000010 00000001
+
+11111111.11111111.11111100.00000000
+
+然后得到：
+
+11000000 10101000 00000000 00000000
+
+转换成网络号就是：192.168.0.0
+</code></pre>
+<p>很明显，二者的结果是一样的，都是属于 192.168.0.0 网段，所以他们是同属于一个网段。</p>
+<p>当然，如果对子网较熟了就不需要经过这些运算了，大部分的网段可以通过分析子网掩码与 ip 地址就可以判断出来是否属于网一网段，但前提是你需要熟悉网段的原理与运算的方法。</p>
+<h2 id="如何根据-IP-地址推算子网掩码">如何根据 IP 地址推算子网掩码</h2>
+<p><strong>确定ip地址子网掩码</strong></p>
+<p>大部分的情况下，我们网络中只要不超过 254 台主机的的话，子网掩码都可以设置成 255.255.255.0。那么超过了 254 台主机的话怎么办呢？</p>
+<p>可以划分 vlan，也可以设置成一个大网段，划分 vlan 我们就不说了，上面有例子，设置成一个大网段就有一个难点，如何确定这个大网段里面的子网掩码呢？</p>
+<p><strong>例如</strong></p>
+<p>假设监控网络中有 600 个点位，我们现在也不想把它划分 vlan（实际项目中大部分是会划分vlan的），假设只想用一个大网段把这 600 个点位分配 ip 地址，如何设置 ip 地址，如何确实子网掩码？</p>
+<p>**分析：**首先我们知道 600 个点位，可以使用 3 个 254 个 ip 地址段来分配。</p>
+<p>可以使用</p>
+<pre><code>ip段一：192.168.0.1——192.168.0.254
+
+ip段二：192.168.1.1——192.168.1.254
+
+ip段三：192.168.2.1——192.168.2.254
+</code></pre>
+<p>每个网段有 254 个ip地址，完全够 600 个点位用的。<br>
+那么问题来了，如果要使这三个 ip 段在同一个网段内，那么这个大网段共同的子网掩码是多少呢？</p>
+<p>我们来分析下：</p>
+<pre><code class="language-bash">将ip地址192.168.0.1转换为二进制
+
+11000000 10101000 00000000 00000001
+
+将ip地址192.168.1.1转换为二进制
+
+11000000 10101000 00000001 00000001
+
+将ip地址192.168.2.1转换为二进制
+
+11000000 10101000 00000010 00000001
+
+转换成了二进制，可以看得出，三个ip段的二进制前面22位的是不变的，那么可以将他们表示成：
+
+ip段一：192.168.0.1/22
+
+ip段二：192.168.1.1/22
+
+ip段三：192.168.2.1/22
+
+这种192.168.2.x/22形式的ip地址相信大家平时都见过，就是已经告诉了子网掩码了。
+
+也就是说他们共同的子网掩码二进制前面22个都是1。
+
+11111111 11111111 11111100 00000000
+
+转换成十进制，那就是255.255.252.0，所以他们共同的子网掩码就是255.255.252.0。
+</code></pre>
+<h2 id="认识网址">认识网址</h2>
+<blockquote>
+<p>搜索关键字：</p>
+<p>URL 编码</p>
+</blockquote>
+<blockquote>
+<p>“…Only alphanumerics [0-9a-zA-Z], the special characters “$-_.+!*'(),” [not including the quotes - ed], and reserved characters used for their reserved purposes may be used unencoded within a URL.”</p>
+<p>“只有字母和数字[0-9a-zA-Z]、一些特殊符号“$-_.+!*'(),”[不包括双引号]、以及某些保留字，才可以不经过编码直接用于URL。”</p>
+</blockquote>
+<h3 id="URL-编码">URL 编码</h3>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/436553237">URL编码是什么？ - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46601374/article/details/122317056">URL——详解_正在过坎的博客-CSDN博客_url详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bbsmax.com/A/qVdeYay1dP/">URL中的保留和不安全字符 (bbsmax.com)</a></p>
+</blockquote>
+<p>当 <code>URL</code> 路径，或者查询参数中<u><em><strong>带有中文、特殊字符</strong></em></u>的时候，就需要对 <code>URL</code> 进行编码（采用十六进制编码格式）。<code>URL</code> 编码的原则是使用安全字符（即没有特殊用途或者特殊意义的字符）去表示那些不安全的字符。</p>
+<p>为什么需要URL编码</p>
+<p><strong>URL 的编码格式采用的是 ASCII 码而非 Unicode</strong>，这表明 URL 中不允许包含任何非 ASCII 字符（比如中文），否则就会造成 URL 解析错误。</p>
+<p>URL 中的某些字符会引起歧义，比如若 <strong>URL</strong> 查询参数中包含”<strong>&amp;</strong>”或者”<strong>%</strong>”就会造成服务器解析错误</p>
+<h3 id="URL-组成">URL 组成</h3>
+<p><strong>一个 URL 的基本组件包括</strong></p>
+<p><code>协议  域名/主机	端口号  路径  查询字符串  锚点</code></p>
+<p>其中路径和查询字符串之间使用问号<code>?</code>隔离，示例如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415482.png" alt="image-20221109113031321"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415806.png" alt="image-20221109122322641"></p>
+<h4 id="主机">主机</h4>
+<p>主机（host）是资源所在的网站名或服务器的名字，又称为域名。上例的主机是<code>www.example.com</code>。</p>
+<p>有些主机没有域名，只有 IP 地址，比如<code>192.168.2.15</code>。这种情况常常出现在局域网。</p>
+<h4 id="端口">端口</h4>
+<p><em><u>同一个域名下面可能同时包含多个网站，它们之间通过端口（port）区分。</u></em>“端口”就是一个整数，可以简单理解成，访问者告诉服务器，想要访问哪一个网站。HTTP 协议的默认端口是80，如果省略了这个参数，服务器就会返回80端口的网站。</p>
+<p>端口紧跟在域名后面，两者之间使用冒号分隔，<a target="_blank" rel="noopener" href="http://xn--www-eo8er22f.example.com:80">比如www.example.com:80</a>。</p>
+<h4 id="虚拟目录">虚拟目录</h4>
+<p>互联网的早期，路径是真实存在的物理位置。现在由于服务器可以*<u>模拟这些位置</u>*，所以路径只是虚拟位置。</p>
+<p>路径可能只包含目录，不包含文件名，比如/foo/，甚至结尾的斜杠都可以省略。这时，***<u>服务器通常会默认跳转</u>***到该目录里面的index.html文件（即等同于请求/foo/index.html），但也可能有其他的处理（比如列出目录里面的所有文件），这取决于服务器的设置。一般来说，访问www.example.com这个网址，<a target="_blank" rel="noopener" href="http://xn--www-tu9di1u0yet3s6jlgnbty4geiuwsect2dziza.example.com/index.html%E3%80%82">很可能返回的是网页文件www.example.com/index.html。</a></p>
+<pre><code class="language-css">/app/user/
+从第一个斜杠 / 开始，到最后一个斜杠 / 结束的那部分，即为虚拟目录
+第一个 / 为根目录，每多一个 / 就多进入一层目录
+</code></pre>
+<h4 id="文件名">文件名</h4>
+<pre><code class="language-css">从域名后开始算起的最后一个 / 开始，到 ? 为止
+没有 ? 则到 # 为止
+都没有就是到整个 URL 结束为止的那部分就为文件名
+</code></pre>
+<p>一般包含文件名和扩展名，用来指代一个 URL 所访问的具体文件或资源，它可以是图片、html 文件、css 文件，也可以是 js 文件、字体文件等等，它也可以不是某种文件，而是服务端后台执行的某段程序。<br>
+甚至可以省略不写虚拟目录和文件名，因为它们本来就不是必须的，<strong>服务器会在缺省的情况下给你定位到某个特定的文件或程序上去。</strong></p>
+<h4 id="查询参数">查询参数</h4>
+<pre><code class="language-css">从 ? 后到 # 结束，即图中的 ?uid=101&amp;ty=2 为查询参数
+</code></pre>
+<p><code>查询参数</code>，也称为 <code>URL 参数、查询字符串</code>，英文名为 Query，它是用来向服务端以字符串的形式传递参数和少数数据用的</p>
+<p>URL的参数是一个个<strong>键值对</strong>，即一个<code>key</code>对应一个<code>value</code>，多个键值对应**&amp;**连起来：例如<code>a=1&amp;b=2</code></p>
+<p><strong>URL编码：</strong></p>
+<p>但参数要传递的某些值往往带有特殊字符，这些字符和 URL 标准的格式冲突，比如要传<code>a&amp;b</code>这样字符串，和<strong>查询参数键值对的连接符 &amp;</strong> 冲突了，若不加以区分就会产生歧义</p>
+<p>而最简单的办法，就是对参数值进行编码，称为 URL Encoding，通过编码，就不再包含会冲突的特殊字符<code>a&amp;b 可以改为 a%26b</code></p>
+<h4 id="锚点">锚点</h4>
+<pre><code class="language-css">#后面那部分字符串，#abc就是锚部分
+</code></pre>
+<p>锚，英文称做Reference，通常也是用来传递参数等信息，但与查询参数的本质区别就是这部分内容不会被传递到服务器端</p>
+<p>锚一般用于页面，比如在浏览网页的时候，按个按钮突然帮你定位到页首或页面中的某个位子去了，这就是锚</p>
+<p>现在随着前后端分离技术，尤其是 vue、reactjs 等前端框架的兴起，锚作为前端javascript程序处理的参数载体也越来越重要了</p>
+<h4 id="URL-字符">URL 字符</h4>
+<ul>
+<li>查询字符串中空格被编码成<code>+</code>号</li>
+</ul>
+<pre><code>URL 的各个组成部分，只能使用以下这些字符。
+26个英语字母（包括大写和小写）
+10个阿拉伯数字
+连词号（-）
+句点（.）
+下划线（_）
+
+此外，还有18个字符属于 URL 的保留字符，只能在给定的位置出现。比如，查询参数的开头是问号（?），也就是说，问号只能出现查询参数的开头，出现在其他位置就是非法的，会导致网址解析错误。网址的其他部分如果要使用这些保留字符，必须使用它们的转义形式。
+</code></pre>
+<pre><code class="language-css">URL 字符转义的方法是，在这些字符的十六进制 ASCII 码前面加上百分号（%）
+
+字符			   描述			   用法			   编码
+;				分号				保留				%3B
+/				斜线				保留				%2F
+?				问号				保留				%3F
+:				冒号				保留				%3A
+@				“at”符号			保留				%4O
+=				等号				保留				%3D
+&amp;				“和”符号			保留				%26
+&lt;				小于号				不安全				%3C
+&gt;				大于号				不安全				%3E
+&quot;				双引号				不安全				%22
+#				井号				不安全				%23
+%				百分号				不安全				%25
+&#123;				左大括号			不安全				%7B
+&#125;				右大括号			不安全				%7D
+|				竖线				不安全				%7C
+\				反斜线				不安全				%5C
+^				加字号				不安全				%5E
+~				波浪				不安全				%7E
+[				左中括号			不安全				%5B
+]				右中括号			不安全				%5D
+`				反单引号			不安全				%60
+ 				空格				不安全				%20
+</code></pre>
+<blockquote>
+<p>举例来说，有一个网页的 URL 是<code>foo?bar.html</code>，即文件里面包含一个问号，那么需要写成<code>foo%3Fbar.html</code>。</p>
+<p>URL 的合法字符，其实也可以采用这种转义方法，但是不建议使用。比如，字母a的十六进制 ASCII 码是61，转义形式后就是%61。因此，www.apple.com又可以写成www.%<a target="_blank" rel="noopener" href="http://61pple.com">61pple.com</a>，浏览器一样识别 。</p>
+<p>既不属于合法字符、也不属于保留字符的其他字符（比如汉字），理论上不需要手动转义，可以直接写在 URL 里面，<a target="_blank" rel="noopener" href="http://xn--www-eo8er22f.example.com/%E4%B8%AD%E5%9B%BD.html%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E8%87%AA%E5%8A%A8%E5%B0%86%E5%AE%83%E4%BB%AC%E8%BD%AC%E4%B9%89%EF%BC%8C%E5%8F%91%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82%E8%BD%AC%E4%B9%89%E6%96%B9%E6%B3%95%E6%98%AF%E4%BD%BF%E7%94%A8%E8%BF%99%E4%BA%9B%E5%AD%97%E7%AC%A6%E7%9A%84%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6">比如www.example.com/中国.html，浏览器会自动将它们转义，发给服务器。转义方法是使用这些字符的十六进制</a> UTF-8 编码，每两位算作一组，然后每组头部添加百分号（%）。</p>
+</blockquote>
+<h4 id="绝对-URL-和相对-URL">绝对 URL 和相对 URL</h4>
+<p>绝对 URL 指的是，只靠 URL 本身就能确定资源的位置。这意味着，URL 必须带有资源的完整信息，包含协议、主机、路径等部分。前面的例子都是绝对 URL。</p>
+<p>相对 URL 指的是，URL 不包含资源位置的全部信息，必须结合当前网页的位置，才能定位资源。比如，当前网页的 URL 是</p>
+<pre><code>https://www.example.com/path/index.html
+</code></pre>
+<p>该网页上面有一个资源，URL 指向a.html，这个就是相对 URL。因为只知道a.html，并不能定位资源。浏览器假定，a.html与当前网址在同一个子目录下面，从而得到绝对 URL</p>
+<pre><code>https://www.example.com/path/a.html
+</code></pre>
+<p>相对 URL 如果以斜杠（/）开头，就表示网站的根目录。否则，必须以当前目录为起点，推算资源的位置。比如，相对 URL /foo/bar.html表示网站根目录的子目录foo，foo/bar.html表示在当前目录的foo子目录</p>
+<p><strong>URL 还可以使用两个特殊简写，表示特定位置。</strong></p>
+<blockquote>
+<ul>
+<li><code>.</code>：表示当前目录，比如<code>./a.html</code>（当前目录下的<code>a.html</code>文件）</li>
+<li><code>..</code>：表示上级目录，比如<code>../a.html</code>（上级目录下的<code>a.html</code>文件）</li>
+<li>这两种简写可以多个连用，比如<code>../../</code>表示上两级目录。</li>
+<li>绝对 URL 也可以使用这两个简写，比如<code>www.example.com/./index.html</code>等同于<code>www.example.com/index.html</code>，这时<code>.</code>相当于根目录的当前目录，即根目录本身。</li>
+</ul>
+</blockquote>
+<p><strong>实现 URL 的编码与解码</strong><a href="https://link.zhihu.com/?target=http%3A//web.chacuo.net/charseturlencode">编码转换工具</a></p>
+<h2 id="Linux网卡">Linux网卡</h2>
+<p><strong>Linux网卡配置与绑定</strong></p>
+<blockquote>
+<p>在linux系统中进行网络管理，使用 ifconfig 命令。</p>
+<p>但 ifconfig 命令配置的网卡信息，在网卡重启后机器重启后，配置就不存在。要想将上述的配置信息永远的存的电脑里，那就要修改网卡的配置文件了</p>
+</blockquote>
+<p>一般来说，先通过<code>ifconfig</code>命令，先查看本机网卡配置</p>
+<p>可以看到本机只有一个网卡ens33</p>
+<pre><code>ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        ether 00:0c:29:61:cb:98  txqueuelen 1000  (Ethernet)
+        RX packets 1175  bytes 77066 (75.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 223  bytes 22817 (22.2 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre>
+<p><strong>进入本机网卡配置文件，可以发现里面没有IP地址、子网掩码、网关和DNS等</strong></p>
+<pre><code>vim /etc/sysconfig/network-scripts/ifcfg-ens33
+</code></pre>
+<pre><code class="language-bash">TYPE=&quot;Ethernet&quot; 			#网卡类型为以太网
+BOOTPROTO=&quot;dhcp&quot; 			#启用地址协议 –static:静态协议 –bootp:协议 –dhcp:协议 -none:不指定协议[最好指定]
+
+DEFROUTE=&quot;yes&quot;				# 默认路由：是；就是default route，是否把这个eth设置为默认路由
+PEERDNS=&quot;yes&quot;
+PEERROUTES=&quot;yes&quot;
+
+
+IPV4_FAILURE_FATAL=&quot;no&quot;	 	 # 是不开启IPV4致命错误检测：否
+IPV6INIT=&quot;yes&quot;				# IPV6是否自动初始化: 是
+IPV6_AUTOCONF=&quot;yes&quot;			 # IPV6是否自动配置
+IPV6_DEFROUTE=&quot;yes&quot;			 # IPV6是否可以为默认路由
+IPV6_PEERDNS=&quot;yes&quot;
+IPV6_PEERROUTES=&quot;yes&quot;
+IPV6_FAILURE_FATAL=&quot;no&quot;			# 是不开启IPV6致命错误检测：否
+IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot;		# IPV6地址生成模型：stable-privacy [这只一种生成IPV6的策略]
+
+NAME=&quot;ens33&quot;									# 网卡物理设备名称 
+UUID=&quot;cc35a411-1918-4cad-9496-3474176e00f4&quot;		#通用唯一识别码
+DEVICE=&quot;ens33&quot;				# 网卡设备名称, 必须和 `NAME` 值一样
+ONBOOT=&quot;yes&quot;				#系统启动时是否设置此网络接口，设置为yes时，系统启动时激活此设备 
+
+</code></pre>
+<pre><code class="language-bash"># 新增
+IPADDR=192.168.103.203   #网卡对应的ip地址
+PREFIX=24             # 子网 24就是255.255.255.0
+GATEWAY=192.168.103.1    #网关  
+DNS1=114.114.114.114        # dns
+
+HWADDR=78:2B:CB:57:28:E5  # mac地址
+</code></pre>
+<pre><code class="language-bash"># 重启网卡
+service network restart
+</code></pre>
+<blockquote>
+<p>PREFIX与NETMASK的作用一样</p>
+</blockquote>
+<p><strong>ip命令常用参数</strong></p>
+<pre><code class="language-bash">Ip  [选项]  操作对象&#123;link|addr|route...&#125;
+
+# ip link show                           # 显示网络接口信息
+# ip link set eth0 upi                   # 开启网卡
+# ip link set eth0 down                  # 关闭网卡
+# ip link set eth0 promisc on            # 开启网卡的混合模式
+# ip link set eth0 promisc offi          # 关闭网卡的混个模式
+# ip link set eth0 txqueuelen 1200       # 设置网卡队列长度
+# ip link set eth0 mtu 1400              # 设置网卡最大传输单元
+# ip addr show                           # 显示网卡IP信息
+# ip addr add 192.168.0.1/24 dev eth0    # 设置eth0网卡IP地址192.168.0.1
+# ip addr del 192.168.0.1/24 dev eth0    # 删除eth0网卡IP地址
+
+# ip route list                                            # 查看路由信息
+# ip route add 192.168.4.0/24  via  192.168.0.254 dev eth0 # 设置192.168.4.0网段的网关为192.168.0.254,数据走eth0接口
+# ip route add default via  192.168.0.254  dev eth0        # 设置默认网关为192.168.0.254
+# ip route del 192.168.4.0/24                              # 删除192.168.4.0网段的网关
+# ip route del default                                     # 删除默认路由
+</code></pre>
+<p><strong>为什么要设置DNS</strong></p>
+<p><strong>PING 外网其它主机，允许网卡访问外网主机</strong></p>
+<pre><code class="language-bash"># 没设置 DNS 的话就失败了
+[root@localhost ~]# ping baidu.com
+</code></pre>
+<blockquote>
+<p>为什么上不去网呢？这是因为当前 CentOS 还解析不了输入的 <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a> 这个字符串, 我知道它是百度的域名, 你也知道, 但它就是不知道这是百度域名, 它解析 <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a> 域名到底是对应哪一IP地址, 那好了, 去电脑本体下 ping 一下 <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a> 这个域名, 给它加到 CentOS 系统的 hosts 文件这事也就靠谱了</p>
+</blockquote>
+<p><strong>配置网卡设备文件添加DNS域名解析服务器地址</strong></p>
+<pre><code class="language-bash">DNS1=114.114.114.114   # 是国内移动、电信和联通通用的DNS
+DNS2=8.8.8.8      # GOOGLE公司提供的DNS,适合国外以及访问国外网站的用户使用
+</code></pre>
+<blockquote>
+<p>添加DNS域名解析服务器地址, 就是让 CentOS7 在使用 ping 命令时, 一看给的是一个字串符而非IP地址, 就通过 域名解析服务器 查找对应的IP地址, 然后通过IP去 ping 对应的主机这事也就妥妥的了, 简单的说明这个问题它就是这样, 要想知道它具体都干什么事情了, 你还得去研究一下 网络参考模型 以及 协议 这些事！</p>
+</blockquote>
+<h2 id="交换机">交换机</h2>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_9691128/4579957">「网络安全」网络设备篇_51CTO博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/anitaguangzi/p/13186412.html">交换机概述 - 博客园 </a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_12667170/1945710">交换机的简介及数据通信过程_51CTO博客</a></p>
+</blockquote>
+<p><strong>开宗明义，概念先行</strong></p>
+<p>交换机是一个<strong>扩大网络</strong>的设备，能为<strong>子网</strong>中提供更多的<strong>连接端口</strong>，以便连接更多的电脑。</p>
+<p>通俗来说其起到的作用就是把一个网络端口分成多个网络端口，就像从一根水管里流出的水，你用多根水管同时去分流。·</p>
+<p>交换机是一种开关，用于<strong>电信号转化成网络信号</strong>，可以接入任何两个网络节点，并且提供专门的电信号通路，最经常使用就是太网交换机。</p>
+<p>交换机是构建<strong>局域网络</strong>不	可或缺的集线设备。作为局域网通信的重要枢纽和节点，其主要功能就是<strong>连接设备</strong>。交换机最主要的功能就是<u>连接计算机、服务器、网络打印机、网络摄像头、IP电话</u> <strong><u>等终端设备</u></strong>，并实现与其他交换机、无线接入点、网络防火墙、路由器等网络设备的互连，从而构建局域网络，实现所有设备之间的通信</p>
+<p>交换机工作在<code>OSI</code>模型的数据链路层</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415290.png" alt="image-20221114144457044"></p>
+<p><strong>交互机的工作原理</strong></p>
+<p>交换机位于<code>OSI</code>参考模型中的数据链路层（即第二层），是一种基于<code>MAC</code>地址识别的，用于完成数据的封装和转发的网络设备。交换机可以“学习”<code>MAC</code>地址，并把其存放在内部地址表中，通过在数据帧的始发者和目标接收者之间建立临时的交换路径，使数据帧直接由源地址到达目的地址。</p>
+<p>因此，交换机就像是一个业务熟练的调度员，能够准确地将装载数据的汽车从出发路口直接派送至目的地路口。当然，要完成这样繁重和智能化的工作，交换机也需要一个学习和记忆的过程。计算机借助网卡连接到局域网络，而每块网卡都有其与生俱来的“胎记”——<code>MAC地址</code>。交换机通过“学习”，会把连接到每个端口的<code>MAC</code>地址记住，形成一个端口与<code>MAC</code>地址的对应表。</p>
+<blockquote>
+<p>MAC 地址也称为物理地址，硬件地址和老化地址。</p>
+</blockquote>
+<p><strong>交换机工作过程</strong></p>
+<p>（1）当交换机从某个端口收到一个数据包时，先读取包头中的源<code>MAC</code>地址，从而建立源端口与源<code>MAC</code>地址的对应关系，并将其添加至地址表。由于交换机能够自动根据收到的以太网帧中的源<code>MAC</code>地址更新地址表的内容，所以交换机使用的时间越长，学习到的<code>MAC</code>地址就越多，未知的<code>MAC</code>地址就越少，因而广播的包就越少（如果目的<code>MAC</code>地址未知，则将该包作广播包处理），处理速度就越快。</p>
+<p>（2）读取包头中的目的<code>MAC</code>地址，并在地址表中查找相应的端口。</p>
+<p>（3）如果地址表中有与该目的<code>MAC</code>地址对应的端口，则把数据包直接复制到这端口上。由于不是将该帧发送到所有端口，从而使那些既非源端口又非目的端口的端口间仍然可以进行相互间的通信，进而提供了更高的传输速率。</p>
+<p>（4）如果在<code>MAC</code>地址表中没有找到该<code>MAC</code>地址，也就是说，该目的<code>MAC</code>地址是首次出现，则将该帧发送到所有其他端口（源端口除外），相当于该帧是一个<strong>广播帧</strong>。拥有该<code>MAC</code>地址的网卡在接收到该广播帧后，将立即作出应答，从而使交换机将“端口号-<code>MAC</code>地址”对照表添加到地址表。不断重复上述过程，交换机即可实现所有数据的转发，并逐步学习和记忆整个网络中的<code>MAC</code>地址，不断丰富和完善自己的<code>MAC</code>地址表。</p>
+<p><strong>总结</strong>：由此可见，交换机的工作过程可以概括为“学习-记忆-接收-查找-转发”。 通过广播方式“学习”网卡<code>MAC</code>地址，并将“<code>MAC</code>地址-端口号”的对应关系创建为一个地址表“记忆”在内存中。 从源端口“接收”到数据后，在地址表中“查找”与目的<code>MAC</code>地址相对应的端口，然后将数据帧“转发”至目的端口。</p>
+<blockquote>
+<p><strong>注意</strong>：交换机不会永久性地记住所有的端口号―MAC地址关系。 由于交换机中的内存有限，因此能够记忆的MAC地址数量也是有限的。 既然不能无休止地记忆所有的MAC地址，那么也必须赋予其相应的忘却机制，从而吐故纳新。</p>
+<p>事实上，交换机设计了一个自动老化时间（Auto-aging Time）机制，若某MAC地址在一定时间内（默认为300 s）不再出现，那么交换机将自动把该MAC地址从地址表中清除。 当下一次该MAC地址重新出现时，将会被当做新地址处理。</p>
+<p>另外，由于地址表是保存在内存中的，因此当交换机断电或重新启动后，地址表数据将会全部丢失，必须重新学习。 交换机可以在任意一对端口之间建立临时专用通道，不同端口间的转发可以并行操作。 这就像是在各端口间建立起了一座立交桥，形成立体交叉结构，不同流向的数据各行其道，每个端口均能够独享固定带宽，传输速率几乎不受计算机数量的影响。</p>
+<p>另外，当两个或两个以上的端口与同一目的端口进行通信时，交换机将把这些数据帧暂时保存在缓存中，然后根据顺序对其逐一处理和转发，从而实现“多”对“一”的通信。</p>
+</blockquote>
+<h2 id="路由器">路由器</h2>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/yangshufan/1949631">路由器的基本原理与配置命令（静态路由和默认路由）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a2796749/article/details/47165497">交换机和路由器的数据包转发流程简述_丿咫尺天涯的博客-CSDN博客</a></p>
+</blockquote>
+<p><strong>开宗明义，概念先行</strong></p>
+<p>路由器工作在<code>OSI</code>参考模型的网络层，它的作用是为数据包选择最佳路径，最终送达目的地。</p>
+<p>路由器（Router），是连接因特网中各<code>局域网、广域网</code>的设备，它会根据信道的情况自动选择和设定路由，以最佳路径，按前后顺序发送信号。路由器是互联网络的枢纽，“交通警察”。</p>
+<p><em><u><strong>路由器</strong></u></em>（Router）又称***<u>网关设备</u>***（Gateway）是用于连接多个逻辑上分开的网络，所谓逻辑网络是代表一个单独的网络或者一个子网。</p>
+<p><strong>路由器的工作原理</strong></p>
+<p>路由表是路由器的地图，指引路由器的方向。</p>
+<p>在路由表中，包含了每个路由器所掌握的所有*<u>目的地的网络地址</u>*，以及通过此路由器到达这些网络的<u><em>最佳路径</em></u>。</p>
+<p>这个最佳路径是指路由器的***<u>某个接口或下一跳路由器的地址</u>***，由于路由表的存在，路由器才能高效的进行数据包的转发。</p>
+<p><strong>交换机和路由器的数据包转发流程</strong></p>
+<p><strong>网络设备之间通信：</strong></p>
+<ul>
+<li>
+<p>发送端的数据向外发送一个数据包</p>
+<ul>
+<li>
+<p>系统判断这个数据包的目标地址是否在*<u><strong>同一个网段</strong></u>*</p>
+<ul>
+<li>
+<p>若与发送机<strong>属于同一网段</strong>，系统直接将数据包封装成帧，通过二层设备发送到本网段内的目标地址</p>
+</li>
+<li>
+<p>若<strong>不在同一网段</strong>，系统将数据包转发到*<u><strong>网关</strong></u>*，重新封装</p>
+<ul>
+<li>
+<p>网关查看数据包送达的目标<code>ip</code>地址</p>
+</li>
+<li>
+<p>系统根据目标<code>ip</code>地址查找路由表，决定转发端口</p>
+</li>
+<li>
+<p>重新封装转发到下一个路由器</p>
+</li>
+<li>
+<p>网关发现目标地址属于本网段，查找MAC表（ip与mac对应关系），封装成帧发送到目标机器网卡</p>
+</li>
+<li>
+<p>目标主机验证后传送给上层应用</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>具体路由器转发规则：</strong></p>
+<ul>
+<li>当<code>主机A</code>发向<code>主机B</code>的数据流在网络层封装成<code>IP数据包</code>，<code>IP数据包</code>的首部包含了源地址和目标地址</li>
+<li><code>主机A</code>会用本机配置的<code>24</code>位<code>IP</code>网络掩码<code>255.255.255.0</code>与目标地址进行与运算，得出目标网络地址与本机的网络地址*<u><strong>是不是在同一个网段</strong></u>*中。如果不是将<code>IP数据包</code>转发到<code>网关</code></li>
+<li>在发往网关前<code>主机A</code>还会通过<code>ARP</code>的请求获得默认网关的<code>MAC</code>地址。在<code>主机A</code>数据链路层<code>IP数据包</code>封装成以太网数据帧，然后才发住到网关……也就是路由器上的一个端口</li>
+<li>当网关路由器接收到以太网数据帧时，发现数据帧中的目标<code>MAC</code>地址是自己的某一个端口的物理地址，这时路由器会把以太网数据帧的封装去掉。路由器认为这个<code>IP数据包</code>是要通过自己进行转发，接着它就在匹配路由表。匹配到路由项后，它就将包发往下一条地址。</li>
+<li>路由器转发数据包就是这样，所以它始终是不会改<code>IP地址</code>的。只会改<code>MAC</code></li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415997.png" alt="image-20221118155409043"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415034.png" alt="image-20221118155413123"></p>
+<h2 id="VLAN">VLAN</h2>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.h3c.com/cn/d_200911/922198_30005_0.htm">VLAN技术浅谈-新华三集团-H3C</a></p>
+</blockquote>
+<p><strong>开宗明义，概念先行</strong></p>
+<p><code>vlan</code>的全称是<code>Virtual Local Area Network</code>，即“虚拟局域网”，把一个大的局域网，分成多个隔离的，小的局域网。</p>
+<p>它的作用就是将物理上互连的网络在逻辑上划分为多个互不相干的网络，这些网络之间是无法通讯的，就好像互相之间没有连接一样，因此广播也就隔离开了。<code>VLAN</code>的实现原理非常简单，通过交换机的控制，某一<code>VLAN</code>成员发出的数据包交换机只发给同一<code>VLAN</code>的其它成员，而不会发给该<code>VLAN</code>成员以外的计算机。简言之，一个<code>VLAN</code>就是一个广播域。</p>
+<p><strong>为什么需要 vlan</strong></p>
+<ul>
+<li>广播域被限制在一个 VLAN 内，节省了带宽，提高了网络处理能力。</li>
+<li>增强局域网的安全性：VLAN 间不能直接通信，即一个 VLAN 内的用户不能和其它 VLAN 内的用户直接通信，而需要通过路由器或三层交换机等三层设备。</li>
+<li>灵活构建虚拟工作组：用 VLAN 可以划分不同的用户到不同的工作组，同一工作组的用户也不必局限于某一固定的物理范围，网络构建和维护更方便灵活。</li>
+</ul>
+<h2 id="OSI-参考模型">OSI 参考模型</h2>
+<blockquote>
+<p>参考：</p>
+<p>[<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qishui/p/5428938.html">OSI七层模型与TCP/IP五层模型</a>](<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qishui/p/5428938.html">https://www.cnblogs.com/qishui/p/5428938.html</a>)</p>
+</blockquote>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415714.png" alt="image-20221118112802670"></p>
+<p>TCP/IP五层协议</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415312.png" alt="img"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415804.png" alt="img"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/202410081415596.png" alt="img"></p>
+<h2 id="Http-头信息">Http 头信息</h2>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1522129">HTTP headers - 腾讯云</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34676644/article/details/120785064?spm=1001.2014.3001.5502">Http头信息（一）——通用头信息（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34676644/article/details/120847216?spm=1001.2014.3001.5502">Http头信息（二）——请求头信息（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34676644/article/details/120991522?spm=1001.2014.3001.5502">Http头信息（三）——响应头信息（一）</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34676644/article/details/120784099?spm=1001.2014.3001.5502">这可能是最全的Http头信息资料了</a></p>
+</blockquote>
+<p><strong>请求和响应都有的</strong></p>
+<pre><code class="language-css">/* 对于请求来说，该指令的意思是：可以给我缓存，但是这个缓存必须是向服务器验证后证明是有效的。
+对于响应来说，该指令的意思是：可以缓存这个响应，但使用前必须向服务器做有效性验证 */
+Cache-Control:no-cache
+
+/* 对于请求和响应来说，不得以任何形式存储请求或响应的内容 */
+Cache-Control:no-store
+
+/* 对于请求来说，可以接收：自响应被发送那一刻开始算起，不超过60秒的缓存
+对于响应来说，这个响应可以缓存，且有效期为60秒 */
+Cache-Control:max-age=60
+
+/* 对于请求和响应来说，缓存不能改变其内的媒体类型。例如不能压缩等 */
+Cache-Control:no-transform
+
+</code></pre>
+<p><strong>请求专用的</strong></p>
+<pre><code class="language-css">/* 可以接收过了有效期(max-age指定)，但是没过max-stale的缓存 */	
+Cache-Control:max-stale=60
+
+/* 可以接收在未来60秒内，处于有效期(max-age指定)的缓存 */
+Cache-Control:min-fresh=60
+
+/* 只接收缓存。如果没有缓存，则返回 504 Gateway Timeout */
+Cache-Control:only-if-cached
+</code></pre>
+<p><strong>响应专用的</strong></p>
+<pre><code class="language-css">/* 此响应可以被任何中间者缓存 */
+Cache-Control:public
+
+/* 此缓存只能被发起请求的客户端缓存 */
+Cache-Control:private
+
+/* 缓存过期后，使用前，必须向服务器做有效性验证。
+在Http 1.1规范里，是允许某些情况下直接使用过期缓存的。而加入这个命令，就决不允许使用过期缓存了 */
+Cache-Control:must-revalidate
+
+/* 与must-revalidate一致，区别为：这个指令不能作用于私有缓存上。什么是私有缓存？
+Cache-Control:private会将缓存存在私有缓存中 */
+Cache-Control:proxy-revalidate
+
+/*  与max-age类似，这里的s代表共享，并且，这个指令仅用于CDNs或者其他中间者（intermediary caches）。这个指令会覆盖max-age和expires响应头 */
+Cache-Control:s-maxage=60
+</code></pre>
+<h2 id="http-头部">http 头部</h2>
+<p><span style='color:#FFFFFF;background:#5B8983;font-size:;font-family:字体;'>http 头部：</span></p>
+<p><span style='color:#FFFFFF;background:#96e6a1;font-size:文字大小;font-family:字体;'>请求：</span></p>
+<ul>
+<li><font color='brown'>User-Agent</font>——关于浏览器和它平台的信息，如 Mozilla4.0</li>
+<li>Accept——客户能处理的页面的类型，如 text、html</li>
+<li>Accept-Charset——客户可以接受的字符集，如 Unicode-1-1</li>
+<li>Accept-Encoding——客户处理的页面编码方式，如 gzip</li>
+<li>Accept-Language——客户能处理的自然语言，如 en（英语），zh-cn（简体中文）</li>
+<li>Host——服务器的 DNS 名称，从 URL 中提取出来，必须</li>
+<li><font color='brown'>Referer</font>——用户从改 URL 代表的页面触发访问当前请求的页面</li>
+<li>Cookie——将以前设置的 Cookie 送回服务器，可用来作为会话信息</li>
+</ul>
+<p><span style='color:#FFFFFF;background:#96e6a1;font-size:文字大小;font-family:字体;'>双向：</span></p>
+<ul>
+<li>Date——消息被发送的日期和时间</li>
+</ul>
+<p><span style='color:#FFFFFF;background:#96e6a1;font-size:文字大小;font-family:字体;'>响应：</span></p>
+<ul>
+<li><font color='brown'>Server</font>——服务器的信息</li>
+<li>Content-Encoding——内容是如何编码的</li>
+<li>Content-Language——页面使用的自然语言</li>
+<li>Content-Length——以字节计算的页面长度</li>
+<li>Content-type——页面的 MIME 类型</li>
+<li>Last-Modified——页面最后修改的时间和日期，在页面缓存机制中意义重大</li>
+<li><font color='brown'>Location</font>——指示客户将请求发送给别处，即重定向到另一个 URL</li>
+<li><font color='brown'>Set-Cookie</font>——服务器希望客户保存一个 Cookie</li>
+</ul>
+<h2 id="转义字符">转义字符</h2>
+<pre><code>在MYSQL中 '\'(反斜杠)被用来转义一个字符。转义一个字符意味着取消该字符的特殊用途。使用转义字符可以得到更清楚的图片
+</code></pre>
+<h2 id="http-请求中的-payload">http 请求中的 payload</h2>
+<p>payload，翻译过来是有效载荷</p>
+<p>抽象一下，payload 可以理解为一系列信息中最为关键的信息。<br>
+对于程序员来说就是在程序中 起关键作用的代码。</p>
+<p><strong>安全方面</strong>：</p>
+<p>通常在传输数据时，为了使数据传输更可靠，要把原始数据分批传输，并且在每一批数据的头和尾都加上一定的辅助信息，<br>
+比如数据量的大小、校验位等，这样就相当于给已经分批的原始数据加一些外套，这些外套起标示作用，使得原始数据不易丢失，<br>
+一批数据加上“外套”就形成了传输通道的基本传输单元，叫做数据帧或数据包，而其中的原始数据就是 payload</p>
+<h2 id="Kali-Linux-文件系统">Kali Linux 文件系统</h2>
+<p><strong>默认的文件系统</strong></p>
+<p>/bin：<br>
+bin 是 Binaries (二进制文件) 的缩写， 这个目录存放着最经常使用的命令。</p>
+<p>/boot<br>
+这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+<p>**/dev **<br>
+dev 是 Device(设备) 的缩写， 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。</p>
+<p>/etc<br>
+etc 是 Etcetera(等等) 的缩写，这个目录用来存放*<u>所有的系统管理所需要的配置文件和子目录。</u>*</p>
+<p>/home<br>
+用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以<u><em><strong>用户的账号命名</strong></em></u>的</p>
+<p>/lib<br>
+lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。</p>
+<p>/media<br>
+Linux 系统会自动识别一些设备，例如 U 盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</p>
+<p>/mnt<br>
+系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。</p>
+<p>/opt<br>
+opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个 Oracle 数据库则就可以放到这个目录下。默认是空的。</p>
+<p>/root<br>
+该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+<p>/tmp<br>
+tmp 是 temporary(临时) 的缩写这个目录是用来存放一些<u><em><strong>临时文件</strong></em></u>的。</p>
+<p>/usr<br>
+usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多<u><em><strong>应用程序</strong></em></u>和*<u><strong>文件</strong></u>*都放在这个目录下，类似于 windows 下的 program files 目录。</p>
+<p>/usr/bin<br>
+系统用户使用的应用程序。</p>
+<p>/usr/sbin<br>
+超级用户使用的比较高级的管理程序和系统守护程序。</p>
+<p>/usr/src<br>
+内核源代码默认的放置目录。</p>
+<p><em><strong>/var</strong></em><br>
+<em><strong><u>var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</u></strong></em></p>
+<p>/run<br>
+是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2021/01/02/VM%EF%BC%8CPHP%20-%20%E6%90%AD%E5%BB%BA%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83/">VM，PHP - 搭建渗透环境</a></div><div class="item" id="next"></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ip-%E5%9C%B0%E5%9D%80"><span class="toc-text">ip 地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-text">子网掩码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E6%AE%B5"><span class="toc-text">网段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA-IP-%E5%9C%B0%E5%9D%80%E6%98%AF%E5%90%A6%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%BD%91%E6%AE%B5"><span class="toc-text">如何判断两个 IP 地址是否在同一个网段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-text">什么是子网掩码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E6%8E%A9%E7%A0%81%E6%9D%A5%E7%A1%AE%E5%AE%9AIP%E5%9C%B0%E5%9D%80%E7%BD%91%E6%AE%B5"><span class="toc-text">如何根据掩码来确定IP地址网段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE-IP-%E5%9C%B0%E5%9D%80%E6%8E%A8%E7%AE%97%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="toc-text">如何根据 IP 地址推算子网掩码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E7%BD%91%E5%9D%80"><span class="toc-text">认识网址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL-%E7%BC%96%E7%A0%81"><span class="toc-text">URL 编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL-%E7%BB%84%E6%88%90"><span class="toc-text">URL 组成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA"><span class="toc-text">主机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3"><span class="toc-text">端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E7%9B%AE%E5%BD%95"><span class="toc-text">虚拟目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-text">文件名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%8F%82%E6%95%B0"><span class="toc-text">查询参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%9A%E7%82%B9"><span class="toc-text">锚点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#URL-%E5%AD%97%E7%AC%A6"><span class="toc-text">URL 字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9-URL-%E5%92%8C%E7%9B%B8%E5%AF%B9-URL"><span class="toc-text">绝对 URL 和相对 URL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E7%BD%91%E5%8D%A1"><span class="toc-text">Linux网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="toc-text">交换机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8"><span class="toc-text">路由器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VLAN"><span class="toc-text">VLAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OSI-%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">OSI 参考模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http-%E5%A4%B4%E4%BF%A1%E6%81%AF"><span class="toc-text">Http 头信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-%E5%A4%B4%E9%83%A8"><span class="toc-text">http 头部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-text">转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-%E8%AF%B7%E6%B1%82%E4%B8%AD%E7%9A%84-payload"><span class="toc-text">http 请求中的 payload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kali-Linux-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">Kali Linux 文件系统</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

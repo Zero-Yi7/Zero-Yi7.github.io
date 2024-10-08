@@ -1,0 +1,838 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>2023年某直辖市通管局攻防演练碎碎念 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="背景 2023年pánshí行动于崇明区长兴岛开展，三人组队代表公司参加活动，以下是一些碎碎念…… 每天必做 录屏、上传录屏 信息搜集工具    环境 名称 作用     Xshell-云服务器 水泽 信息收集   Xshell-云服务器 Oneforall 查询子域名   Xshell 灯塔 信息收集   Windows平台 零零信安 信息收集，只能一个账号登录   Windows平台 EHol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023年某直辖市通管局攻防演练碎碎念">
+<meta property="og:url" content="https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E7%A2%8E%E7%A2%8E%E5%BF%B5/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="背景 2023年pánshí行动于崇明区长兴岛开展，三人组队代表公司参加活动，以下是一些碎碎念…… 每天必做 录屏、上传录屏 信息搜集工具    环境 名称 作用     Xshell-云服务器 水泽 信息收集   Xshell-云服务器 Oneforall 查询子域名   Xshell 灯塔 信息收集   Windows平台 零零信安 信息收集，只能一个账号登录   Windows平台 EHol">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-31T12:46:25.000Z">
+<meta property="article:modified_time" content="2023-07-31T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="攻防演练">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-07-31T12:46:25.000Z">2023-07-31</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2023-07-31T12:46:25.000Z">2023-07-31</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>2023年某直辖市通管局攻防演练碎碎念</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="背景">背景</h2>
+<p>2023年pánshí行动于崇明区长兴岛开展，三人组队代表公司参加活动，以下是一些碎碎念……</p>
+<h2 id="每天必做">每天必做</h2>
+<p>录屏、上传录屏</p>
+<h2 id="信息搜集工具">信息搜集工具</h2>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xshell-云服务器</td>
+<td>水泽</td>
+<td>信息收集</td>
+</tr>
+<tr>
+<td>Xshell-云服务器</td>
+<td>Oneforall</td>
+<td>查询子域名</td>
+</tr>
+<tr>
+<td>Xshell</td>
+<td>灯塔</td>
+<td>信息收集</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>零零信安</td>
+<td>信息收集，只能一个账号登录</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>EHole</td>
+<td>指纹识别</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>Enscan</td>
+<td>查询控股公司</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>FofaViewer</td>
+<td>信息收集</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>站长工具</td>
+<td>查询备案归属</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>爱企查</td>
+<td>查询公司备案</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>天眼查</td>
+<td>查询公司备案</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>CS客户端</td>
+<td>钓鱼、木马</td>
+</tr>
+<tr>
+<td>**行动跳板机-47.103.83.40</td>
+<td>CS服务端</td>
+<td>钓鱼、木马</td>
+</tr>
+<tr>
+<td>Windows平台</td>
+<td>EmailALL</td>
+<td>搜集公司邮箱</td>
+</tr>
+<tr>
+<td>Xshell-172.18.157.198</td>
+<td>Goby</td>
+<td></td>
+</tr>
+<tr>
+<td>……</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="流水账">流水账</h2>
+<p><strong>2023年7月20日11:05:38</strong><br>
+搭建了灯塔平台——<a target="_blank" rel="noopener" href="https://www.bioparrot.com/application-deployment/481/">ARL资产灯塔系统搭建</a></p>
+<p><strong>2023年7月20日11:09:44</strong><br>
+研究<strong>钓鱼</strong>，规则文件：</p>
+<blockquote>
+<p>在使用社会工程学攻击、钓鱼攻击及水坑攻击时，禁止使用涉及政治因素，违背伦理道德等因素的缘由进行攻击，否则将对攻击方进行扣分处理。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ZU8LrUENEnCSX9Q9ZxiyyA">红蓝对抗 | 企业级攻防演练钓鱼行动</a></p>
+<ul>
+<li>时间
+<ul>
+<li>了解员工上下班时间</li>
+</ul>
+</li>
+<li>邮件内容
+<ul>
+<li>通知类（漏洞预警、修改口令、红头文件等）</li>
+<li>福利类（节日礼包、礼卷等）</li>
+<li>热点新闻类（防疫新闻、俄乌战争等）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2023年7月20日11:31:22</strong><br>
+申请**行动服务器，Centos7.0，安装python3、jdk11</p>
+<p><strong>2023年7月20日15:22:38</strong><br>
+<a target="_blank" rel="noopener" href="https://pizz33.github.io/posts/4ac17cb886a9/">免杀技术 - go shellcode 加载 bypassAV</a></p>
+<p>看资源修改、伪造签名</p>
+<p><strong>2023年7月20日17:55:30</strong><br>
+沟通云服务器，OA审批流程</p>
+<p><strong>2023年7月20日19:06:38</strong><br>
+使用Docker部署思源笔记，在公司Centos服务器上</p>
+<p><a target="_blank" rel="noopener" href="https://blog.xiaoz.org/archives/16933">使用Docker部署思源笔记，可通过WEB访问</a></p>
+<p>发现一个工具：<a target="_blank" rel="noopener" href="https://github.com/EASY233/Finger">EASY233/Finger: 一款红队在大量的资产中存活探测与重点攻击系统指纹探测工具</a><br>
+和Ehole有什么不同呢？</p>
+<p><strong>2023年7月21日10:20:00</strong><br>
+Centos7.0，安装python3、和jdk11</p>
+<p><strong>2023年7月21日10:41:24</strong><br>
+安装 Cat CS，二次开发</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/TryGOTry/CobaltStrike_Cat_4.5">猫猫Cs:基于Cobalt Strike[4.5]二开 (原dogcs二开移植)</a></p>
+<p>解压密码：低调求发展潜心习安全好好学习天天向上</p>
+<p>Windows端，运行<code>java -jar cat_client.jar client</code></p>
+<p><strong>2023年7月21日13:31:18</strong><br>
+我在Windows端已经可以运行CobaltStrike_Cat_4.5，我如何把 CobaltStrike sever 端上传到**行动的跳板机</p>
+<p>安装的CS服务端</p>
+<p><strong>2023年7月21日15:24:30</strong><br>
+终于装好啦！！！</p>
+<p><strong>2023年7月21日16:01:37</strong><br>
+安装搜集邮箱的工具</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Taonn/EmailAll.git">Taonn/EmailAll.git</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Taonn/EmailAll.git">https://github.com/Taonn/EmailAll.git</a></p>
+<pre><code class="language-bash"># http://www.veryvp.com/
+veryvp_username = '****'
+veryvp_password = '****'
+
+# https://www.github.com
+
+# 新
+
+
+# 旧
+github_token = ''****''
+
+# https://app.snov.io/
+
+snov_username = ''****''
+snov_password = ''****''
+
+# https://phonebook.cz/
+pb_key = ''****''
+</code></pre>
+<pre><code class="language-bash"># *****
+python3 emailall.py --domain *****.com run # ✅
+</code></pre>
+<p><strong>2023年7月21日17:01:37</strong></p>
+<p>思考钓鱼内容</p>
+<blockquote>
+<p>……</p>
+</blockquote>
+<p><strong>2023年7月21日19:58:59</strong></p>
+<ol>
+<li>去找一下XX公司的后台，是邮箱登录的</li>
+<li>批量跑一下XX公司的邮箱</li>
+</ol>
+<p><strong>2023年7月22日11:19:39</strong></p>
+<p>今天遇到了一点麻烦，拓展坞的网口坏了，得重新购买一个，幸亏，京东有次日达。队友也好心借给我一个拓展坞，但我只有一个Type-C接口，要么充电、要么联网……</p>
+<p>霉运袭来，平台密码总是忘记，导致裁判几乎每个人都认识我。</p>
+<p>现在的任务有三条</p>
+<ol>
+<li>水群</li>
+<li>找XX公司的邮箱</li>
+<li>找XX公司的后台</li>
+<li>时刻录屏</li>
+</ol>
+<p><strong>2023年7月22日15:18:59</strong></p>
+<p>我点击木马之后，出现的上线通知</p>
+<p><strong>2023年7月22日15:45:11</strong></p>
+<ul>
+<li>购买126邮箱 ➜ ✅</li>
+<li>携程的邮箱</li>
+</ul>
+<p><strong>2023年7月22日19:09:31</strong></p>
+<p>谷歌语法看PDF泄露</p>
+<p><strong>2023年7月22日19:45:24</strong></p>
+<p>拼多多资产，队友搜集出来的，找出重点资产，把所有文件的域名提取出来，然后跑指纹识别</p>
+<p>插曲：出现CS上线 ➜ 权限维持</p>
+<p><strong>2023年7月23日10:10:35</strong></p>
+<p>XX公司的数据</p>
+<p>XX公司的 IP 去重复，扔 goby 里面跑</p>
+<p><strong>2023年7月23日14:50:24</strong></p>
+<p>写报告，写完啦</p>
+<p><strong>2023年7月23日14:50:30</strong></p>
+<p>找一下XX公司人名的微信号</p>
+<p>MP4 图标 ICO</p>
+<p>MSF 等上线</p>
+<p><strong>2023年7月23日16:08:32</strong></p>
+<p>会不会钓鱼！忽悠他，发EXE</p>
+<p>攻防演练非常激烈，有一家红队，解锁了全部的公司，超前完成任务（可能是微步在线）</p>
+<p><strong>2023年7月24日15:09:11</strong></p>
+<p>跑子域名</p>
+<blockquote>
+<p><strong>关于攻击守则的再次强调声明</strong></p>
+<p>1.攻击禁止影响业务正常运行<br>
+2.禁止擅自修改密码，如必要，提交攻击申请<br>
+3.禁止场外攻击<br>
+4.报告中重要截图需包含时间戳<br>
+5.**行动期间需要在录屏前提下进行<br>
+6.禁止使用场外攻击资源</p>
+<p><strong>公告关于每日结束后的提醒</strong></p>
+<p>请各位红队选手，为配合场地消防安排，在每日完成攻击后，将操作台上的电源关闭或拔出。务必保存好自己当天晚上编写的相关报告及录屏等内容，工作人员将在全员离场后进行检查，如发现电源未关闭，工作人员将拔出，请各位攻击队注意！</p>
+<p><strong>警告关于钓鱼攻击方式的新要求</strong></p>
+<p>今日起所有钓鱼攻击，请各位攻击队优先递交攻击申请或钓鱼内容说明，通过后才可执行。若今日已经发送的钓鱼攻击，请在平台补充递交攻击申请。</p>
+</blockquote>
+<h2 id="注意事项">注意事项</h2>
+<ol>
+<li><strong>自动提取域名工具</strong><br>
+确保使用适当工具从网页文本中提取顶级根域名或主域名。</li>
+<li><strong>提前登录</strong>
+<ul>
+<li>使用的平台：如“天眼查”、“企查查”等。</li>
+<li>注意事项（因为不让带手机into……）：
+<ul>
+<li>QQ 邮箱：网络问题可能导致无法登录。</li>
+<li>谷歌账号：需进行二次验证。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>环境配置</strong><br>
+提前搭建虚拟机、云服务器等必要环境。</li>
+<li><strong>网络问题</strong><br>
+关注拓展坞的网口问题。</li>
+<li><strong>录屏软件</strong><br>
+熟悉使用录屏软件，确保操作记录清晰。</li>
+<li><strong>虚拟机搭建</strong><br>
+根据需要创建多个虚拟机，实际上我们队友都是用的本机，lol，用虚拟机方便清空现场资料，对方不让带走！！</li>
+</ol>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/">2023年某直辖市通管局攻防演练总结</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/03/09/Reproducible%20vulnerability/">已知漏洞复现与验证</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%8F%E5%A4%A9%E5%BF%85%E5%81%9A"><span class="toc-text">每天必做</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86%E5%B7%A5%E5%85%B7"><span class="toc-text">信息搜集工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E6%B0%B4%E8%B4%A6"><span class="toc-text">流水账</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

@@ -1,0 +1,1880 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>SQL 数据库学习记录 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="数据库查缺补漏 #是一个占位符 使用占位符可以防止sql的注入，#&#123;&#125;会将传入的数据当成一个字符串，会对自动传入的数据加一个双引号，$&#123;&#125;会将传入的数据直接显示生成在sql中 $是拼接符（参数） $&#123;&#125;:传入的内容会直接拼接，不会加上引号，可能存在sql注入的安全隐患 %是搜索的通配符，Window 中是*  mysql中#{}和${}的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL 数据库学习记录">
+<meta property="og:url" content="https://zero-yi7.github.io/2021/02/11/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="数据库查缺补漏 #是一个占位符 使用占位符可以防止sql的注入，#&#123;&#125;会将传入的数据当成一个字符串，会对自动传入的数据加一个双引号，$&#123;&#125;会将传入的数据直接显示生成在sql中 $是拼接符（参数） $&#123;&#125;:传入的内容会直接拼接，不会加上引号，可能存在sql注入的安全隐患 %是搜索的通配符，Window 中是*  mysql中#{}和${}的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/SQL%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/202410081514458.webp">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/SQL%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/202410081514048.png">
+<meta property="article:published_time" content="2021-02-11T12:46:25.000Z">
+<meta property="article:modified_time" content="2021-02-11T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/SQL%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/202410081514458.webp">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2021-02-11T12:46:25.000Z">2021-02-11</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2021-02-11T12:46:25.000Z">2021-02-11</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>SQL 数据库学习记录</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="数据库查缺补漏">数据库查缺补漏</h2>
+<p><code>#</code><strong>是一个占位符</strong></p>
+<p>使用占位符可以防止<code>sql</code>的注入，<code>#&#123;&#125;</code>会将传入的数据当成一个字符串，会对自动传入的数据加一个双引号，<code>$&#123;&#125;</code>会将传入的数据直接显示生成在<code>sql</code>中</p>
+<p><code>$</code><strong>是拼接符（参数）</strong></p>
+<p><code>$&#123;&#125;</code>:传入的内容会直接拼接，不会加上引号，可能存在sql注入的安全隐患</p>
+<p><code>%</code><strong>是搜索的通配符</strong>，Window 中是<code>*</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/237629.htm">mysql中#{}和${}的区别详解_Mysql_脚本之家 (jb51.net)</a></p>
+</blockquote>
+<h2 id="初识数据库">初识数据库</h2>
+<p>介于前端和后端之间的数据库，是***<u>其</u>***核心所在。</p>
+<h3 id="为什么学习数据库："><strong>为什么学习数据库：</strong></h3>
+<p>岗位需求；技术大框架中的不可或缺的”数据存储“需要；网络安全</p>
+<h3 id="什么是数据库："><strong>什么是数据库：</strong></h3>
+<p>数据库（DB，DataBase）</p>
+<p>概念：数据仓库，软件，安装在操作系统（window、linux、mac…）之上！SQL,可以存储大量的数据。500万！</p>
+<p>作用：存储数据，管理数据</p>
+<h3 id="数据库分类："><strong>数据库分类：</strong></h3>
+<p><strong>关系型数据库：</strong>（SQL）</p>
+<ul>
+<li>MySQL、Oracle、SqIServer、DB2、SQLlite</li>
+<li>通过表和表之间，行和列之间的关系进行数据的存储，</li>
+</ul>
+<p><strong>非关系型数据库：</strong>（NoSQL）Not Only</p>
+<ul>
+<li>Redis，MongDB</li>
+<li>非关系型数据库，对象存储，通过对象的自身的属性来决定。</li>
+</ul>
+<p><strong>DBMS（数据库管理系统）</strong></p>
+<ul>
+<li>数据库的管理软件，科学有效的管理我们的数据。维护和获取数据，</li>
+<li>MySQL，数据库管理系统</li>
+</ul>
+<h3 id="MySQL-简介">MySQL 简介</h3>
+<p>MySQL 是一个关系型数据库管理系统</p>
+<p>🔴最流行的开源数据库是<code>MySQL</code></p>
+<p>历史沿革：瑞典 MySql AB 公司</p>
+<p>如今：属于 Oracle 旗下产品</p>
+<blockquote>
+<p>安装建议：</p>
+<p>尽量不使用 exe ，注册表，卸载麻烦</p>
+<p>建议使用使用压缩包</p>
+</blockquote>
+<h3 id="安装-MySQL">安装 MySQL</h3>
+<p><a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/">MySQL :: Download MySQL Community Server</a></p>
+<blockquote>
+<p>谷歌搜索：<code>mysql community</code></p>
+</blockquote>
+<ol>
+<li>
+<p>解压后放到电脑环境目录下</p>
+</li>
+<li>
+<p>配置环境变量，按 Win 键搜索，<code>环境变量</code>将<code>bin</code>目录放入</p>
+</li>
+<li>
+<p>在<code>mysql</code>的一级目录下，新建<code>mysql </code>配置文件 <code>my.ini</code></p>
+<ol>
+<li>
+<pre><code class="language-mysql">[mysqld]
+# 设置3306端口号
+port=3306
+
+# 设置MySQL的安装目录
+basedir=D:\\software\\an qr\\mysql-8.0.31-winx64
+
+# 设置MySQL数据库的数据存放目录
+datadir=D:\\software\\an qr\\mysql-8.0.31-winx64\\data
+
+# 启动mysql后将skip-grant-tables前面的#删掉
+skip-grant-tables
+</code></pre>
+</li>
+</ol>
+</li>
+<li>
+<p>在<code>bin</code>目录下，以管理员身份启动<code>CMD</code></p>
+<ol>
+<li>
+<pre><code class="language-mysql"># 安装 mysql，显示 Service successfully installed. 即为成功
+mysqld -install
+
+# 出现 data 文件夹，初始化数据文件
+mysqld --initialize-insecure --user=mysql
+
+# 启动 mysql
+net start mysql
+net stop mysql
+
+# 进入 mysql
+mysql -u root -p
+mysql -u root -proot
+mysql -u root -p紧紧跟着密码
+
+# 进入记得修改密码，可以注释掉跳过密码了，然后重启
+net stop mysql
+net start mysql
+</code></pre>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="连接数据库">连接数据库</h3>
+<pre><code class="language-sql">mysql -uroot -proot  -- 命令行连接
+
+-- sql 的注释是
+flush privileges;  -- 刷新权限
+
+---------------------------
+所有的语句使用`;`结尾
+show databases;  -- 查看所有的数据库
+
+use mysql;  -- 切换数据库
+Database changed
+
+show tables;  -- 查看数据表中所有的表
+
+describe student;  -- 显示数据库中所有表的信息
+
+create database westos;  -- 创建一个数据库
+
+exit;  -- 退出连接
+
+-- 单行注释（SQL 的本来的注释）
+
+/*		（sql 的单行注释）
+hello
+hi
+*/
+</code></pre>
+<h2 id="操作数据库">操作数据库</h2>
+<h3 id="简单操作数据库">简单操作数据库</h3>
+<p>操作数据库 &gt; 操作数据库中的表 &gt; 操作数据库中表的数据<br>
+<code>mysql</code>关键字不分区大小写</p>
+<pre><code class="language-mysql">-- 创建数据库
+CREATE DATABASE IF NOT EXISTS westos
+
+-- 删除数据库
+DROP DATABASE IF EXISTS westos
+
+-- 使用数据库
+-- tab键的上而，如果你的表名或者字段名是一个特殊字符，就需要带``
+USE `school`
+
+-- 查看所有的数据库
+SHOW DATABASES;
+</code></pre>
+<p>对比<code>SQLyog</code>的可视化历史记录查看<br>
+固定的语法或关键字必须要记住！</p>
+<h3 id="数据库的列类型">数据库的列类型</h3>
+<p><strong>数值</strong></p>
+<ul>
+<li>tinying，十分大小数据，1 个字节</li>
+<li>smallint，较小的数据，2 个字节</li>
+<li>mediumint，中等大小的数据，3 个字节</li>
+<li><em><u><strong>int，标准的整数，4 个字节</strong></u></em></li>
+<li>bigint，较大的数据，8 个字节</li>
+<li>float，浮点数，4 个字节</li>
+<li>double，浮点数，4 个字节</li>
+<li>decimal，字符串形式的浮点数，金融计算的时候，一般是使用 decimal</li>
+</ul>
+<p><strong>字符串</strong></p>
+<ul>
+<li>char，字符串固定大小的，0~244</li>
+<li><strong>varchar，可变字符串，0~65535（常用的变量 String）</strong></li>
+<li>tinytext，微型文本，2^8-1</li>
+<li><strong>text，文本串，2^16-1，保存大文本</strong></li>
+</ul>
+<p><strong>时间日期</strong></p>
+<p>java.util.Date</p>
+<ul>
+<li>date，YYYY-MM-DD，日期格式</li>
+<li>time，HH：mm：ss，时间格式</li>
+<li><strong>datetime，YYYY-MM-DD HH：mm：ss，最常用的时间格式</strong>
+<ul>
+<li>小写的 h 是 12 小时制，大写的 H 是 24 小时制</li>
+</ul>
+</li>
+<li><strong>timestamp，时间戳，1970.1.1 到现在的毫秒数！也较为常用！</strong></li>
+<li>year，年份表示</li>
+</ul>
+<p><strong>null</strong></p>
+<ul>
+<li>没有值，未知</li>
+<li>注意：不要使用 NULL 进行计算，结果为 NULL</li>
+</ul>
+<h3 id="字段属性">字段属性</h3>
+<p><strong>UNsigned</strong>：</p>
+<ul>
+<li>无符号整数</li>
+<li>声明的该列不能声明未负数</li>
+</ul>
+<p><strong>zerofill：</strong></p>
+<ul>
+<li>0 填充的</li>
+<li>不足的位数，使用 0 来填充，int（3），5 — 005</li>
+</ul>
+<p><strong>自增</strong></p>
+<ul>
+<li>通常理解为自增，自动在上一条记录的基础上<code>+1</code>（默认）</li>
+<li>通常用来设计唯一的主踺~<code>index</code>，必须是整数类型</li>
+<li>可以自定义设主键自增的起始值和步长</li>
+</ul>
+<p><strong>非空 Null not null</strong></p>
+<ul>
+<li>假设设置为 not null，如果不给他赋值，就会报错</li>
+<li>NUII 如果不填写值，默认就是nu旧</li>
+</ul>
+<p>拓展：听听就好</p>
+<pre><code class="language-sql">/ *
+每一个表，都必须存在以下五个字段
+
+id 主键
+`version` 乐观锁
+is_delete 伪删除
+gmt_create 创建时间
+gmt_update 修改时间
+*/
+</code></pre>
+<h3 id="创建数据库表">创建数据库表</h3>
+<pre><code class="language-sql">show databases;
+-- 目标：创建一个 school 数据库
+-- 创建学生表（列，字段）使用 SQL 创建
+-- 学号 int，登录密码 varchar（20）.出生日期（datatime）,家庭住址，email
+
+-- 注意点，使用英文括号，表的名称和字段使用``，避免识别为关键字
+-- AUTO_INCREMENT 自增
+-- 字符串使用单引号括起来！
+-- 所有语句后面加英文的逗号，最后一个不用加
+-- PARMARY KEY 主键，一般一个表只有一个唯一的主键
+
+CREATE DATABASE school;
+USE school;
+CREATE TABLE IF NOT EXISTS `student`(
+  `id` INT(4) NOT NULL AUTO_INCREMENT COMMENT '学号',
+  `name` VARCHAR(30) NOT NULL DEFAULT '匿名' COMMENT '姓名',
+  `pwd` VARCHAR(20) NOT NULL DEFAULT '123456' COMMENT '密码',
+  `sex` VARCHAR(2) NOT NULL DEFAULT '女' COMMENT '性别',
+  `birthday` DATETIME DEFAULT NULL COMMENT '出生日期',
+  `address` VARCHAR(100) DEFAULT NULL COMMENT '家庭住址',
+  `email` VARCHAR(50) DEFAULT NULL COMMENT '邮箱',
+  PRIMARY KEY(`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8
+</code></pre>
+<p><strong>格式</strong></p>
+<pre><code class="language-sql">CREATE DATABASE [IF NOT EXISTS] `表明`(
+`字段名` 列类型 [属性] [索引] [注释]，
+`字段名` 列类型 [属性] [索引] [注释]，
+    ……
+`字段名` 列类型 [属性] [索引] [注释]，
+)[表类型][字符集设置][注释]
+</code></pre>
+<p><strong>常用命令</strong></p>
+<pre><code class="language-sql">SHOW CREATE DATABASE school -- 查看创建数据库的语句
+SHOW CREATE TABLE student -- 查看数据库表的定义语句
+DESC student -- 显示表的结构
+</code></pre>
+<h3 id="数据表的类型">数据表的类型</h3>
+<pre><code class="language-sql">-- 关于数据库引擎
+/*
+INNODB 默认使用~
+MYISAM 早些年使用的
+*/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MYISAM</th>
+<th>INNODB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事务支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据行锁定</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>外键约束</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>表空间的大小</td>
+<td>较小</td>
+<td>较大，约为 2 倍</td>
+</tr>
+</tbody>
+</table>
+<p>常规使用操作</p>
+<ul>
+<li>MYISAM，节约空间，速度较快</li>
+<li>INNODB，安全性高，事务的处理，多表多用户操作</li>
+</ul>
+<p><strong>在物理空间存在的位置：</strong></p>
+<p>所有的数据库文件都存在 date 目录下</p>
+<p>本质还是文件的存储</p>
+<p>MySQL 引擎在物理文件上的区别</p>
+<ul>
+<li>INNODB，在数据库表中只有一个<code>*.frm</code>文件，以及上级目录下的<code>ibdata1</code> 文件</li>
+<li>MYISAM 对应的文件
+<ul>
+<li><code>*.frm</code>表结构的定义文件</li>
+<li><code>*.MYD</code>数据文件（data）</li>
+<li><code>*.MYI</code>索引文件</li>
+</ul>
+</li>
+</ul>
+<p><strong>设置数据库表的字符集编码</strong></p>
+<pre><code class="language-sql">CHARSET=utf8
+</code></pre>
+<p>不设置的话，会是<code>mysql</code> 默认的字符集编码（不支持中文）</p>
+<p>在<code>my.ini</code>中配置默认的编码</p>
+<pre><code class="language-sql">character-set-server=utf8
+</code></pre>
+<h3 id="修改删除表">修改删除表</h3>
+<p><strong>修改</strong></p>
+<pre><code class="language-sql">-- 修改表名：ALTER TABLE 旧表名 RENAME SA 新表名
+-- teacher 改为 teacher1
+ALTER TABLE teacher RENAME AS teacher1
+
+-- 增加表的字段：ALTER TABLE 表名 ADD 字段名 列属性
+ALTER TABLE teacher1 ADD age INT(11)
+
+-- 修改表的字段（重命名，修改约束！）
+-- ALTER TABLE 表名 MODIFY 字段名 列属性
+ALTER TABLE teacher1 MODIFY age VARCHAR(11) -- 修改约束
+
+-- ALTER TABLE 表名 CHANGE 旧名字 新名字 列属性[]
+ALTER TABLE teacher1 CHANGE age age1 INT(1) -- 字段重命名
+
+-- 删除表的字段：ALTER TABLE 表名 DROP 字段名
+ALTER TABLE teacher1 DROP age1
+</code></pre>
+<p><strong>删除</strong></p>
+<pre><code class="language-SQL">-- 删除表（存在再删除）
+DROP TABLE IF EXISTS teacher1
+</code></pre>
+<p><em><u>所有的创建和删除尽量加上判断，以免报错</u></em></p>
+<p>注意点：</p>
+<ul>
+<li><code>反引号`` </code>字段名，使用这个包裹</li>
+<li>注释：<code> -- /**/</code></li>
+<li>关键字大小写不敏感，建议使用小写（大写看不明白单词意思）</li>
+<li>所有符合全部使用英文！</li>
+</ul>
+<h2 id="MySQL-的数据管理">MySQL 的数据管理</h2>
+<h3 id="外键（了解即可）">外键（了解即可）</h3>
+<p>方式一：在创建表的时候，增加约束（麻烦，比较复杂）</p>
+<pre><code class="language-sql">-- 学生表的 gradeid 字段，要去引用年级表的 gradeid
+-- 定义外键key
+-- 给这个外键添加约束（执行引用） reference 引用
+CREATE TABLE IF NOT EXISTS `student`(
+  `id` INT(4) NOT NULL AUTO_INCREMENT COMMENT '学号',
+  `name` VARCHAR(30) NOT NULL DEFAULT '匿名' COMMENT '姓名',
+  `pwd` VARCHAR(20) NOT NULL DEFAULT '123456' COMMENT '密码',
+  `sex` VARCHAR(2) NOT NULL DEFAULT '女' COMMENT '性别',
+  `birthday` DATETIME DEFAULT NULL COMMENT '出生日期',
+  `gradeid` INT(10) NOT NULL COMMENT '学生的年级',
+  `address` VARCHAR(100) DEFAULT NULL COMMENT '家庭住址',
+  `email` VARCHAR(50) DEFAULT NULL COMMENT '邮箱',
+  PRIMARY KEY(`id`),
+  KEY `FK_gradeid` (`gradeid`),
+  CONSTRAINT `FK_gradeid` FOREIGN KEY (`gradeid`) REFERENCES `grade` (`gradeid`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8
+</code></pre>
+<ul>
+<li>
+<p>删除有外键关系的表的时候，必须要先删除引用别人的表（从表），再删除被引用的表（主表）</p>
+</li>
+<li>
+<p>以上的操作都是物理外键，数据库级别的外键，我们不建议使用！（避免数据库过多造成困扰）</p>
+</li>
+<li>
+<p>最佳实践：</p>
+<ul>
+<li>数据库就是单纯的表，只用来存数据，只有行（数据）和列（字段）</li>
+<li>我们想要使用多张表的数据，想使用外键（程序去实现）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>其实这个话是老生常谈，很多人在工作中确实也不会使用外键，包括在阿里的<code>JAVA</code>规范中也〖强制〗不得使用外键与级联，一切外键既念必须在应用层解决</p>
+<p>但是呢，洵问他们原因，大多是这么回答的<br>
+每次做<code>DELETE</code>或者<code>UPDATE</code>必须考虑外键约束会导致开发的时候很痛苦，测过极为不方便</p>
+</blockquote>
+<h3 id="DML-语言（全部记住）">DML 语言（全部记住）</h3>
+<p>数据库的意义：数据存储，数据管理</p>
+<p>DML 语言：数据库操作语言</p>
+<ul>
+<li>insert</li>
+<li>update</li>
+<li>delete</li>
+</ul>
+<h3 id="添加-insert">添加 insert</h3>
+<pre><code class="language-sql">-- 插入语句（添加）
+-- insert into 表名([字段名1,字段名2,字段名3]) values('值1'),('值2'),('值3'),...)
+INSERT INTO `grade` (`gradename`) VALUES('大四')
+
+-- 由于主键自增我们可以省略字段名，但是它会一一匹配，所以参数必须包含所有字段的值
+INSERT INTO `grade` VALUES (3, '大三')
+
+-- 插入多个字段
+INSERT INTO `grade`(`gradename`) VALUES('大一'),('大二')
+
+INSERT INTO `student`(`name`) VALUES('张三')
+
+INSERT INTO `student`(`name`,`pwd`,`sex`) VALUES('张三','aaaaaa','男')
+
+INSERT INTO `student`(`name`,`pwd`,`sex`)
+VALUES('李四','aaaaaa','男'),('王五','bbbbbb','男')
+
+</code></pre>
+<p>语法：insert into 表名([字段名1,字段名2,字段名3]) values(‘值1’),(‘值2’),(‘值3’),…)</p>
+<p>注意事项：</p>
+<ol>
+<li>字段和字段之间使用，英文逗号隔开</li>
+<li>字段是可以省略的，但是后面的值必须要一一对应，不能少</li>
+<li>可以同时插入多条数据，<code>VALUES</code>后面的值，需要使用，隔开即可<code>VALUES(),(),...</code></li>
+</ol>
+<h3 id="修改-update">修改 update</h3>
+<pre><code class="language-sql">-- update 修改谁 （条件） set 原来的值=新值
+
+-- 修改学员的名字，把 id = 1 的这个人的名字改为张三
+update `student` set `name`='张三' where id = 1;
+
+-- 不指定条件的情况下，改动所有的表
+update `student` set `name`='猫龙'
+
+-- 语法：
+-- update 表名 set colnum_name = value where [条件]
+
+-- 修改多个属性，逗号隔开
+update `student` set `name`='狗龙',`email`='208329492@qq.com' where id = 1;
+
+-- 语法：
+-- update 表名 set colnum_name = value,[colnum_name = value,,] where [条件]
+</code></pre>
+<p>条件：where 字句 运算符 id 等于某个值，在某个区间内修改</p>
+<p>操作符会返回布尔值</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+<th>范围</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>等于</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&lt;&gt; 或 !=</td>
+<td>不等于</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BETWEEN…AND…</td>
+<td>闭合空间内</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AND</td>
+<td>与</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>OR</td>
+<td>或</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-sql">-- 多个条件定位数据
+-- 把性别为女姓名为华的这个人的名字改为“小树”
+update `student` set `name`='小树' where `name`='华' and sex = '女'
+</code></pre>
+<p>语法：<code>update 表名 set colnum_name =value,[colnum_name =value] where [条件]</code></p>
+<p>注意：</p>
+<ul>
+<li>colnum_name 是数据库的列，尽量带上``</li>
+<li>条件，筛选的条件，如果没有指定，则会修改所有的列</li>
+<li>value，是一个具体的值，也可以是一个变量</li>
+<li>多个设置的属性之间，使用英文逗号隔开</li>
+</ul>
+<pre><code class="language-sql">update `student` set `birthday` = current_time where `name`='小树' and sex='男'
+</code></pre>
+<h3 id="删除-delete">删除 delete</h3>
+<p>语法：<code>delete from 表名 [where 条件] </code></p>
+<pre><code class="language-sql">-- 删除数据(避免这样写，有专门的删库方法)
+delete from `student`
+
+-- 删除指定数据
+delete from `student` where id = 1;
+</code></pre>
+<p>TRUNCATE</p>
+<p>作用：完全清空一个数据库表，表的结构和索引约束不会变</p>
+<pre><code class="language-sql">-- 清空 student 表
+truncate `student`
+</code></pre>
+<p>delete 和 truncate 的区别</p>
+<ul>
+<li>相同点：都能删除数据，都不会删除表的结构</li>
+<li>不同
+<ul>
+<li>truncate 重新设置，自增列，计数器会清零</li>
+<li>truncate 不会影响事务</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-sql">-- 测试 delete 和 truncate 的区别
+-- 查看数据库
+SHOW DATABASES;
+-- 使用数据库
+use `mysql`;
+-- 查看数据表
+ 
+
+-- 创建表格
+create table `test`(
+	`id` int(4) not null auto_increment,
+    `coll` varchar(20)not null,
+    primary key(`id`)
+)engine=innodb default charset=utf8
+
+-- 插入数据
+insert into `test`(`coll`) values('1'),('2'),('3');
+
+-- 删除表，不会影响自增
+delete from `test`;
+
+-- 删除表，自增归零
+truncate table `test`;
+</code></pre>
+<p>了解即可：<code>delete 删除的问题</code>，重启数据库，现象</p>
+<ul>
+<li>innodb 自增列会从 1 开始（存在内存当中，断点即失）</li>
+<li>myisam 继续从上一个自增量开始（存在文件中不会丢失）</li>
+</ul>
+<h2 id="DQL-查询数据（最重点）">DQL 查询数据（最重点）</h2>
+<h3 id="DQL">DQL</h3>
+<p><code>Date Query Language</code> ：数据查询语言</p>
+<ul>
+<li>
+<p>所有的查询操作都用它，<code>select </code>选择</p>
+</li>
+<li>
+<p>简单查询，复杂查询</p>
+</li>
+<li>
+<p>:warning:数据库中最核心的语言</p>
+</li>
+<li>
+<p>使用频率最高</p>
+</li>
+</ul>
+<h3 id="指定查询字段">指定查询字段</h3>
+<ul>
+<li>
+<p>数据库 school</p>
+<ul>
+<li>
+<p>grade</p>
+</li>
+<li>
+<p>result</p>
+</li>
+<li>
+<p>student</p>
+</li>
+<li>
+<p>subject</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-sql">-- 查询全部的学生，select 字段 from 表
+select * from student
+-- 查询全部的成绩
+selsct * from result
+
+-- 查询指定字段
+select `StudentNo`,`StudentName` from student
+
+-- 别名，给结果起名字，AS
+select `StudentNo` AS 学号,`StudentName` AS 姓名 from student AS s
+
+-- 函数 concat（a,b）
+select concat('姓名：'，StudentName) AS 新名字 from student
+</code></pre>
+<p>语法：<code>select 字段，，，from 表</code></p>
+<blockquote>
+<p>有的时候，列名字不明朗，可以起别名</p>
+<p>字段名 AS 别名，表名 AS 别名</p>
+</blockquote>
+<p><strong>去重 distinct：</strong></p>
+<p>作用：去除 select 查询出来的结果中重复的数据</p>
+<pre><code class="language-sql">select * from result -- 查询全部的成绩
+
+-- 查询一下有哪些同学参加了考试
+select `StudentNo` from result
+
+-- 发现重复数据，result 数据表中的 StudentNo 列的重复数据通过 distinct 去重
+select distinct `StudentNo` from result
+
+-- 查看系统的版本
+select version()
+select 100*3-1 AS 计算结果
+-- 查询自增的步长
+select @@auto_increment_increment
+
+-- 给所有学生成绩加一分
+select `StudentNo`,`StudentResult +1` AS '提分后' from result
+</code></pre>
+<p>数据库中的表达式：文本值，列，Null，函数，计算表达式，系统变量</p>
+<p><span style='color:#FFFFFF;background:#5B8983;font-size:;font-family:字体;'>select 表达式</span></p>
+<h3 id="where-条件字句">where 条件字句</h3>
+<p>作用：检索数据库中符合条件的值</p>
+<p><strong>逻辑运算符：</strong></p>
+<p>搜索的条件由一个或多个表达式组成，结构布尔值</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>and</code>  <code>&amp;</code></td>
+<td><code>a and b</code>  <code>a&amp;&amp;b</code></td>
+<td>逻辑与，两个为真结果为真</td>
+</tr>
+<tr>
+<td><code>or</code>  `</td>
+<td></td>
+<td>`</td>
+</tr>
+<tr>
+<td><code>Not</code>  <code>!</code></td>
+<td><code>not a</code>  <code>!a</code></td>
+<td>逻辑非，真为假，假为真</td>
+</tr>
+</tbody>
+</table>
+<p>尽量使用英文字母</p>
+<pre><code class="language-sql">-- 查询学生的成绩
+select studentNo,`studentResult` from result
+
+-- 查询学生的成绩在 95-100 之间的
+select studentNo,`studentResult` from result where studentResult&gt;=95 and studentResult&lt;=100
+
+select studentNo,`studentResult` from result where studentResult&gt;=95 &amp;&amp; studentResult&lt;=10
+
+-- 模糊查询（区间）
+select studentNo,`studentResult` from result where between 95 and 100
+
+-- 除了 1000 号学生之外学生的成绩
+select studentNo,`studentResult` from result where studentNo!=1000
+
+select studentNo,`studentResult` from result where not studentNo = 1000
+</code></pre>
+<p><strong>比较运算符</strong></p>
+<p>模糊查询</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is null</td>
+<td>a is null</td>
+<td>如果操作符为 null，则结果为真</td>
+</tr>
+<tr>
+<td>is not null</td>
+<td>a is not null</td>
+<td>如果操作符为 not null，则结果为真</td>
+</tr>
+<tr>
+<td>between</td>
+<td>a between b and c</td>
+<td>a 在 b 和 c 之间，结果为真</td>
+</tr>
+<tr>
+<td>like</td>
+<td>a like b</td>
+<td>SQL 匹配，a 匹配到 b，结果为真</td>
+</tr>
+<tr>
+<td>in</td>
+<td>a in(a1,a2,a3)</td>
+<td>假设 a 在 a1……其中的一个值中，结果为真</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-sql">-- 查询姓刘的同学
+-- like（% 是 0 到任意一个字符）（_ 是一个字符）
+select `studentNo`,`studentName` from `student`
+where studentName like '刘%'
+
+-- 查询姓刘的同学，名字后面只有一个字的
+select `studentNo`,`studentName` from `student`
+where studentName like '刘_'
+
+-- 查询姓刘的同学，名字后面只有两个字的
+select `studentNo`,`studentName` from `student`
+where studentName like '刘__'
+
+-- 查询名字中间有嘉字的同学 %嘉%
+select `studentNo`,`studentName` from `student`
+where studentName like '%嘉%'
+
+-- ---------   in（具体的一个或多个值）    ------------
+-- 查询 1001 1002 1003 号学员信息
+select `studentNo`,`studentName` from `student`
+where studentNo in (1001,1002,1003);
+
+-- 查询在北京的学员信息
+select `studentNo`,`studentName` from `student`
+where `adress` in ('北京')
+
+-- ----------  null not null   -------------
+-- 查询地址为空的学生
+select `studentNo`,`studentName` from `student`
+where `adress`='' 
+select `studentNo`,`studentName` from `student`
+where `adress` or `adress` is null
+
+-- 查询有出生日期的同学，is not null 不为空
+select `studentNo`,`studentName` from `student`
+where `borndate` is not null
+
+-- 查询没有出生日期的同学，is null 为空
+select `studentNo`,`studentName` from `student`
+where `borndate` is null
+</code></pre>
+<h3 id="联表查询">联表查询</h3>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/SQL%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/202410081514458.webp" alt="img"></p>
+<p><strong>JOIN 对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作符名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inner join</td>
+<td>如果表中有至少一个匹配，则返回行</td>
+</tr>
+<tr>
+<td>left join</td>
+<td>从左表中返回所有的行，即使右表中没有匹配</td>
+</tr>
+<tr>
+<td>right join</td>
+<td>从右表中返回所有的行，即使左表中没有匹配</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-sql">/*
+连接查询
+  如果需要多张数据表的数据进行查询，则可通过连接运算符实现多个查询
+- 内连接 inner join
+  查询两个表中的结果集中的交集
+- 外连接 outer join
+  - 左外连接 left join
+    以左表作为基准，右表来一一匹配，匹配不上的，返回左表的记录，右表以NULL填充
+  - 右外连接 right join
+    以右表作为基准，左表来一一匹配，匹配不上的，返回右表的记录，左表以NULL填充
+*/
+
+/*
+1.分析需求，分析查询的字段来自哪些表
+2.确定使用哪种连接查询：7选
+3.确定交叉点（这两个表中哪个数据是相同的）
+4.判断的条件： 学生表中 studentNo = 成绩表中 studentNo
+*/
+
+--  ==========联表查询============
+-- Join（表）on (判断的条件) 连接查询
+-- where 等值查询
+SELECT s.studentno, studentname, subjectno, studentresult
+FROM student AS s
+INNER JOIN result AS r
+WHERE s.`studentno` = r.`studentno`
+
+
+-- right join
+SELECT s.studentno, studentname, subjectno, studentresult
+FROM student AS s
+RIGHT JOIN result AS r
+ON r.`studentno` = s.`studentno`
+
+-- left 左连接（查询所有同学，不考试的也会查出来）
+SELECT s.studentno, studentname, subjectno, studentresult
+FROM student s
+LEFT JOIN result r
+ON s.`studentno` = r.`studentno`
+
+-- 查缺考的同学（左连接应用场景）
+SELECT s.studentno, studentname, subjectno, studentresult
+FROM student s
+LEFT JOIN result r
+ON s.`studentno` = r.`studentno`
+WHERE studentresult IS NULL
+
+-- 思考题：查询参加了考试的同学信息（学号，学生姓名，科目名，分数）
+SELECT s.`studentno`, `studentname`, `subjectname`, `studentresult`
+FROM student AS s,
+INNER JOIN result AS r,
+ON s.`studentno` = r.`studentno`
+INNER JOIN `subject` AS sub
+ON sub.subjectno = r.subjectno
+</code></pre>
+<p><strong>自连接</strong></p>
+<pre><code class="language-sql">/*
+自连接：
+  数据表与自身进行连接
+  
+需求：从一个包含栏目ID，栏目名称和父栏目ID的表中
+      查询父栏目名称和其它子栏目名称
+*/
+
+-- 创建表并插入数据
+
+CREATE TABLE `school`.`category`( `categoryid` INT(3) NOT NULL COMMENT 'id', 
+`pid` INT(3) NOT NULL COMMENT '父id 没有父则为1', 
+`categoryname` VARCHAR(10) NOT NULL COMMENT '种类名字', 
+PRIMARY KEY (`categoryid`) 
+) ENGINE=INNODB CHARSET=utf8 COLLATE=utf8_general_ci; 
+
+INSERT INTO `school`.`category` (`categoryid`, `pid`, `categoryname`) VALUES ('2', '1', '信息技术');
+INSERT INTO `school`.`CATEGOrY` (`categoryid`, `pid`, `categoryname`) VALUES ('3', '1', '软件开发');
+INSERT INTO `school`.`category` (`categoryid`, `PId`, `categoryname`) VALUES ('5', '1', '美术设计');
+INSERT INTO `School`.`category` (`categoryid`, `pid`, `categorynamE`) VALUES ('4', '3', '数据库'); 
+INSERT INTO `school`.`category` (`CATEgoryid`, `pid`, `categoryname`) VALUES ('8', '2', '办公信息');
+INSERT INTO `school`.`category` (`categoryid`, `pid`, `CAtegoryname`) VALUES ('6', '3', 'web开发'); 
+INSERT INTO `SCHool`.`category` (`categoryid`, `pid`, `categoryname`) VALUES ('7', '5', 'ps技术');
+
+-- 编写SQL语句，将栏目的父子关系呈现出来（父栏目名称，子栏目名称）
+-- 核心思想：把一张表看成两张一模一样的表，然后将这两张表连接查询（自连接）
+SELECT a.categoryname AS '父栏目', b.categoryname AS '子栏目'
+FROM category AS a, category AS b
+WHERE a.`categoryid` = b.`pid`
+
+-- 思考题：查询参加了考试的同学信息（学号，学生姓名，科目名，分数）
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON r.studentno = s.studentno
+INNER JOIN `subject` sub
+ON sub.subjectno = r.subjectno
+
+-- 查询学员及其所属的年级（学号，学生姓名，年级名）
+SELECT studentno AS 学号, studentname AS 学生姓名, gradename AS 年级名称
+FROM student s
+INNER JOIN grade g
+ON s.`gradeid` = g.`gradeid`
+
+-- 查询科目及其所属年级（科目名称，年级名称）
+SELECT subjectname AS 科目名称, gradename AS 年级名称
+FROM `subject` sub
+INNER JOIN grade g
+ON sub.gradeid = g.gradeid
+
+-- 查询 数据库结构-1 的所有考试结果（学号，学生姓名，科目名称，成绩）
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON r.studentno = s.studentno
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+</code></pre>
+<h3 id="排序和分页">排序和分页</h3>
+<pre><code class="language-sql">--  ==========排序===========
+/*
+语法：order by
+  order by 语句用于根据指定的列对结果集进行排序
+  order by 语句默认按照ASC升序对记录进行排序
+  如果希望按照 降序 对记录进行排序，可以使用 DESC 关键字
+*/
+
+-- 查询 数据库结构-1 的所有考试结果（学号，学生姓名，科目名称，成绩）
+-- 按成绩降序排序
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON r.studentno = s.studentno
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+ORDER BY studentresult DESC
+</code></pre>
+<p><strong>分页</strong></p>
+<pre><code class="language-sql">-- ===========分页=============
+/* 
+语法：limit(起始下标, 查询长度） -- 个人觉得这样好理解
+      limit[pageNo:页码,pageSize:单页面显示条数]  -- 原版本
+好处：用户体验，网络传输，查询压力
+*/
+-- 每页显示5条数据
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON r.studentno = s.studentno
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+ORDER BY studentresult DESC, studentno
+LIMIT 0,5
+
+-- 查询 JAVA第一学年 课程成绩前10名并且分数大于80的学生信息(学号,姓名,课程名,分数)
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON r.studentno = s.studentno
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = 'JAVA第一学年'
+ORDER BY studentresult DESC
+LIMIT 0,10
+</code></pre>
+<h3 id="子查询">子查询</h3>
+<p>where 值是固定的（计算出来的）</p>
+<p>本质：在 where 语句中嵌套一个子查询语句</p>
+<pre><code class="language-sql">/*============== 子查询 ================
+什么是子查询?
+   在查询语句中的WHERE条件子句中,又嵌套了另一个查询语句
+   嵌套查询可由多个子查询组成,求解的方式是由里及外;
+   子查询返回的结果一般都是集合,故而建议使用IN关键字;
+*/
+-- 查询 数据库结构-1 的所有考试结果(学号,科目编号,成绩),并且成绩降序排列
+-- 方法一:使用连接查询
+SELECT studentno, r.subjectno, studentresult
+FROM result r
+INNER JOIN `subject` sub
+ON r.`subjectno` = sub.`subjectno`
+WHERE subjectname = '数据库结构-1'
+ORDER BY studentresult DESC
+
+-- 方法二:使用子查询(执行顺序:由里及外)
+SELECT studentno, subjectno, studentresult
+FROM result
+WHERE subjectno = (
+  SELECT subjectno FROM `subject`
+  WHERE subjectname = '数据库结构-1'
+)
+ORDER BY studentresult DESC
+
+-- 查询课程为 高等数学-2 且分数不小于80分的学生的学号和姓名
+-- 方法一:使用连接查询
+SELECT s.studentno, studentname
+FROM student s
+INNER JOIN result r
+ON s.studentno = r.studentno
+INNER JOIN `subject` sub
+ON sub.subjectno = r.subjectno
+WHERE subjectname = '高等数学-2' AND studentresult &gt;= 80
+
+-- 方法二:使用连接查询+子查询
+-- 分数不小于80分的学生的学号和姓名
+SELECT r.studentno, studentname
+FROM student s
+INNER JOIN result r
+ON s.studentno = r.studentno
+WHERE studentresult &gt;= 80
+
+-- 在上面SQL基础上,添加需求:课程为 高等数学-2
+SELECT r.studentno, studentname
+FROM student s
+INNER JOIN result r
+ON s.studentno = r.studentno
+WHERE studentresult &gt;= 80 AND subjectno = (
+  SELECT subjectno FROM `subject`
+  WHERE subjectname = '高等数学-2'
+)
+
+-- 方法三:使用子查询
+-- 分步写简单sql语句,然后将其嵌套起来
+SELECT studentno, studentname
+FROM student
+WHERE studentno IN (
+  SELECT studentno FROM result
+  WHERE studentresult &gt;= 80 AND subjectno = (
+    SELECT subjectno FROM `subject`
+    WHERE subjectname = '高等数学-2'  
+  )
+)
+
+
+-- 练习题目:查 C语言-1 的前5名学生的成绩信息(学号,姓名,分数)
+SELECT s.studentno, studentname, studentresult
+FROM student s
+INNER JOIN result r
+ON s.studentno = r.studentno
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = 'C语言-1'
+ORDER BY studentresult DESC
+LIMIT 0,5
+
+
+-- 练习题目:使用子查询,查询郭靖同学所在的年级名称
+SELECT gradename FROM grade
+WHERE gradeid = (
+  SELECT gradeid FROM student
+  WHERE studentname = '郭靖'
+)
+</code></pre>
+<h2 id="关系模型">关系模型</h2>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/SQL%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/202410081514048.png" alt="image-20221116163711167"></p>
+<h3 id="主键">主键</h3>
+<p>对于关系表，有个很重要的约束，就是任意两条记录不能重复。不能重复不是指两条记录不完全相同，而是指***<u>能够通过某个字段唯一区分出不同的记录，这个字段被称为主键。</u>***</p>
+<p>例如，假设我们把<code>name</code>字段作为主键，那么通过名字<code>小明</code>或<code>小红</code>就能唯一确定一条记录。但是，这么设定，就没法存储同名的同学了，因为插入相同主键的两条记录是不被允许的。</p>
+<p>对主键的要求，最关键的一点是：记录一旦插入到表中，主键最好不要再修改，因为主键是用来唯一定位记录的，修改了主键，会造成一系列的影响。</p>
+<p><strong>联合主键：</strong></p>
+<p>没有必要的情况下，我们尽量不使用联合主键，因为它给关系表带来了复杂度的上升。</p>
+<blockquote>
+<p>主键是关系表中记录的唯一标识。主键的选取非常重要：主键不要带有业务含义，而应该使用BIGINT自增或者GUID类型。主键也不应该允许<code>NULL</code>。</p>
+</blockquote>
+<h3 id="外键">外键</h3>
+<p>students</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">other columns…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">小明</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">小红</td>
+<td style="text-align:left">…</td>
+</tr>
+</tbody>
+</table>
+<p>classes</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">other columns…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">一班</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">二班</td>
+<td style="text-align:left">…</td>
+</tr>
+</tbody>
+</table>
+<p>但是我们如何确定<code>students</code>表的一条记录，例如，<code>id=1</code>的小明，属于哪个班级呢？</p>
+<p><em><u>为了表达这种一对多的关系，我们需要在<code>students</code>表中加入一列<code>class_id</code>，让它的值与<code>classes</code>表的某条记录相对应：</u></em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:left">class_id</th>
+<th style="text-align:left">name</th>
+<th style="text-align:left">other columns…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">小明</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">小红</td>
+<td style="text-align:left">…</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">小白</td>
+<td style="text-align:left">…</td>
+</tr>
+</tbody>
+</table>
+<p>这样，我们就可以根据<code>class_id</code>这个列直接定位出一个<code>students</code>表的记录应该对应到<code>classes</code>的哪条记录。</p>
+<p>在<code>students</code>表中，通过<code>class_id</code>的字段，可以把数据与另一张表关联起来，这种列称为<code>外键</code>。</p>
+<blockquote>
+<p>由于外键约束会降低数据库的性能，大部分互联网应用程序为了追求速度，并不设置外键约束，而是仅靠应用程序自身来保证逻辑的正确性。这种情况下，<code>class_id</code>仅仅是一个普通的列，只是它起到了外键的作用而已。</p>
+</blockquote>
+<h2 id="查询数据">查询数据</h2>
+<pre><code class="language-sql">SELECT * FROM &lt;表名&gt;
+SELECT * FROM &lt;表名&gt; WHERE &lt;条件表达式&gt;
+
+条件表达式可以用&lt;条件1&gt; AND &lt;条件2&gt;表达满足条件1并且满足条件2
+
+第二种条件是&lt;条件1&gt; OR &lt;条件2&gt;，表示满足条件1或者满足条件2
+</code></pre>
+<h2 id="其他">其他</h2>
+<pre><code class="language-sql">#创建一个demo数据库
+CREATE DATABASE sql_tutorial;
+
+#查看全部数据库
+SHOW DATABASES;
+
+#选择数据库
+USE `sql_tutorial`;
+
+#写表格
+CREATE TABLE `student`(
+	`student_id` INT PRIMARY KEY,
+    `name` VARCHAR(20),
+    `MAJOR` VARCHAR(20)
+)
+
+# PAIMARY KEY 可以用另一种方式写
+CREATE TABLE `student`(
+	`student_id` INT,
+    `name` VARCHAR(20),
+    `major` VARCHAR(20),
+    PRIMARY KEY(`student_id`)
+);
+
+#查看表格
+DESCRIBE `student`;
+
+#删除表格
+DROP TABLE `student`;
+
+#给表格新增属性
+ALTER TABLE `student` ADD gpa DECIMAL(3,2);
+
+#删除表格属性
+ALTER TABLE `student` DROP COLUMN gpa;
+
+#存入资料
+INSERT INTO `student` VALUE(1, '小白', '历史' );
+INSERT INTO `student` VALUE(3, '小黑', '生物' );
+INSERT INTO `student` VALUE(3, '小绿', NULL );
+
+#搜寻 student 表格中的全部资料
+SELECT * FROM `student`;
+
+#指定……不填的话就是 NULL
+INSERT INTO `student`(`name`,`major`,`student_id`) VALUE('小兰','英语','4');
+</code></pre>
+<pre><code class="language-sql">-- constraints 限制 约束
+
+CREATE TABLE `student`(
+	`student_id` INT,
+    `name` VARCHAR(20) NOT NULL,	#NOT NULL name 属性不能为空
+    `MAJOR` VARCHAR(20) UNIQUE,		#MAJOR 属性必须唯一，UNIQUE
+    PRIMARY KEY(`student_id`)
+);
+
+#修改了表格，先删除表格 DROP TABLE `student`;
+然后 Ctrl + Enter
+
+#写表格的时候，设置预设值
+`major` VARCHAR(20) DEFAULT '历史',		#预设值
+
+#自动补充 1
+CREATE TABLE `student`(
+	`student_id` INT AUTO_INCREMENT,
+    `name` VARCHAR(20) NOT NULL,	#NOT NULL name 属性不能为空
+    `major` VARCHAR(20) DEFAULT '历史',		#预设值
+    PRIMARY KEY(`student_id`)
+);
+
+INSERT INTO `student`(`name`,`major`) VALUE('小白', '英语' );
+</code></pre>
+<pre><code class="language-mysql">-- 修改、删除资料
+#先关掉预设的更新模式
+SET SQL_SAFE_UPDATES = 0;
+
+#把 major 为英语的改为“英语文学”
+UPDATE `student`
+SET `major` ='英语文学'
+WHERE `major` ='英语' ;
+
+#删掉 student_id 为 4 的那个
+DELETE FROM `student`
+WHERE `student_id` =4;
+
+#删掉分数小于 60 的
+DELETE FROM `student`
+WHERE `score` &lt; 60;
+</code></pre>
+<pre><code class="language-mysql">-- 取得资料
+#搜寻 student 表格中的全部资料
+SELECT * FROM `student`;
+
+#排序，DESC 由高到低
+SELECT * FROM `student` 
+ORDER BY `score` DESC;
+
+# 先根据 score 排序，score 相同则根据 student_id 排序
+SELECT * FROM `student` 
+ORDER BY `score`,`student_id` DESC;
+
+#只要前两笔资料
+SELECT * FROM `student` 
+LIMIT 2;
+
+#找到分数前三低的
+SELECT * FROM `student` 
+ORDER BY `score`;
+LIMIT 3;
+
+#找到分数前三高的
+SELECT * FROM `student` 
+ORDER BY `score` DESC;
+LIMIT 3;
+</code></pre>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PT4y1e7UU/?spm_id_from=333.337.search-card.all.click&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667">【数据库】SQL 3小时快速入门_bilibili（已看）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1177760294764384">SQL教程 - 廖雪峰的官方网站 (liaoxuefeng.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1NJ411J79W/">【狂神说Java】MySQL最新教程通俗易懂（已看）</a></p>
+<p><a target="_blank" rel="noopener" href="https://sqlbolt.com/lesson/select_queries_with_constraints">SQLBolt - Learn SQL - SQL Lesson 2: Queries with constraints (Pt. 1)</a></p>
+</blockquote>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2021/06/09/%E6%8C%82%E8%BD%BD%E6%89%A9%E5%AE%B9linux%E6%9C%8D%E5%8A%A1%E5%99%A8/">挂载扩容 Linux 服务器</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2021/01/09/Linux%20%E3%80%81Vim%20%E5%91%BD%E4%BB%A4/">Linux Vim 命令</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F"><span class="toc-text">数据库查缺补漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">初识数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9A"><span class="toc-text">为什么学习数据库：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9A"><span class="toc-text">什么是数据库：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="toc-text">数据库分类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-%E7%AE%80%E4%BB%8B"><span class="toc-text">MySQL 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MySQL"><span class="toc-text">安装 MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">连接数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">操作数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">简单操作数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%97%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据库的列类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%B1%9E%E6%80%A7"><span class="toc-text">字段属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8"><span class="toc-text">创建数据库表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据表的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text">修改删除表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86"><span class="toc-text">MySQL 的数据管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%94%AE%EF%BC%88%E4%BA%86%E8%A7%A3%E5%8D%B3%E5%8F%AF%EF%BC%89"><span class="toc-text">外键（了解即可）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DML-%E8%AF%AD%E8%A8%80%EF%BC%88%E5%85%A8%E9%83%A8%E8%AE%B0%E4%BD%8F%EF%BC%89"><span class="toc-text">DML 语言（全部记住）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-insert"><span class="toc-text">添加 insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-update"><span class="toc-text">修改 update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4-delete"><span class="toc-text">删除 delete</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%EF%BC%88%E6%9C%80%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-text">DQL 查询数据（最重点）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DQL"><span class="toc-text">DQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E6%9F%A5%E8%AF%A2%E5%AD%97%E6%AE%B5"><span class="toc-text">指定查询字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#where-%E6%9D%A1%E4%BB%B6%E5%AD%97%E5%8F%A5"><span class="toc-text">where 条件字句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-text">联表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E5%88%86%E9%A1%B5"><span class="toc-text">排序和分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-text">子查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="toc-text">关系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE"><span class="toc-text">主键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%94%AE"><span class="toc-text">外键</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-text">查询数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>

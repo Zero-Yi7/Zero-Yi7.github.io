@@ -1,0 +1,1048 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>常用网安工具\命令 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="工具    工具名称 官网链接 用途描述 常用     BurpSuite portswigger.net 强大的安全测试平台，功能全面。 ✔️（必备）   Wireshark wireshark.org 网络协议分析器，可以捕获并交互式分析数据包。 ✔️   Hackerbar hackerbar 浏览器插件，帮助快速构造 HTTP 请求。    御剑 御剑 集成多种渗透测试工具，简化攻击流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用网安工具\命令">
+<meta property="og:url" content="https://zero-yi7.github.io/2022/03/11/%E5%B8%B8%E7%94%A8%E7%BD%91%E5%AE%89%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="工具    工具名称 官网链接 用途描述 常用     BurpSuite portswigger.net 强大的安全测试平台，功能全面。 ✔️（必备）   Wireshark wireshark.org 网络协议分析器，可以捕获并交互式分析数据包。 ✔️   Hackerbar hackerbar 浏览器插件，帮助快速构造 HTTP 请求。    御剑 御剑 集成多种渗透测试工具，简化攻击流程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557563.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557701.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557149.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558632.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558003.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558343.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558067.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558399.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601330.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601432.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081559416.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601600.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081559363.png">
+<meta property="article:published_time" content="2022-03-11T12:46:25.000Z">
+<meta property="article:modified_time" content="2022-03-11T12:46:25.000Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557563.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+    
+<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+
+  
+
+  
+</head><body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+</div>
+<div class="widgets">
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2022-03-11T12:46:25.000Z">2022-03-11</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2022-03-11T12:46:25.000Z">2022-03-11</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>常用网安工具\命令</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="工具">工具</h2>
+<table>
+<thead>
+<tr>
+<th>工具名称</th>
+<th>官网链接</th>
+<th>用途描述</th>
+<th>常用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BurpSuite</strong></td>
+<td><a target="_blank" rel="noopener" href="https://portswigger.net/burp">portswigger.net</a></td>
+<td>强大的安全测试平台，功能全面。</td>
+<td><strong>✔️（必备）</strong></td>
+</tr>
+<tr>
+<td>Wireshark</td>
+<td><a target="_blank" rel="noopener" href="https://www.wireshark.org/">wireshark.org</a></td>
+<td>网络协议分析器，可以捕获并交互式分析数据包。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>Hackerbar</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/sergeybr/vk-hackbar">hackerbar</a></td>
+<td>浏览器插件，帮助快速构造 HTTP 请求。</td>
+<td></td>
+</tr>
+<tr>
+<td>御剑</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/YuJinYuan/YouJian">御剑</a></td>
+<td>集成多种渗透测试工具，简化攻击流程。</td>
+<td></td>
+</tr>
+<tr>
+<td>dirmap</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Legrandin/dirmap">dirmap</a></td>
+<td>网站目录扫描工具，寻找隐藏目录和文件。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>dirsearch</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">dirsearch</a></td>
+<td>一个简单的命令行工具，用于快速扫描目录。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td><a target="_blank" rel="noopener" href="http://sqlmap.org/">sqlmap.org</a></td>
+<td>sqlmap 是一个自动化的 SQL 注入工具，其主要功能是扫描，发现并利用给定的 URL 进行 SQL 注入</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>pdfinfo</td>
+<td><a target="_blank" rel="noopener" href="https://poppler.freedesktop.org/">pdfinfo</a></td>
+<td>用于提取 PDF 文件元数据的命令行工具。</td>
+<td></td>
+</tr>
+<tr>
+<td>exiftool</td>
+<td><a target="_blank" rel="noopener" href="https://exiftool.org/">exiftool.org</a></td>
+<td>用于读取和写入文件的元数据。</td>
+<td></td>
+</tr>
+<tr>
+<td>XRAY</td>
+<td><a target="_blank" rel="noopener" href="https://xray.cool/">xray.cool</a></td>
+<td>网络安全扫描工具，支持漏洞扫描和信息收集。</td>
+<td></td>
+</tr>
+<tr>
+<td>OneForAll</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/shmilylty/OneForAll">OneForAll</a></td>
+<td>子域名收集工具，方便进行信息收集。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>Hydra</td>
+<td><a target="_blank" rel="noopener" href="https://www.thc.org/thc-hydra/">thc.org</a></td>
+<td>快速的网络密码破解工具，支持多种协议。</td>
+<td></td>
+</tr>
+<tr>
+<td>HTTPX</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/projectdiscovery/httpx">HTTPX</a></td>
+<td>用于快速探测和验证 HTTP 服务的工具。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>CS</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/zhzyker/CS">CS</a></td>
+<td>木马工具，提供反向 shell 等功能。</td>
+<td></td>
+</tr>
+<tr>
+<td>Fiddler</td>
+<td><a target="_blank" rel="noopener" href="https://www.telerik.com/fiddler">telerik.com/fiddler</a></td>
+<td>捕获 HTTP/HTTPS 流量的调试代理。</td>
+<td></td>
+</tr>
+<tr>
+<td>finger-ub</td>
+<td><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Finger_(protocol)">finger</a></td>
+<td>查找用户信息的网络协议工具。</td>
+<td></td>
+</tr>
+<tr>
+<td>Dig</td>
+<td><a target="_blank" rel="noopener" href="https://www.isc.org/dig/">dig</a></td>
+<td>DNS 查询工具，用于获取域名的解析信息。</td>
+<td></td>
+</tr>
+<tr>
+<td>Onforall-ub</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/special/Onforall">Onforall</a></td>
+<td>OneForAll是一款功能强大的子域收集工具。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>FofaViewer-ub</td>
+<td><a target="_blank" rel="noopener" href="https://fofa.so/">fofa.so</a></td>
+<td>用于浏览和分析 Fofa 数据的工具。</td>
+<td></td>
+</tr>
+<tr>
+<td>水泽</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/syn4k1/Water">水泽</a></td>
+<td>集成化的安全测试工具，功能丰富。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>EHole-ub</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/LoRexxar/EHole">EHole</a></td>
+<td>安全测试框架，提供自动化测试功能。</td>
+<td></td>
+</tr>
+<tr>
+<td>JSFinder</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/bitsofinfo/JSFinder">JSFinder</a></td>
+<td>查找网站中的 JS 文件。</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>curl</td>
+<td><a target="_blank" rel="noopener" href="https://curl.se/">curl.se</a></td>
+<td>命令行工具，用于发送 HTTP 请求，灵活便捷。</td>
+<td></td>
+</tr>
+<tr>
+<td>Postman</td>
+<td><a target="_blank" rel="noopener" href="https://www.postman.com/">postman.com</a></td>
+<td>API 测试工具，方便发送请求并分析响应。</td>
+<td></td>
+</tr>
+<tr>
+<td>nmap</td>
+<td><a target="_blank" rel="noopener" href="https://nmap.org/">nmap.org</a></td>
+<td>网络扫描工具，用于发现网络设备和服务。</td>
+<td></td>
+</tr>
+<tr>
+<td>蚁剑</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/n1nj4sec/p0wny">蚁剑</a></td>
+<td>WebShell 管理工具，方便管理和使用。</td>
+<td></td>
+</tr>
+<tr>
+<td>phpMyAdmin</td>
+<td><a target="_blank" rel="noopener" href="https://www.phpmyadmin.net/">phpmyadmin.net</a></td>
+<td>用于管理 MySQL 数据库的 Web 应用。</td>
+<td></td>
+</tr>
+<tr>
+<td>Web Path Brute</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/yrshy/WebPathBrute">Web Path Brute</a></td>
+<td>Web 路径暴力探测工具，发现隐藏路径。</td>
+<td></td>
+</tr>
+<tr>
+<td>PyCharm</td>
+<td><a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">jetbrains.com/pycharm</a></td>
+<td>Python 开发环境，功能强大，支持多种插件。</td>
+<td></td>
+</tr>
+<tr>
+<td>VirusTotal</td>
+<td><a target="_blank" rel="noopener" href="https://www.virustotal.com/">virustotal.com</a></td>
+<td>在线服务，检查文件和 URL 的安全性。</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 11</td>
+<td><a target="_blank" rel="noopener" href="https://openjdk.java.net/">openjdk.java.net</a></td>
+<td>Java 开发必备，支持最新应用。</td>
+<td></td>
+</tr>
+<tr>
+<td>JDK 8</td>
+<td><a target="_blank" rel="noopener" href="https://openjdk.java.net/">openjdk.java.net</a></td>
+<td>经典版本，很多老项目依然在用。</td>
+<td></td>
+</tr>
+<tr>
+<td>Docker</td>
+<td><a target="_blank" rel="noopener" href="https://www.docker.com/">docker.com</a></td>
+<td>用于创建、部署和管理容器化应用的开源平台。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>##使用（第一次）</p>
+<h3 id="wireshark">wireshark</h3>
+<p><strong>是什么</strong>：</p>
+<p>有何种称呼：</p>
+<blockquote>
+<p>网络封包分析软件、网络分析工具、网络抓包工具、网络流量分析</p>
+</blockquote>
+<p><strong>使用过程</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557563.png" alt="image-20221119183004795"></p>
+<p>wireshark 启动后，wireshark 处于抓包状态中</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557701.png" alt="image-20221119183655923"></p>
+<p>执行需要抓包的操作，在 CMD 中，如<code>ping www.baidu.com</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081557149.png" alt="image-20221120161009114"></p>
+<p><strong>对数据表设置过滤条件：</strong></p>
+<p><code>ip.addr == 36.152.44.96 and icmp</code></p>
+<p><code>表示只显示 ICPM 协议且源主机 IP 或者目的主机IP为 36.152.44.96 的数据包。</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558632.png" alt="image-20221120161536197"></p>
+<p><strong>Packet List Pane（数据包列表）</strong></p>
+<ul>
+<li>数据包列表区中不同的协议使用了不同的	颜色区分</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558003.png" alt="image-20221120161953647"></p>
+<p><strong>Packet Details Pane（数据包详细信息）</strong></p>
+<ul>
+<li>在数据包列表中选择指定数据包，在数据包详细信息中会显示数据包的所有详细信息内容。数据包详细信息面板是最重要的，用来查看*<u><strong>协议中的每一个字段</strong></u>*。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558343.png" alt="image-20221120162747844"></p>
+<p><strong>Wireshark 过滤器设置</strong></p>
+<blockquote>
+<p>过滤器有两种，</p>
+<p>一种是显示过滤器，就是主界面上那个，用来在捕获的记录中找到所需要的记录</p>
+<p>一种是捕获过滤器，用来过滤捕获的封包，以免捕获太多的记录。 在Capture -&gt; Capture Filters 中设置</p>
+</blockquote>
+<p>捕获过滤器的菜单栏路径为 Capture --&gt; Capture Filters。用于在<strong>抓取数据包前设置</strong>。</p>
+<p><strong>捕获过滤器</strong></p>
+<pre><code class="language-bash"># 过滤器名称：Filter Name
+capture baidu
+
+# 过滤表达式：Filter Expression
+ip host www.baidu.com
+</code></pre>
+<p><strong>显示过滤器</strong></p>
+<p><code>ip.addr == 36.152.44.96 and icmp</code></p>
+<p><code>表示只显示 ICPM 协议且源主机 IP 或者目的主机IP为 36.152.44.96 的数据包。</code></p>
+<p><strong>过滤表达式的规则</strong></p>
+<pre><code class="language-css">1. 协议过滤
+比如TCP，只显示TCP协议。
+
+2. IP 过滤
+比如 ip.src ==192.168.1.102 显示源地址为192.168.1.102，
+ip.dst==192.168.1.102, 目标地址为192.168.1.102
+
+3. 端口过滤
+tcp.port ==80, 端口为80的
+tcp.srcport == 80, 只显示TCP协议的愿端口为80的。
+
+4. Http模式过滤
+http.request.method==&quot;GET&quot;,  只显示HTTP GET方法的。
+</code></pre>
+<p>常用的过滤表达式</p>
+<table>
+<thead>
+<tr>
+<th>过滤表达式</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>只查看HTTP协议的记录</td>
+</tr>
+<tr>
+<td>ip.src ==192.168.1.102 or ip.dst==192.168.1.102</td>
+<td>源地址或者目标地址是 192.168.1.102</td>
+</tr>
+</tbody>
+</table>
+<h3 id="VirusTotal">VirusTotal</h3>
+<p><a target="_blank" rel="noopener" href="https://cirubla.github.io/2020/03/VirusTotal-Tricks.html">在线查毒工具 VirusTotal 的 N 种玩法——从“误报/漏报”聊到“攻击者对它的利用 — 编程随想的博客“</a></p>
+<h3 id="pdfinfo">pdfinfo</h3>
+<p>pdfinfo 是一个命令行工具，可以用来获取 PDF 文件的元数据和其他信息，例如文件大小、页面数、作者、标题、创建日期等。它是 Poppler 工具包的一部分，可以在 Linux、macOS 和 Windows 操作系统上使用。pdfinfo 通常被用于批量处理 PDF 文件，例如从文件名中提取元数据、创建文件索引等。</p>
+<pre><code class="language-bash">sudo apt install poppler-utils
+
+pdfinfo DOCUMENT.pdf
+</code></pre>
+<h3 id="BurpSuite">BurpSuite</h3>
+<p><strong>前期配置</strong></p>
+<blockquote>
+<p>搜索关键词：Burpsuite 设置 HTTPS 代理</p>
+</blockquote>
+<p><strong>先导出证书</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558067.png" alt="image-20221231141015539"></p>
+<center style="color:#C0C0C0;text-decoration:underline">第一种方法从 bp 中导出证书</center>
+<p>第二种方法从浏览器中导出证书，浏览器开了 127.0.0.1:8080 代理的同时访问<a target="_blank" rel="noopener" href="http://xn--burp-894fys2945arig">http://burp下载证书</a></p>
+<p><strong>再导入证书</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081558399.png" alt="image-20221230182913340"></p>
+<center style="color:#C0C0C0;text-decoration:underline">火狐导入证书</center>
+<blockquote>
+<p>只要求 burp 拦截与靶机之间的数据包，而不要拦截其他网站的数据包，用到了一个chrome的插件——<strong>SwitchyOmega</strong>。</p>
+<p>FoxyProxy</p>
+</blockquote>
+<p>BurpSuite 设置代理，<code>ip</code>和端口要和代理工具<code>SwitchyOmega</code>一致</p>
+<pre><code class="language-css">打开 burp，设置代理监听地址，默认为
+127.0.0.1:8080
+
+SwitchyOmega——设置浏览器的代理
+127.0.0.1:8080
+
+确认拦截开启/关闭
+lntercept is on
+
+接着网页操作
+</code></pre>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601330.png" alt="image-20221230181936445"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601432.png" alt="image-20221230181936445"></p>
+<blockquote>
+<p><strong>错误提示</strong></p>
+<p><strong>01-Intercept is off</strong> — 无法抓取数据包。</p>
+<p><strong>无法捕获本机地址 localhost 和 127.0.0.1 的数据包。</strong></p>
+<p><strong>分析：</strong> localhost 和 127.0.0.1 是知名的本机地址，通常在各种代理设置中默认被排除，浏览器也可能会有单独的配置来禁止抓取这些本机地址的数据包。</p>
+<p>为了抓取本机的流量，建议使用<strong>本机的内网地址</strong>，例如 <a target="_blank" rel="noopener" href="http://192.168.xxx.xxx">192.168.xxx.xxx</a>，或者在 hosts 文件中手动绑定一个域名来替代。</p>
+<p>此外，如果网站使用了缓存，流量包可能不会经过 Burp。当浏览器缓存了某些资源时，下次访问时会直接从缓存中获取，而不会重新发送请求，这样就导致 Burp 抓不到请求包。</p>
+<p>使用 <strong>Ctrl+F5</strong> 强制刷新，清空缓存以确保请求能够被捕获。</p>
+</blockquote>
+<h3 id="Docker">Docker</h3>
+<p><code>docker pull</code>下来的命令都默认存在<code>/var/lib/docker/</code>文件夹下</p>
+<p><strong>Docker 的常用命令</strong></p>
+<pre><code class="language-bash">#系统命令
+systemctl start docker				#启动docker
+systemctl stop docker				#停止docker
+systemctl restart docker			#重启docker
+systemctl enable docker				#设置docker开机自启
+ 
+#基本命令
+docker version						#查看docker版本
+docker info							#查看docker详细信息
+docker --help						#查看docker命令
+ 
+#镜像命令
+docker images						#查看docker镜像列表
+docker images -a					#列出本地所有镜像
+docker images --digests				#显示镜像的摘要信息
+docker search redis					#从Docker Hub上查找redis镜像
+docker pull redis					#从Docker Hub上下载redis镜像
+docker rmi 373f0984b070				#删除IMAGE ID 为373f0984b070的镜像
+ 
+#运行命令
+#-p 6379:6379	端口映射：前表示主机部分,后表示容器部分
+#-d	在后台运行容器（不进入终端）并打印容器ID/容器名
+#--name myredis表示自定义容器名为myredis
+docker run -d -p 6379:6379 --name myredis redis:latest		#根据镜像创建并运行容器
+ 
+#容器命令
+docker container ls 或 docker ps				#查看正在运行的容器
+docker container ls -a 或 docker ps -a			#列出所有容器
+docker container start 容器ID 或 容器名称		#启动容器
+docker start 容器ID 或 容器名称					#启动容器
+docker container stop 容器ID 或 容器名称			#停止容器
+docker stop 容器ID 或 容器名称					#停止容器
+docker container rm 容器ID 或 容器名称			#删除容器
+docker rm 容器ID 或 容器名称						#删除容器
+docker container logs -f 容器ID 或 容器名称		#查看容器日志
+docker exec -it name /bin/bash 					#进入name（容器名/id）中开启交互式的终端，exit退出
+</code></pre>
+<p><strong>docker --help 中文译解</strong></p>
+<pre><code class="language-bash">Usage:
+docker [OPTIONS] COMMAND [arg...]
+       docker daemon [ --help | ... ]
+       docker [ --help | -v | --version ]
+A
+self-sufficient runtime for containers.
+ 
+Options:
+  --config=~/.docker              Location of client config files  #客户端配置文件的位置
+  -D, --debug=false               Enable debug mode  #启用Debug调试模式
+  -H, --host=[]                   Daemon socket(s) to connect to  #守护进程的套接字（Socket）连接
+  -h, --help=false                Print usage  #打印使用
+  -l, --log-level=info            Set the logging level  #设置日志级别
+  --tls=false                     Use TLS; implied by--tlsverify  #
+  --tlscacert=~/.docker/ca.pem    Trust certs signed only by this CA  #信任证书签名CA
+  --tlscert=~/.docker/cert.pem    Path to TLS certificate file  #TLS证书文件路径
+  --tlskey=~/.docker/key.pem      Path to TLS key file  #TLS密钥文件路径
+  --tlsverify=false               Use TLS and verify the remote  #使用TLS验证远程
+  -v, --version=false             Print version information and quit  #打印版本信息并退出
+ 
+Commands:
+    attach    Attach to a running container  #当前shell下attach连接指定运行镜像
+    build     Build an image from a Dockerfile  #通过Dockerfile定制镜像
+    commit    Create a new image from a container's changes  #提交当前容器为新的镜像
+    cp    	  Copy files/folders from a container to a HOSTDIR or to STDOUT  #从容器中拷贝指定文件或者目录到宿主机中
+    create    Create a new container  #创建一个新的容器，同run 但不启动容器
+    diff      Inspect changes on a container's filesystem  #查看docker容器变化
+    events    Get real time events from the server#从docker服务获取容器实时事件
+    exec      Run a command in a running container#在已存在的容器上运行命令
+    export    Export a container's filesystem as a tar archive  #导出容器的内容流作为一个tar归档文件(对应import)
+    history   Show the history of an image  #展示一个镜像形成历史
+    images    List images  #列出系统当前镜像
+    import    Import the contents from a tarball to create a filesystem image  #从tar包中的内容创建一个新的文件系统映像(对应export)
+    info      Display system-wide information  #显示系统相关信息
+    inspect   Return low-level information on a container or image  #查看容器详细信息
+    kill      Kill a running container  #kill指定docker容器
+    load      Load an image from a tar archive or STDIN  #从一个tar包中加载一个镜像(对应save)
+    login     Register or log in to a Docker registry#注册或者登陆一个docker源服务器
+    logout    Log out from a Docker registry  #从当前Docker registry退出
+    logs   	  Fetch the logs of a container  #输出当前容器日志信息
+    pause     Pause all processes within a container#暂停容器
+    port      List port mappings or a specific mapping for the CONTAINER  #查看映射端口对应的容器内部源端口
+    ps    	  List containers  #列出容器列表
+    pull      Pull an image or a repository from a registry  #从docker镜像源服务器拉取指定镜像或者库镜像
+    push      Push an image or a repository to a registry  #推送指定镜像或者库镜像至docker源服务器
+    rename    Rename a container  #重命名容器
+    restart   Restart a running container  #重启运行的容器
+    rm    	  Remove one or more containers  #移除一个或者多个容器
+    rmi    	  Remove one or more images  #移除一个或多个镜像(无容器使用该镜像才可以删除，否则需要删除相关容器才可以继续或者-f强制删除)
+    run   	  Run a command in a new container  #创建一个新的容器并运行一个命令
+    save      Save an image(s) to a tar archive#保存一个镜像为一个tar包(对应load)
+    search    Search the Docker Hub for images  #在docker
+hub中搜索镜像
+    start     Start one or more stopped containers#启动容器
+    stats     Display a live stream of container(s) resource usage statistics  #统计容器使用资源
+    stop      Stop a running container  #停止容器
+    tag       Tag an image into a repository  #给源中镜像打标签
+    top       Display the running processes of a container #查看容器中运行的进程信息
+    unpause   Unpause all processes within a container  #取消暂停容器
+    version   Show the Docker version information#查看容器版本号
+    wait      Block until a container stops, then print its exit code  #截取容器停止时的退出状态值
+</code></pre>
+<h2 id="Docker-图片">Docker 图片</h2>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081559416.png" alt="230217PM04_31"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081601600.png" alt="230217PM04_32"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/202410081559363.png" alt="230217PM04_33"></p>
+<h3 id="未完待续……">未完待续……</h3>
+<h3 id=""></h3>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2022/06/11/xss-part1/">portswigger 靶场之 XSS 篇(上)</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2021/08/09/kali%20linux%20%E7%BE%8E%E5%8C%96/">kali linux 美化</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">John Doe</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
+本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-text">工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wireshark"><span class="toc-text">wireshark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VirusTotal"><span class="toc-text">VirusTotal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pdfinfo"><span class="toc-text">pdfinfo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BurpSuite"><span class="toc-text">BurpSuite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker"><span class="toc-text">Docker</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E5%9B%BE%E7%89%87"><span class="toc-text">Docker 图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD%E2%80%A6%E2%80%A6"><span class="toc-text">未完待续……</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text"></span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+                  <!-- inject -->
+                  
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script></div></body></html>
