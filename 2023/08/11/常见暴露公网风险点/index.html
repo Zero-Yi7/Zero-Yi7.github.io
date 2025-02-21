@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -20,12 +20,12 @@
   <title>常见暴露公网风险点 - Rabbit's Blog</title>
 
   
-    <meta name="description" content="1. 弱口令&#x2F;默认账号密码 暴露风险等级：高风险 暴露说明及危害：  系统中存在弱口令，可以轻松登录，进一步进行攻击，如上传 WebShell 或获取敏感数据。 默认账号和密码的暴露可能导致未经授权的访问和操作。  漏洞利用：  利用弱口令或默认密码进入管理后台，进行未授权操作。  修复建议：  强制用户首次登录时修改默认密码。 完善密码策略，建议密码长度至少 8 位，并包含数字、大写字母和特殊字">
+    <meta name="description" content="据统计，超过 60% 的企业都存在公网安全暴露问题，而大多数 IT 人员甚至没有意识到这些潜在的威胁。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见暴露公网风险点">
 <meta property="og:url" content="https://zero-yi7.github.io/2023/08/11/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="1. 弱口令&#x2F;默认账号密码 暴露风险等级：高风险 暴露说明及危害：  系统中存在弱口令，可以轻松登录，进一步进行攻击，如上传 WebShell 或获取敏感数据。 默认账号和密码的暴露可能导致未经授权的访问和操作。  漏洞利用：  利用弱口令或默认密码进入管理后台，进行未授权操作。  修复建议：  强制用户首次登录时修改默认密码。 完善密码策略，建议密码长度至少 8 位，并包含数字、大写字母和特殊字">
+<meta property="og:description" content="据统计，超过 60% 的企业都存在公网安全暴露问题，而大多数 IT 人员甚至没有意识到这些潜在的威胁。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9%E6%B1%87%E6%80%BB/202410081708158.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9%E6%B1%87%E6%80%BB/202410081708562.png">
@@ -218,7 +218,7 @@
 </ul>
 <blockquote>
 <p>B 站 UP 主，<a target="_blank" rel="noopener" href="https://space.bilibili.com/12890453">程序员鱼皮</a>，曾经在 2023-03-04 发生过阿里云 OSS 被盗刷而透支费用。</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tb411Q7V4/?spm_id_from=333.999.0.0&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667">https://www.bilibili.com/video/BV1Tb411Q7V4/?spm_id_from=333.999.0.0&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tb411Q7V4/?spm_id_from=333.999.0.0&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667">没想到又被攻击了！赔了1.5万，我真服了！</a></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9%E6%B1%87%E6%80%BB/202410081708158.png" alt="image-20240128005631033"></p>
 <p>针对以上，个人使用OSS云存储的情况下，我们可以开启</p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9%E6%B1%87%E6%80%BB/202410081708562.png" alt="image-20240128010456304"></p>
@@ -341,7 +341,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/">GitHub 2FA（双重身份验证）如何开启（China）</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/">2023年某直辖市通管局攻防演练总结</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/">手把手教你开启 GitHub 2FA 双重验证（适合国内用户）</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/">2023 年某直辖市通管局攻防演练总结</a></div></section></div>
 
 
 

@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -20,18 +20,18 @@
   <title>burpsuit 小程序抓包配置记录 - Rabbit's Blog</title>
 
   
-    <meta name="description" content="关键在于  代理证书的安装与信任：微信小程序需要通过HTTPS进行通信，抓取HTTPS流量时，Burp Suite的自签名证书必须被小程序信任。 代理环境设置：Burp Suite需要配置正确的代理，且确保手机&#x2F;小程序运行环境能成功访问Burp代理地址。  出现的问题： 证书和代理配置均已完成，但仍受到限制，不可用&#x3D;&#x3D;  关闭代理软件（如 Clash）。 禁用本机自定义代理设置。  而我遇到的情况">
+    <meta name="description" content="微信小程序需要通过 HTTPS 进行通信，抓取 HTTPS 流量时，Burp Suite 的自签名证书必须被小程序信任。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="burpsuit 小程序抓包配置记录">
 <meta property="og:url" content="https://zero-yi7.github.io/2024/11/06/burpsuit%20%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="关键在于  代理证书的安装与信任：微信小程序需要通过HTTPS进行通信，抓取HTTPS流量时，Burp Suite的自签名证书必须被小程序信任。 代理环境设置：Burp Suite需要配置正确的代理，且确保手机&#x2F;小程序运行环境能成功访问Burp代理地址。  出现的问题： 证书和代理配置均已完成，但仍受到限制，不可用&#x3D;&#x3D;  关闭代理软件（如 Clash）。 禁用本机自定义代理设置。  而我遇到的情况">
+<meta property="og:description" content="微信小程序需要通过 HTTPS 进行通信，抓取 HTTPS 流量时，Burp Suite 的自签名证书必须被小程序信任。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/burpsuit%20%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/202412201802234.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/burpsuit%20%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/202412201802579.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/burpsuit%20%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/202412201802961.png">
 <meta property="article:published_time" content="2024-11-06T06:06:00.000Z">
-<meta property="article:modified_time" content="2024-12-20T10:04:22.017Z">
+<meta property="article:modified_time" content="2025-02-21T05:25:38.302Z">
 <meta property="article:author" content="Rabbit">
 <meta property="article:tag" content="工具">
 <meta name="twitter:card" content="summary">
@@ -84,7 +84,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-06T06:06:00.000Z">2024-11-06</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-12-20T10:04:22.017Z">2024-12-20</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-06T06:06:00.000Z">2024-11-06</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-02-21T05:25:38.302Z">2025-02-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -140,7 +140,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/11/08/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%BD%91%E9%A1%B5%E6%93%8D%E4%BD%9C/">自动化网页操作：批量下载和格式化Excel文件</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/11/01/Nessus%E5%AE%89%E8%A3%85/">Nessus本地安装 - 网络基础设施漏洞扫描器</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/">Java多版本环境，以应对不同安全工具</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2024/10/29/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability/">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</a></div></section></div>
 
 
 

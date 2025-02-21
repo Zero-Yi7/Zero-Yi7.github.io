@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -20,12 +20,12 @@
   <title>XSS-and-Security-Labs：DVWA 靶场 - Rabbit's Blog</title>
 
   
-    <meta name="description" content="参考： 小白网络安全入门之_DVWA全系列_哔哩哔哩_bilibili DVWA通关教程（上） DVWA 入门靶场学习记录  前言 https:&#x2F;&#x2F;github.com&#x2F;digininja&#x2F;DVWA 模块大榄  Brute Force（暴力破解） Command Injection（命令行注入） CSRF（跨站请求伪造） File Inclusion（文件包含） File Upload（文件上传">
+    <meta name="description" content="前言 https:&#x2F;&#x2F;github.com&#x2F;digininja&#x2F;DVWA 模块大榄  Brute Force（暴力破解） Command Injection（命令行注入） CSRF（跨站请求伪造） File Inclusion（文件包含） File Upload（文件上传） Insecure CAPTCHA（不安全的验证码） SQL Injection（SQL注入） SQL Injection (">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DVWA 靶场">
 <meta property="og:url" content="https://zero-yi7.github.io/2023/02/26/DVWA-master/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="参考： 小白网络安全入门之_DVWA全系列_哔哩哔哩_bilibili DVWA通关教程（上） DVWA 入门靶场学习记录  前言 https:&#x2F;&#x2F;github.com&#x2F;digininja&#x2F;DVWA 模块大榄  Brute Force（暴力破解） Command Injection（命令行注入） CSRF（跨站请求伪造） File Inclusion（文件包含） File Upload（文件上传">
+<meta property="og:description" content="前言 https:&#x2F;&#x2F;github.com&#x2F;digininja&#x2F;DVWA 模块大榄  Brute Force（暴力破解） Command Injection（命令行注入） CSRF（跨站请求伪造） File Inclusion（文件包含） File Upload（文件上传） Insecure CAPTCHA（不安全的验证码） SQL Injection（SQL注入） SQL Injection (">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/DVWA%20%E9%9D%B6%E5%9C%BA/202410070305344.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/DVWA%20%E9%9D%B6%E5%9C%BA/202410070305400.png">
@@ -115,13 +115,7 @@
     </div>
     
   </div>
-  </div><article class="md-text content"><blockquote>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HK411j7Me/?spm_id_from=333.337.search-card.all.click&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667">小白网络安全入门之_DVWA全系列_哔哩哔哩_bilibili</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/274058.html">DVWA通关教程（上）</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/05/dvwa.html">DVWA 入门靶场学习记录</a></p>
-</blockquote>
-<h2 id="前言">前言</h2>
+  </div><article class="md-text content"><h2 id="前言">前言</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/digininja/DVWA">https://github.com/digininja/DVWA</a></p>
 <h2 id="模块大榄">模块大榄</h2>
 <ol>
@@ -353,7 +347,29 @@ Name: &lt;img src=x onerror=alert('XSS')&gt;
 Message: www.sqlsec.com
 </code></pre>
 
-<div class="article-footer fs14"></div>
+<div class="article-footer fs14">
+    <section id="references">
+      <div class="header"><span>参考资料</span></div>
+      <div class="body">
+        <ul>
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1HK411j7Me/?spm_id_from=333.337.search-card.all.click&amp;vd_source=07d8fe8fdf49a7cf86a5c7925adf3667">小白网络安全入门之_DVWA全系列_哔哩哔哩_bilibili</a></p>
+
+        </li>
+        
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/274058.html">DVWA通关教程（上）</a></p>
+
+        </li>
+        
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/05/dvwa.html">DVWA 入门靶场学习记录</a></p>
+
+        </li>
+        </ul>
+      </div>
+    </section>
+    </div>
 </article>
 <div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/02/28/sqli-labs/">sqli-labs 靶场（手工注入）</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/02/21/xss-labs/">xss-labs</a></div></section></div>
 

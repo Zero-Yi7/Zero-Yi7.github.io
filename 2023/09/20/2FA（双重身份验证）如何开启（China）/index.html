@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -17,18 +17,18 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
   
-  <title>GitHub 2FA（双重身份验证）如何开启（China） - Rabbit's Blog</title>
+  <title>手把手教你开启 GitHub 2FA 双重验证（适合国内用户） - Rabbit's Blog</title>
 
   
-    <meta name="description" content="GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。">
+    <meta name="description" content="GitHub 最近要求所有用户必须开启 2FA 双重验证，本文详细介绍了如何一步步开启，以及为什么要开启它。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub 2FA（双重身份验证）如何开启（China）">
+<meta property="og:title" content="手把手教你开启 GitHub 2FA 双重验证（适合国内用户）">
 <meta property="og:url" content="https://zero-yi7.github.io/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。">
+<meta property="og:description" content="GitHub 最近要求所有用户必须开启 2FA 双重验证，本文详细介绍了如何一步步开启，以及为什么要开启它。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-20T09:16:59.000Z">
-<meta property="article:modified_time" content="2024-10-08T14:42:08.809Z">
+<meta property="article:modified_time" content="2025-02-21T03:26:44.503Z">
 <meta property="article:author" content="Rabbit">
 <meta property="article:tag" content="Github">
 <meta property="article:tag" content="2FA">
@@ -81,49 +81,45 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E8%B0%88%E9%97%B2%E8%AE%B0/">杂谈闲记</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-09-20T09:16:59.000Z">2023-09-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-10-08T14:42:08.809Z">2024-10-08</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2023-09-20T09:16:59.000Z">2023-09-20</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-02-21T03:26:44.503Z">2025-02-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>GitHub 2FA（双重身份验证）如何开启（China）</span></h1>
+        <h1 class="text title"><span>手把手教你开启 GitHub 2FA 双重验证（适合国内用户）</span></h1>
         
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content"><p>GitHub 2FA是一种安全措施，可以保护你的GitHub账号不被盗用或滥用。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）才能登录GitHub。这样，即使你的密码泄露了，黑客也无法登录你的账号，除非他们也能获取你的OTP。</p>
-<span id="more"></span>
-<h2 id="开启2FA的流程">开启2FA的流程</h2>
-<p><a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%99%A8/bhghoamapcdpbohphigoooaddinpkbai">Chrom 应用商店 - 身份验证器 Authenticator Extension</a></p>
-<blockquote>
-<p>身份验证器是一个在浏览器中生成二步认证代码的工具，通过扫描二维码添加账户，提高账户安全性。</p>
-</blockquote>
-<p>要开启GitHub 2FA，你需要以下几个步骤：</p>
+  </div><article class="md-text content"><p>最近收到 GitHub 的通知说必须开启 2FA 验证，不然可能会限制账号使用。那到底什么是 2FA？要怎么开启呢？</p>
+<h2 id="什么是-2FA？">什么是 2FA？</h2>
+<p>简单来说，2FA 就是&quot;两步验证&quot;。比如你登录 GitHub 的时候，除了输入密码，还得输入一个动态验证码。这样即使密码被盗，别人要登你的账号也得拿到验证码才行，安全性大大提高。</p>
+<h2 id="开启-2FA-很简单">开启 2FA 很简单</h2>
+<p>首先，你得先装个验证器。我推荐用这个 Chrome 插件：<br>
+<a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%99%A8/bhghoamapcdpbohphigoooaddinpkbai">身份验证器 Authenticator Extension</a></p>
+<p>安装完后，按下面步骤操作：</p>
 <ol>
-<li>登录GitHub，点击右上角的个人资料照片，然后点击“设置”。在页面的“双因素身份验证”部分，点击“启用双因素身份验证”。</li>
-<li>选择你想要使用的2FA方法，有以下两种可选：
+<li>登录 GitHub，点右上角头像→Settings（设置）</li>
+<li>找到&quot;Password and authentication&quot;→&quot;Enable two-factor authentication&quot;</li>
+<li>选择验证方式：
 <ul>
-<li>**使用TOTP应用：**使用先前下载的浏览器拓展，然后扫描GitHub显示的二维码。你的应用会显示一个六位数的代码，你需要在GitHub上输入该代码进行验证。</li>
-<li>**使用短信：**你需要输入你的国家/地区代码和手机号码，（注：没有中国+86选项）然后点击“发送验证码”，即可通过验证。</li>
+<li>用验证器 App（推荐）：扫描 GitHub 给的二维码，然后输入验证器显示的 6 位数字</li>
+<li>用短信验证：不过目前好像不支持中国手机号（+86）</li>
 </ul>
 </li>
-<li>在“保存恢复代码”下，点击“下载”将恢复代码下载到你的设备。恢复代码是一组16个字母和数字的组合，可以在你无法使用你的2FA方法时帮助你恢复你的账号。你应该将它们保存到一个安全的地方，如密码管理器或纸质备份。保存恢复代码后，点击“我已保存恢复代码”，以完成2FA的启用。</li>
 </ol>
-<h2 id="开启2FA的原因">开启2FA的原因</h2>
-<p>开启2FA的主要原因是为了提高你的账号安全性。GitHub是一个全球最大的开源代码托管平台，也是许多开发者和组织的重要工具。如果你的GitHub账号被盗用或滥用，可能会导致你的代码、数据、项目或声誉受到损失或威胁。开启2FA可以有效防止这种情况的发生，因为它增加了登录你的账号的难度，让黑客无法仅凭密码就入侵你的账号。</p>
-<p>开启2FA的另一个原因是为了遵守GitHub的要求。GitHub在2023年宣布，到2023年底，所有用户都必须要启用一种或多种形式的2FA，以保护软件供应链的安全。如果你不开启2FA，你可能会失去对GitHub的访问权限，或者无法参与某些需要2FA的组织或项目。</p>
-<h2 id="开启2FA的原理">开启2FA的原理</h2>
-<p>开启2FA的原理是基于一种叫做双因素身份验证（Two-Factor Authentication，简称2FA）的安全技术。2FA是一种要求用户提供两种不同的身份验证因素来证明自己身份的方法。这两种因素通常分为以下三类：</p>
-<ul>
-<li>知识因素：你知道的东西，如密码、PIN码或安全问题的答案。</li>
-<li>拥有因素：你拥有的东西，如手机、密钥或银行卡。</li>
-<li>生物因素：你本身的特征，如指纹、面部识别或虹膜扫描。</li>
-</ul>
-<p>2FA的目的是增加登录账号的难度，使得即使黑客获取了其中一个因素，也无法登录账号，除非他们也能获取另一个因素。这样，就可以有效降低账号被盗用或滥用的风险。</p>
-<p>GitHub 2FA的原理是使用密码作为第一个因素，使用OTP、短信或密钥作为第二个因素。密码是你知道的东西，OTP、短信或密钥是你拥有的东西。当你登录GitHub时，你需要输入密码和第二个因素，才能成功登录。这样，即使你的密码泄露了，潜在分子也无法登录你的账号，除非他们也能获取你的第二个因素。</p>
-<h2 id="总结">总结</h2>
-<p>GitHub 2FA是一种保护你的GitHub账号不被盗用或滥用的安全措施。开启2FA后，你需要输入密码和一个一次性的验证码（OTP）、短信或密钥才能登录GitHub。开启2FA的流程是选择你想要使用的2FA方法，验证你的身份，保存恢复代码。开启2FA的原因是为了提高你的账号安全性，以及遵守GitHub的要求。开启2FA的原理是使用两种不同的身份验证因素来证明你的身份，使得潜在分子无法仅凭密码就入侵你的账号。开启2FA是一种简单而有效的保护你的GitHub账号的方式，建议大家都尽快开启。</p>
+<p>记得保存恢复码！这个超级重要。GitHub 会给你几组备用码，一定要找个安全的地方存起来。要是丢了或者换了，就靠这个恢复账号。</p>
+<h2 id="为啥-GitHub-非要我们开-2FA？">为啥 GitHub 非要我们开 2FA？</h2>
+<p>其实主要有两个原因：</p>
+<ol>
+<li>
+<p><strong>保护你的代码安全</strong>：GitHub 上存了那么多重要代码，要是账号被黑了多可怕。开启 2FA 后，就算密码泄露了也不怕。</p>
+</li>
+<li>
+<p><strong>GitHub 新规定</strong>：GitHub 说 2023 年底前必须所有用户都得开启 2FA。不开的话可能会限制使用，比如参与某些项目啥的。</p>
+</li>
+</ol>
 
 <div class="article-footer fs14">
     <section id="license">
@@ -136,7 +132,7 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://zero-yi7.github.io/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=GitHub 2FA（双重身份验证）如何开启（China） - Rabbit's Blog&amp;body=https://zero-yi7.github.io/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=手把手教你开启 GitHub 2FA 双重验证（适合国内用户） - Rabbit's Blog&amp;body=https://zero-yi7.github.io/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://zero-yi7.github.io/2023/09/20/2FA%EF%BC%88%E5%8F%8C%E9%87%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%EF%BC%89%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%EF%BC%88China%EF%BC%89/"/>
@@ -146,7 +142,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2024/01/01/%E5%A4%A7%E9%9A%90%E9%9A%90%E4%BA%8E%E5%B8%82/">大隐隐于市</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/08/11/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9/">常见暴露公网风险点</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/11/01/Nessus%E5%AE%89%E8%A3%85/">Nessus本地安装 - 网络基础设施漏洞扫描器</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/08/11/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9/">常见暴露公网风险点</a></div></section></div>
 
 
 
@@ -161,7 +157,7 @@
 
 
 
-<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-text">开启2FA的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">开启2FA的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF2FA%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">开启2FA的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer">
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-2FA%EF%BC%9F"><span class="toc-text">什么是 2FA？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-2FA-%E5%BE%88%E7%AE%80%E5%8D%95"><span class="toc-text">开启 2FA 很简单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E5%95%A5-GitHub-%E9%9D%9E%E8%A6%81%E6%88%91%E4%BB%AC%E5%BC%80-2FA%EF%BC%9F"><span class="toc-text">为啥 GitHub 非要我们开 2FA？</span></a></li></ol></div><div class="widget-footer">
 
 <a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
 </div></aside><div class='float-panel blur'>

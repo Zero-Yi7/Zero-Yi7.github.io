@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -17,15 +17,15 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
   
-  <title>2023年某直辖市通管局攻防演练总结 - Rabbit's Blog</title>
+  <title>2023 年某直辖市通管局攻防演练总结 - Rabbit's Blog</title>
 
   
-    <meta name="description" content="攻击路径 目标1——敏感信息泄露 通过对备案域名进行信息收集，获取到相关域名，访问并查看JS文件，获取到敏感信息。 目标2——域名备案管理系统弱口令漏洞 通过信息收集得到相关地址，使用弱密码登录后台，获取配置信息，其中包含云存储的“KEY”，进而访问云存储，查看敏感文件。 目标3——全版本源代码泄露（2亿3千万行）、目录遍历 通过信息收集发现该资产，进行目录遍历，确认全版本源代码的泄露，涵盖游戏各">
+    <meta name="description" content="通过信息收集得到相关地址，使用弱密码登录后台，获取配置信息，并访问云存储……">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2023年某直辖市通管局攻防演练总结">
+<meta property="og:title" content="2023 年某直辖市通管局攻防演练总结">
 <meta property="og:url" content="https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="攻击路径 目标1——敏感信息泄露 通过对备案域名进行信息收集，获取到相关域名，访问并查看JS文件，获取到敏感信息。 目标2——域名备案管理系统弱口令漏洞 通过信息收集得到相关地址，使用弱密码登录后台，获取配置信息，其中包含云存储的“KEY”，进而访问云存储，查看敏感文件。 目标3——全版本源代码泄露（2亿3千万行）、目录遍历 通过信息收集发现该资产，进行目录遍历，确认全版本源代码的泄露，涵盖游戏各">
+<meta property="og:description" content="通过信息收集得到相关地址，使用弱密码登录后台，获取配置信息，并访问云存储……">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-31T12:46:25.000Z">
 <meta property="article:modified_time" content="2023-07-31T12:46:25.000Z">
@@ -85,7 +85,7 @@
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>2023年某直辖市通管局攻防演练总结</span></h1>
+        <h1 class="text title"><span>2023 年某直辖市通管局攻防演练总结</span></h1>
         
       </div>
     </div>
@@ -130,7 +130,7 @@
       <div class="header"><span>分享文章</span></div>
       <div class="body">
         <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=2023年某直辖市通管局攻防演练总结 - Rabbit's Blog&amp;body=https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=2023 年某直辖市通管局攻防演练总结 - Rabbit's Blog&amp;body=https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
           <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://zero-yi7.github.io/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E6%80%BB%E7%BB%93/"/>
@@ -140,7 +140,7 @@
     </section>
     </div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/08/11/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9/">常见暴露公网风险点</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E7%A2%8E%E7%A2%8E%E5%BF%B5/">2023年某直辖市通管局攻防演练碎碎念</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/08/11/%E5%B8%B8%E8%A7%81%E6%9A%B4%E9%9C%B2%E5%85%AC%E7%BD%91%E9%A3%8E%E9%99%A9%E7%82%B9/">常见暴露公网风险点</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/07/31/2023%E5%B9%B4%E6%9F%90%E7%9B%B4%E8%BE%96%E5%B8%82%E9%80%9A%E7%AE%A1%E5%B1%80%E6%94%BB%E9%98%B2%E6%BC%94%E7%BB%83%E7%A2%8E%E7%A2%8E%E5%BF%B5/">2023 年某直辖市通管局攻防演练碎碎念</a></div></section></div>
 
 
 

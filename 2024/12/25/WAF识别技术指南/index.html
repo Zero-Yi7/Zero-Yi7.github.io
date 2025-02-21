@@ -1,5 +1,5 @@
 
-<!DOCTYPE html><html lang="zh-CN">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -20,12 +20,12 @@
   <title>WAF识别技术指南 - 更新中241225 - Rabbit's Blog</title>
 
   
-    <meta name="description" content="什么情况下，你需要识别WAF？  渗透测试人员在前期信息收集阶段，需要识别WAF，来思考如何绕过 运维人员在部署或更新WAF后，验证防护是否生效 安全厂商进行市场调研时，通过WAF识别分析目标客户群体的安全产品部署情况，发掘潜在商业机会  一、WAF基本分类 1. 云WAF  阿里云WAF 腾讯云WAF 华为云WAF Cloudflare AWS WAF  2. 硬件WAF  绿盟WAF 安恒明御">
+    <meta name="description" content="记录识别WAF的方法，不限于云WAF、硬件WAF、软件WAF。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WAF识别技术指南 - 更新中241225">
 <meta property="og:url" content="https://zero-yi7.github.io/2024/12/25/WAF%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="什么情况下，你需要识别WAF？  渗透测试人员在前期信息收集阶段，需要识别WAF，来思考如何绕过 运维人员在部署或更新WAF后，验证防护是否生效 安全厂商进行市场调研时，通过WAF识别分析目标客户群体的安全产品部署情况，发掘潜在商业机会  一、WAF基本分类 1. 云WAF  阿里云WAF 腾讯云WAF 华为云WAF Cloudflare AWS WAF  2. 硬件WAF  绿盟WAF 安恒明御">
+<meta property="og:description" content="记录识别WAF的方法，不限于云WAF、硬件WAF、软件WAF。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/WAF%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/202412251138558.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/WAF%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/202412251137246.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/WAF%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/202412251139748.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/WAF%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97/202412251139122.png">
 <meta property="article:published_time" content="2024-12-25T06:06:00.000Z">
-<meta property="article:modified_time" content="2024-12-25T06:41:17.057Z">
+<meta property="article:modified_time" content="2025-02-21T02:53:06.208Z">
 <meta property="article:author" content="Rabbit">
 <meta property="article:tag" content="WAF识别">
 <meta name="twitter:card" content="summary">
@@ -89,7 +89,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-12-25T06:06:00.000Z">2024-12-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-12-25T06:41:17.057Z">2024-12-25</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-12-25T06:06:00.000Z">2024-12-25</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-02-21T02:53:06.208Z">2025-02-21</time></span></div></div></div>
     
     <div class="bottom only-title">
       
