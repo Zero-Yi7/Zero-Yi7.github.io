@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html><html lang="zh-CN" data-theme="light">
 
 <head>
@@ -52,7 +53,12 @@
 
   
 
-  
+  <link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css"
+  media="all"
+/>
+
 </head><body>
 
 <div class="l_body s:aa content story" id="start" layout="post" text-indent><aside class="l_left"><div class="leftbar-container">
@@ -64,7 +70,7 @@
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="靶场实战" href="/wiki/"><span>靶场实战</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item active" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
@@ -131,8 +137,36 @@
 
 
 
-<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Rabbit</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>
-本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer footnote"><hr><div class="text"><center>
+  <p>© <span id="copyright_year"></span> Rabbit 使用 Stellar 创建</p>
+  <p>✨ 营业：<span id="runtime_span"></span> ✨</p>
+  <p>共发表 <span id="blog_count">56</span> 篇Blog 🔸 总计 <span id="total_words">123.6k</span> 字</p>
+  <script type="text/javascript">
+    (function() {
+      // 动态年份
+      document.getElementById('copyright_year').textContent = new Date().getFullYear();
+
+      // 运行时长
+      const startDate = new Date('2023-12-20T00:00:00');
+      function updateRuntime() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        document.getElementById('runtime_span').innerHTML =
+          `${days}天-${hours}小时-${minutes}分-${seconds}秒`; // 修改输出格式
+      }
+      setInterval(updateRuntime, 1000);
+      updateRuntime();
+
+      // 博客统计数据 (这里是静态示例，你可以根据实际情况手动更新或动态获取)
+      // document.getElementById('blog_count').textContent = '你的博客文章总数';
+      // document.getElementById('total_words').textContent = '你的博客文章总字数';
+    })();
+  </script>
+</center>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
 </aside><div class='float-panel blur'>
@@ -590,7 +624,7 @@
       ctx.copycode = {
         default_text: `Copy`,
         success_text: `Copied`,
-        toast: `复制成功`,
+        toast: ``,
       };
       utils.js('/js/plugins/copycode.js');
     }
@@ -604,4 +638,12 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script></div></body></html>
+                    </script><script src="/js/plugins/copycode.js"></script>
+    <script type="text/javascript" 
+      color="220,220,220" 
+      opacity="0.7" 
+      zIndex="-2" 
+      count="200" 
+      src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+  </div></body></html>

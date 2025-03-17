@@ -1,32 +1,56 @@
-window.codeElements.forEach((codeElement) => {
-  // 创建复制按钮
-  const codeCopyBtn = document.createElement('div');
-  codeCopyBtn.className = 'copy-btn';
-  codeCopyBtn.textContent = ctx.copycode.default_text;
-  codeElement.appendChild(codeCopyBtn);
+// // copycode.js 完整修复版本
+// document.addEventListener('DOMContentLoaded', function () {
+//   // 1. 选择所有代码块
+//   const codeElements = document.querySelectorAll('pre code');
 
-  // 添加点击事件监听
-  codeCopyBtn.addEventListener('click', async () => {
-    const codeToCopy = codeElement.querySelector('pre')?.innerText || '';
-    if (navigator.clipboard) {
+//   codeElements.forEach((codeElement) => {
+//     // 2. 创建复制按钮
+//     const copyBtn = document.createElement('div');
+//     copyBtn.className = 'copy-btn';
+//     copyBtn.textContent = 'Copy';
+
+//     // 3. 将按钮添加到代码块中
+//     codeElement.appendChild(copyBtn);
+
+//     // 4. 绑定点击事件（使用闭包保留上下文）
+//     copyBtn.addEventListener('click', async function () {
+//       try {
+//         const text = codeElement.innerText;
+//         await navigator.clipboard.writeText(text);
+//         console.log('复制成功:', text);
+
+//         // 反馈效果（可选）
+//         this.textContent = 'Copied!';
+//         setTimeout(() => {
+//           this.textContent = 'Copy';
+//         }, 2000);
+//       } catch (err) {
+//         console.error('复制失败:', err);
+//         this.textContent = 'Error!';
+//         setTimeout(() => {
+//           this.textContent = 'Copy';
+//         }, 2000);
+//       }
+//     });
+//   });
+// });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 针对 markdown-it 生成的代码块结构
+  document.querySelectorAll('pre code').forEach(codeElement => {
+    const btn = document.createElement('div');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    codeElement.parentNode.insertBefore(btn, codeElement); // 插入到 pre 内部
+
+    btn.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(codeToCopy);
-        codeCopyBtn.textContent = ctx.copycode.success_text;
-        codeCopyBtn.classList.add('success');
-        hud.toast(ctx.copycode.toast, 2500);
-      } catch (error) {
-        codeCopyBtn.textContent = '未获得用户许可';
-        codeCopyBtn.classList.add('warning');
+        await navigator.clipboard.writeText(codeElement.textContent);
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      } catch (err) {
+        console.error('复制失败:', err);
       }
-    } else {
-      codeCopyBtn.textContent = '浏览器不支持/非HTTPS';
-      codeCopyBtn.classList.add('warning');
-    }
-
-    // 3秒后恢复默认文本
-    setTimeout(() => {
-      codeCopyBtn.textContent = ctx.copycode.default_text;
-      codeCopyBtn.classList.remove('success', 'warning');
-    }, 3000);
+    });
   });
 });
