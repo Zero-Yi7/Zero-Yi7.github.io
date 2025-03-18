@@ -24,7 +24,7 @@
     <meta name="description" content="Cross-site request forgery (CSRF)  All labs | Web Security Academy (portswigger.net)  1. 没有防御措施的 CSRF 漏洞 题目中已告知易受攻击的是电子邮件的更改功能，而目标是利用 csrf 漏洞更改受害者的电子邮件地址，最后给出了登录凭据：wiener:peter。  登录 wiener 用户——首先做的事是根">
 <meta property="og:type" content="website">
 <meta property="og:title" content="portswigger 靶场之 CSRF 篇">
-<meta property="og:url" content="https://zero-yi7.github.io/wiki/portswigger/csrf.html">
+<meta property="og:url" content="https://askrabbit.cn/wiki/portswigger/csrf">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
 <meta property="og:description" content="Cross-site request forgery (CSRF)  All labs | Web Security Academy (portswigger.net)  1. 没有防御措施的 CSRF 漏洞 题目中已告知易受攻击的是电子邮件的更改功能，而目标是利用 csrf 漏洞更改受害者的电子邮件地址，最后给出了登录凭据：wiener:peter。  登录 wiener 用户——首先做的事是根">
 <meta property="og:locale" content="zh_CN">
@@ -102,21 +102,21 @@
 <div class="l_body s:aa content tech" id="start" layout="page" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/index.html"><div class="main" ff="title">portswigger</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/"><div class="main" ff="title">portswigger</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/portswigger/" placeholder="在portswigger靶场中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/index.html#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection.html"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1.html"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2.html"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf.html"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack.html"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link active" href="/wiki/portswigger/csrf.html"><span class="toc-text">portswigger 靶场之 CSRF 篇</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/portswigger/http-request-smuggling.html"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal.html"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking.html"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication.html"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control.html"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload.html"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws.html"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection.html"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link active" href="/wiki/portswigger/csrf"><span class="toc-text">portswigger 靶场之 CSRF 篇</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/portswigger/http-request-smuggling"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -126,7 +126,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/index.html">portswigger</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/">portswigger</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2022-07-11T12:46:25.000Z">2022-07-11</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -238,9 +238,7 @@
 <ol>
 <li>
 <p>将已知的 csrfKey cookie 注入给被攻击者</p>
-<pre><code class="language-bash">/?search=test%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None
-# SameSite=None——显式设置 SameSite=None（一个新值），该值表示放弃对 Cookie 的 Same-Site 策略设置，通俗说就是“我不管了”。
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/?search=<span class="hljs-built_in">test</span>%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None<br><span class="hljs-comment"># SameSite=None——显式设置 SameSite=None（一个新值），该值表示放弃对 Cookie 的 Same-Site 策略设置，通俗说就是“我不管了”。</span><br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -309,8 +307,7 @@
 </li>
 <li>
 <p>在 script 中编辑 JavaScript</p>
-<pre><code class="language-javascript">history.pushState(&quot;&quot;, &quot;&quot;, &quot;/?0aac003b03b74a00c0510db300a200ff.web-security-academy.net&quot;)
-</code></pre>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">history.<span class="hljs-title function_">pushState</span>(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/?0aac003b03b74a00c0510db300a200ff.web-security-academy.net&quot;</span>)<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在头部添<code>Referrer-Policy: unsafe-url</code>，是因为需要请求中包含完整的 URL ，以此来覆盖浏览器的默认配置（默认从 Referer 标头中删除查询字符串）</p>
@@ -327,7 +324,7 @@
 
 <div class="article-footer fs14"></div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/portswigger/xml-external-entity-attack.html">Portswigger 靶场之 XML 外部实体 (XXE) 注入</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/portswigger/http-request-smuggling.html">PortSwigger 靶场之 HTTP 请求走私</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/portswigger/xml-external-entity-attack">Portswigger 靶场之 XML 外部实体 (XXE) 注入</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/portswigger/http-request-smuggling">PortSwigger 靶场之 HTTP 请求走私</a></div></section></div>
 
 
 

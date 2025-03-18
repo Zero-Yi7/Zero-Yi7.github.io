@@ -24,7 +24,7 @@
     <meta name="description" content="许多安全工具都是基于 Java 开发的。但这些工具对 Java 版本的要求各不相同，迫使不得不在电脑上同时维护多个 Java 环境。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多版本环境，以应对不同安全工具">
-<meta property="og:url" content="https://zero-yi7.github.io/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:url" content="https://askrabbit.cn/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
 <meta property="og:description" content="许多安全工具都是基于 Java 开发的。但这些工具对 Java 版本的要求各不相同，迫使不得不在电脑上同时维护多个 Java 环境。">
 <meta property="og:locale" content="zh_CN">
@@ -35,14 +35,14 @@
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/202411151757799.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/202411151758307.png">
 <meta property="article:published_time" content="2024-11-13T06:06:00.000Z">
-<meta property="article:modified_time" content="2025-02-21T02:58:26.078Z">
 <meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/202411151643372.png">
   
   
   
-  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
 
   <!-- feed -->
   
@@ -70,7 +70,7 @@
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Rabbit's Blog</div><div class="sub normal cap">洞府无穷岁月</div><div class="sub hover cap" style="opacity:0"> 壶天别有乾坤</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
@@ -81,7 +81,7 @@
 <div class="widgets">
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -92,7 +92,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-13T06:06:00.000Z">2024-11-13</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-02-21T02:58:26.078Z">2025-02-21</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-13T06:06:00.000Z">2024-11-13</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-03-18T10:16:00.882Z">2025-03-18</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -109,21 +109,11 @@
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/202411151643372.png" alt="Java 多版本环境"></p>
 <h2 id="配置多版本-Java-环境">配置多版本 Java 环境</h2>
 <p>首先，确保已安装所需的 Java 版本，例如 Java 8、Java 11 和 Java 20。安装完成后，Java 可执行文件的路径可能如下（Windows系统安装在C盘的情况下，默认路径不做更改）：</p>
-<pre><code class="language-bash"># Java 8
-C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe
-
-# Java 11
-C:\Program Files\Java\jdk-11\bin\java.exe
-
-# Java 20
-C:\Program Files\Java\jdk-20\bin\java.exe
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Java 8</span><br>C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe<br><br><span class="hljs-comment"># Java 11</span><br>C:\Program Files\Java\jdk-11\bin\java.exe<br><br><span class="hljs-comment"># Java 20</span><br>C:\Program Files\Java\jdk-20\bin\java.exe<br></code></pre></td></tr></table></figure>
 <h2 id="切换-Java-环境的方法">切换 Java 环境的方法</h2>
 <h3 id="方法一（推荐）：手动指定-Java-路径">方法一（推荐）：手动指定 Java 路径</h3>
 <p>直接在命令行中手动指定 Java 可执行文件的路径。例如，一些漏洞利用工具只能在 Java 8 环境下运行：</p>
-<pre><code class="language-bash"># 运行需要 Java 8 的工具
-&amp; &quot;C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe&quot; -jar yourTool.jar
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行需要 Java 8 的工具</span><br>&amp; <span class="hljs-string">&quot;C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe&quot;</span> -jar yourTool.jar<br></code></pre></td></tr></table></figure>
 <p>之所以推荐这个方式，是因为能够精确控制 Java 版本，直接绕过系统默认 Java 环境，当然，更关键是，环境变量混乱导致第二种方式行不通……</p>
 <h3 id="方法二：设置环境变量-JAVA-HOME">方法二：设置环境变量 <code>JAVA_HOME</code></h3>
 <p>通过设置 <code>JAVA_HOME</code> 环境变量，可以指定全局使用的 Java 版本。</p>
@@ -179,11 +169,11 @@ C:\Program Files\Java\jdk-20\bin\java.exe
     <section id="share">
       <div class="header"><span>分享文章</span></div>
       <div class="body">
-        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://zero-yi7.github.io/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" /></div>
-        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=Java多版本环境，以应对不同安全工具 - Rabbit's Blog&amp;body=https://zero-yi7.github.io/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://askrabbit.cn/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item email" href="mailto:?subject=Java多版本环境，以应对不同安全工具 - Rabbit's Blog&amp;body=https://askrabbit.cn/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
         <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
-          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://zero-yi7.github.io/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"/>
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://askrabbit.cn/2024/11/13/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/"/>
         </div>
         
       </div>

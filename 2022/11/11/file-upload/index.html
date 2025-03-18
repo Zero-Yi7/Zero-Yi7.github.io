@@ -24,7 +24,7 @@
     <meta name="description" content="File upload vulnerabilities All labs | Web Security Academy (portswigger.net)  1. Remote code execution via web shell upload  通过 Web shell 上传远程执行代码  目标：读取&#x2F;home&#x2F;carlos&#x2F;secret文件的内容 过程 登录用户，选择一个图片上传。用 b">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Portswigger 靶场之“文件上传”">
-<meta property="og:url" content="https://zero-yi7.github.io/2022/11/11/file-upload/index.html">
+<meta property="og:url" content="https://askrabbit.cn/2022/11/11/file-upload/">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
 <meta property="og:description" content="File upload vulnerabilities All labs | Web Security Academy (portswigger.net)  1. Remote code execution via web shell upload  通过 Web shell 上传远程执行代码  目标：读取&#x2F;home&#x2F;carlos&#x2F;secret文件的内容 过程 登录用户，选择一个图片上传。用 b">
 <meta property="og:locale" content="zh_CN">
@@ -58,7 +58,7 @@
   
   
   
-  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
 
   <!-- feed -->
   
@@ -88,21 +88,21 @@
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/index.html"><div class="main" ff="title">portswigger</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/"><div class="main" ff="title">portswigger</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/portswigger/" placeholder="在portswigger靶场中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/index.html#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection.html"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1.html"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2.html"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf.html"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack.html"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf.html"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling.html"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal.html"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking.html"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication.html"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control.html"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload.html"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws.html"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection.html"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -112,7 +112,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/index.html">portswigger</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/">portswigger</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2022-11-11T15:16:53.000Z">2022-11-11</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -137,11 +137,7 @@
 <p>登录用户，选择一个图片上传。用 burp 分别拦截“<u><em>上传文件</em></u>”和“<em><u>查看文件</u></em>”的数据包，一个 POST 请求，另一个是 GET 请求</p>
 <p>在 burp <u><em>上传文件</em></u>中文件名后缀改为<code>.php</code>，删除原来图片的内容，替换为 php webshell，并且上传</p>
 <p>在*<u>查看文件</u>*数据包中，访问上传的 webshell；或者回到浏览器，先刷新页面，后右键图片在新标签页打开</p>
-<pre><code class="language-php"># PHP 的读取代码
-&lt;?php echo file_get_contents('/home/carlos/secret'); ?&gt;
-
-# file_get_contents() 把整个文件读入一个字符串中。
-</code></pre>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># PHP 的读取代码</span><br><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); <span class="hljs-meta">?&gt;</span><br><br><span class="hljs-comment"># file_get_contents() 把整个文件读入一个字符串中。</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128823.png" alt="230216PM08_11"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128209.png" alt="230216PM08_12"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128918.png" alt="230216PM08_13"></p>
@@ -153,8 +149,7 @@
 <p>先登录，上传图片，在 burp 的 http history 中拦截“<u><em>上传文件</em></u>”和“<em><u>查看文件</u></em>”的数据包，并转发到 Repeater，重命名为<code>Upload File</code> <code>Show File</code>以便更好地观察</p>
 <p>在 burp <u><em>上传文件</em></u>中，修改名称、删除图片内容替换为 php webshell，最重要的一点是<u><em><strong>将<code>Content-Type</code> 修改为<code>image/jpeg</code></strong></em></u></p>
 <p>后续步骤如法炮制而来</p>
-<pre><code class="language-bash">&lt;?php echo file_get_contents('/home/carlos/secret'); ?&gt;
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128959.png" alt="230216PM10_15"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128894.png" alt="230216PM10_16"></p>
 <h2 id="3-Web-shell-upload-via-path-traversal">3. Web shell upload via path traversal</h2>
@@ -173,26 +168,10 @@
 <p><code>.htaccess</code>文件是 Apache 服务器的一个配置文件，负责相关目录下的网页配置。能够实现*<u><strong>改变文件扩展名、允许/阻止特定的用户或者目录的访问</strong></u>*</p>
 <p>可以欺骗 Apache 服务器将任意*<u><strong>自定义文件扩展名</strong></u>*映射到可执行的 MIME 类型。</p>
 <p>第一步、修改<code>.htaccess</code>文件</p>
-<pre><code class="language-bash"># 修改名称 
-.htaccess
-
-# 修改 Content-Type
-text/plain
-
-# 修改内容
-AddType application/x-httpd-php .shell
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改名称 </span><br>.htaccess<br><br><span class="hljs-comment"># 修改 Content-Type</span><br>text/plain<br><br><span class="hljs-comment"># 修改内容</span><br>AddType application/x-httpd-php .shell<br></code></pre></td></tr></table></figure>
 <p>实现的功能就是：所有上传的<code>.shell</code>文件都会被当作<code>php</code>文件执行</p>
 <p>接着上传一个后缀名为<code>shell</code>的文件，完成实验室任务</p>
-<pre><code class="language-bash"># 修改名称 
-code.shell
-
-# 修改 Content-Type
-image、png
-
-# 修改内容
-&lt;?php echo file_get_contents('/home/carlos/secret'); ?&gt;
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改名称 </span><br>code.shell<br><br><span class="hljs-comment"># 修改 Content-Type</span><br>image、png<br><br><span class="hljs-comment"># 修改内容</span><br>&lt;?php <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128959.png" alt="230217AM10_23"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128746.png" alt="230217AM10_24"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128358.png" alt="230217AM10_25"></p>
@@ -215,11 +194,9 @@ image、png
 </blockquote>
 <p>服务器可能通过图像的字节序列来判断是否是<code>jpeg、png</code>文件等；使用 ExifTool 创建包含元数据中恶意代码的多语言 JPEG 文件</p>
 <p>在 kali 中安装 ExifTool</p>
-<pre><code class="language-bash">apt install libimage-exiftool-perl
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install libimage-exiftool-perl<br></code></pre></td></tr></table></figure>
 <p>利用 ExifTool</p>
-<pre><code class="language-bash">exiftool -Comment=&quot;&lt;?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?&gt;&quot; code.jpg -o code.php
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">exiftool -Comment=<span class="hljs-string">&quot;&lt;?php echo &#x27;START &#x27; . file_get_contents(&#x27;/home/carlos/secret&#x27;) . &#x27; END&#x27;; ?&gt;&quot;</span> code.jpg -o code.php<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062129225.png" alt="230217PM06_34"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062129783.png" alt="230217PM06_35"></p>
 <h2 id="7-Web-shell-upload-via-race-condition">7. Web shell upload via race condition</h2>

