@@ -56,10 +56,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -67,7 +63,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -124,7 +121,7 @@
 </li>
 <li>
 <p>修改参数<code>filename</code>，观察响应是否包含文件的内容。<code>/etc/passwd</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">../../../etc/passwd<br><br><span class="hljs-comment"># 相对路径 “../&quot;，这个路径表示回到上一级目录</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">../../../etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 相对路径 “../&quot;，这个路径表示回到上一级目录</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>访问操作系统中的 passwd 文件。passwd 文件包含系统中所有用户的用户名、密码、用户 ID、主目录等信息</p>
 </blockquote>
@@ -153,7 +150,7 @@
 <li>非递归剥离遍历序列：应用程序会解析路径并对其进行分析，然后使用算法来**<u>删除路径中的 “…/” 遍历序列</u>**</li>
 <li>使用双写绕过</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">....//....//....//etc/passwd<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">....//....//....//etc/passwd</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/202410062127366.png" alt="230307AM11_128"></p>
 <h2 id="4-文件路径遍历，使用多余的-URL-解码剥离遍历序列">4. 文件路径遍历，使用多余的 URL 解码剥离遍历序列</h2>
 <blockquote>
@@ -162,14 +159,14 @@
 <ol>
 <li>第四关<code>/</code>被过滤了，所以需要对其进行 URL 编码，但在 burp 中用 Repeater 发送后还是错误，得知需要进行第二次 URL 编码才可绕过</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">..%252f..%252f..%252fetc/passwd<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">..%252f..%252f..%252fetc/passwd</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/202410062127348.png" alt="230307PM12_129"></p>
 <h2 id="5-文件路径遍历，路径开始验证">5. 文件路径遍历，路径开始验证</h2>
 <blockquote>
 <p><u>File path traversal, validation of start of path</u></p>
 </blockquote>
 <p>验证请求的文件路径是否以 “/var/www/” 开头</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/var/www/images/../../../etc/passwd<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/www/images/../../../etc/passwd</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/202410062127610.png" alt="230307PM02_130"></p>
 <h2 id="6-文件路径遍历，使用空字节旁路验证文件扩展名">6. 文件路径遍历，使用空字节旁路验证文件扩展名</h2>
 <blockquote>
@@ -179,7 +176,7 @@
 <li>在 URL 编码中，%00 可以用于表示字符串的结束符。</li>
 <li>作用是将“<strong>.png</strong>”文件名截断，使得请求<strong>实际上</strong>是针对“<strong>/etc/passwd</strong>”这个文件的</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">../../../etc/passwd%00.png<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../../../etc/passwd%00.png</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/202410062127048.png" alt="230307PM02_131"></p>
 
 <div class="article-footer fs14"></div>
@@ -676,28 +673,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

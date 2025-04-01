@@ -48,10 +48,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -59,7 +55,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
@@ -104,42 +101,42 @@
 </ul>
 <h2 id="一、确认当前磁盘状态">一、确认当前磁盘状态</h2>
 <p>使用 <code>df -h</code> 命令确认目前的空间状态。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@hostname ops]# <span class="hljs-built_in">df</span> -h<br>Filesystem      Size  Used Avail Use% Mounted on<br>devtmpfs        7.8G     0  7.8G   0% /dev<br>tmpfs           7.8G  4.0K  7.8G   1% /dev/shm<br>tmpfs           7.8G   17M  7.8G   1% /run<br>tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup<br>/dev/vda1       300G  1.4G  299G   1% /<br>tmpfs           1.6G     0  1.6G   0% /run/user/201<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        7.8G     0  7.8G   0% /dev</span><br><span class="line">tmpfs           7.8G  4.0K  7.8G   1% /dev/shm</span><br><span class="line">tmpfs           7.8G   17M  7.8G   1% /run</span><br><span class="line">tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       300G  1.4G  299G   1% /</span><br><span class="line">tmpfs           1.6G     0  1.6G   0% /run/user/201</span><br></pre></td></tr></table></figure>
 <h2 id="二、确认新磁盘">二、确认新磁盘</h2>
 <p>使用 <code>lsblk</code> 命令来确认新磁盘是否被正确识别——发现新磁盘被正常识别到。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@hostname ops]# lsblk<br>NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT<br>vda    253:0    0  300G  0 disk <br>└─vda1 253:1    0  300G  0 part /<br>vdb    253:16   0  200G  0 disk <br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# lsblk</span><br><span class="line">NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line">vda    253:0    0  300G  0 disk </span><br><span class="line">└─vda1 253:1    0  300G  0 part /</span><br><span class="line">vdb    253:16   0  200G  0 disk </span><br></pre></td></tr></table></figure>
 <p>可以发现 <code>/dev/vdb</code> 是新分区。</p>
 <p>使用 <code>fdisk</code> 命令确认磁盘信息。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@hostname ops]# <span class="hljs-built_in">sudo</span> fdisk -l<br><br>Disk /dev/vda: 322.1 GB, 322122547200 bytes, 629145600 sectors<br>Units = sectors of 1 * 512 = 512 bytes<br>Sector size (logical/physical): 512 bytes / 512 bytes<br>I/O size (minimum/optimal): 512 bytes / 512 bytes<br>Disk label <span class="hljs-built_in">type</span>: dos<br>Disk identifier: 0x000b0d11<br><br>   Device Boot      Start         End      Blocks   Id  System<br>/dev/vda1   *        2048   629145566   314571759+  83  Linux<br><br>Disk /dev/vdb: 214.7 GB, 214748364800 bytes, 419430400 sectors<br>Units = sectors of 1 * 512 = 512 bytes<br>Sector size (logical/physical): 512 bytes / 512 bytes<br>I/O size (minimum/optimal): 512 bytes / 512 bytes<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# <span class="built_in">sudo</span> fdisk -l</span><br><span class="line"></span><br><span class="line">Disk /dev/vda: 322.1 GB, 322122547200 bytes, 629145600 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disk label <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0x000b0d11</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/vda1   *        2048   629145566   314571759+  83  Linux</span><br><span class="line"></span><br><span class="line">Disk /dev/vdb: 214.7 GB, 214748364800 bytes, 419430400 sectors</span><br><span class="line">Units = sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br></pre></td></tr></table></figure>
 <h2 id="三、创建文件系统">三、创建文件系统</h2>
 <p>确认文件系统，发现新分区没有文件系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[root@hostname ops]# lsblk -f /dev/vdb<br>NAME FSTYPE LABEL UUID MOUNTPOINT<br>vdb  <br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# lsblk -f /dev/vdb</span><br><span class="line">NAME FSTYPE LABEL UUID MOUNTPOINT</span><br><span class="line">vdb  </span><br></pre></td></tr></table></figure>
 <p>创建 ext4 文件系统。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> mkfs.ext4 /dev/vdb<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mkfs.ext4 /dev/vdb</span><br></pre></td></tr></table></figure>
 <h2 id="四、挂载新分区">四、挂载新分区</h2>
 <p>创建挂载点。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> /mnt/new_disk<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/new_disk</span><br></pre></td></tr></table></figure>
 <p>运行以下命令将新分区挂载到创建的目录。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@hostname ops]# <span class="hljs-built_in">sudo</span> mount /dev/vdb /mnt/new_disk<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# <span class="built_in">sudo</span> mount /dev/vdb /mnt/new_disk</span><br></pre></td></tr></table></figure>
 <p>如果出现错误提示，例如“mount: unknown filesystem type ‘(null)’”，请确认文件系统已经正确创建。</p>
 <h3 id="验证新分区是否成功挂载">验证新分区是否成功挂载</h3>
 <p>运行 <code>df -h</code> 命令确认新分区是否已经成功挂载，并且你能够看到新的空间。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@hostname ops]# <span class="hljs-built_in">df</span> -h<br>Filesystem      Size  Used Avail Use% Mounted on<br>devtmpfs        7.8G     0  7.8G   0% /dev<br>tmpfs           7.8G  4.0K  7.8G   1% /dev/shm<br>tmpfs           7.8G   17M  7.8G   1% /run<br>tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup<br>/dev/vda1       300G  1.4G  299G   1% /<br>tmpfs           1.6G     0  1.6G   0% /run/user/201<br>/dev/vdb        197G   61M  187G   1% /mnt/new_disk<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hostname ops]# <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        7.8G     0  7.8G   0% /dev</span><br><span class="line">tmpfs           7.8G  4.0K  7.8G   1% /dev/shm</span><br><span class="line">tmpfs           7.8G   17M  7.8G   1% /run</span><br><span class="line">tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       300G  1.4G  299G   1% /</span><br><span class="line">tmpfs           1.6G     0  1.6G   0% /run/user/201</span><br><span class="line">/dev/vdb        197G   61M  187G   1% /mnt/new_disk</span><br></pre></td></tr></table></figure>
 <h2 id="五、持久化挂载">五、持久化挂载</h2>
 <p>为了在系统重启后自动挂载新分区，需要在 <code>/etc/fstab</code> 文件中添加相应的配置。</p>
 <h3 id="1-备份-fstab-文件">1. 备份 fstab 文件</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cp</span> /etc/fstab /root/fstab_backup<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /etc/fstab /root/fstab_backup</span><br></pre></td></tr></table></figure>
 <h3 id="2-编辑-fstab-文件">2. 编辑 fstab 文件</h3>
 <p>打开 <code>/etc/fstab</code> 文件进行编辑：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/fstab<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vim /etc/fstab</span><br></pre></td></tr></table></figure>
 <p>在文件末尾添加一行，描述新分区的挂载信息。对于 ext4 文件系统，行可能是这样的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#</span><br><span class="hljs-comment"># /etc/fstab</span><br><span class="hljs-comment"># Created by anaconda on Fri Oct 30 14:22:27 2020</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Accessible filesystems, by reference, are maintained under &#x27;/dev/disk&#x27;</span><br><span class="hljs-comment"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span><br><span class="hljs-comment">#</span><br>UUID=9cff3d69-3769-4ad9-8460-9c54050583f9 /                       xfs     defaults        0 0<br>/dev/vdb   /mnt/new_disk   ext4   defaults   0   0<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># /etc/fstab</span></span><br><span class="line"><span class="comment"># Created by anaconda on Fri Oct 30 14:22:27 2020</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Accessible filesystems, by reference, are maintained under &#x27;/dev/disk&#x27;</span></span><br><span class="line"><span class="comment"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">UUID=9cff3d69-3769-4ad9-8460-9c54050583f9 /                       xfs     defaults        0 0</span><br><span class="line">/dev/vdb   /mnt/new_disk   ext4   defaults   0   0</span><br></pre></td></tr></table></figure>
 <h2 id="六、重启验证">六、重启验证</h2>
 <p>重启服务器看是否持久化挂载。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> reboot<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
 <h2 id="七、重启后确认挂载">七、重启后确认挂载</h2>
 <p>使用 <code>df -h</code> 命令确认新分区是否已经成功挂载，并且你能够看到新的空间。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ops@hostname ~]$ <span class="hljs-built_in">df</span> -h<br>Filesystem      Size  Used Avail Use% Mounted on<br>devtmpfs        7.8G     0  7.8G   0% /dev<br>tmpfs           7.8G  4.0K  7.8G   1% /dev/shm<br>tmpfs           7.8G   17M  7.8G   1% /run<br>tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup<br>/dev/vda1       300G  1.4G  299G   1% /<br>/dev/vdb        197G   61M  187G   1% /mnt/new_disk<br>tmpfs           1.6G     0  1.6G   0% /run/user/201<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ops@hostname ~]$ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        7.8G     0  7.8G   0% /dev</span><br><span class="line">tmpfs           7.8G  4.0K  7.8G   1% /dev/shm</span><br><span class="line">tmpfs           7.8G   17M  7.8G   1% /run</span><br><span class="line">tmpfs           7.8G     0  7.8G   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       300G  1.4G  299G   1% /</span><br><span class="line">/dev/vdb        197G   61M  187G   1% /mnt/new_disk</span><br><span class="line">tmpfs           1.6G     0  1.6G   0% /run/user/201</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <p>通过以上步骤，将 Linux 服务器的硬盘从 300G 扩容到 500G，并配置了持久性挂载，能够确保服务器在重启后新磁盘仍然可用。</p>
 
@@ -658,28 +655,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

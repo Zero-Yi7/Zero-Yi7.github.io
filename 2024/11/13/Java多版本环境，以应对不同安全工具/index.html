@@ -54,10 +54,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -65,7 +61,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
@@ -92,7 +89,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-13T06:06:00.000Z">2024-11-13</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-03-18T10:16:00.882Z">2025-03-18</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-11-13T06:06:00.000Z">2024-11-13</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-04-01T00:54:32.008Z">2025-04-01</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -109,11 +106,11 @@
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Java%E5%A4%9A%E7%89%88%E6%9C%AC%E7%8E%AF%E5%A2%83%EF%BC%8C%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%8D%E5%90%8C%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/202411151643372.png" alt="Java 多版本环境"></p>
 <h2 id="配置多版本-Java-环境">配置多版本 Java 环境</h2>
 <p>首先，确保已安装所需的 Java 版本，例如 Java 8、Java 11 和 Java 20。安装完成后，Java 可执行文件的路径可能如下（Windows系统安装在C盘的情况下，默认路径不做更改）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Java 8</span><br>C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe<br><br><span class="hljs-comment"># Java 11</span><br>C:\Program Files\Java\jdk-11\bin\java.exe<br><br><span class="hljs-comment"># Java 20</span><br>C:\Program Files\Java\jdk-20\bin\java.exe<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Java 8</span></span><br><span class="line">C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Java 11</span></span><br><span class="line">C:\Program Files\Java\jdk-11\bin\java.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Java 20</span></span><br><span class="line">C:\Program Files\Java\jdk-20\bin\java.exe</span><br></pre></td></tr></table></figure>
 <h2 id="切换-Java-环境的方法">切换 Java 环境的方法</h2>
 <h3 id="方法一（推荐）：手动指定-Java-路径">方法一（推荐）：手动指定 Java 路径</h3>
 <p>直接在命令行中手动指定 Java 可执行文件的路径。例如，一些漏洞利用工具只能在 Java 8 环境下运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行需要 Java 8 的工具</span><br>&amp; <span class="hljs-string">&quot;C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe&quot;</span> -jar yourTool.jar<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行需要 Java 8 的工具</span></span><br><span class="line">&amp; <span class="string">&quot;C:\Program Files\Java\jdk1.8.0_xxx\bin\java.exe&quot;</span> -jar yourTool.jar</span><br></pre></td></tr></table></figure>
 <p>之所以推荐这个方式，是因为能够精确控制 Java 版本，直接绕过系统默认 Java 环境，当然，更关键是，环境变量混乱导致第二种方式行不通……</p>
 <h3 id="方法二：设置环境变量-JAVA-HOME">方法二：设置环境变量 <code>JAVA_HOME</code></h3>
 <p>通过设置 <code>JAVA_HOME</code> 环境变量，可以指定全局使用的 Java 版本。</p>
@@ -674,28 +671,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

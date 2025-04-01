@@ -51,10 +51,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -62,7 +58,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 <div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
@@ -89,7 +86,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%9D%82%E8%B0%88%E9%97%B2%E8%AE%B0/">杂谈闲记</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-01-03T06:54:32.000Z">2024-01-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-03-18T10:16:00.888Z">2025-03-18</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2024-01-03T06:54:32.000Z">2024-01-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2025-04-01T00:54:32.342Z">2025-04-01</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -116,13 +113,13 @@
 </blockquote>
 <p><code>MyBlog\themes\stellar\_config.yml</code></p>
 <p>根据优先级，使用 <code>LXGW WenKai Screen</code> 字体作为文本的主要字体。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># CSS 中写入</span><br>  font-family:<br>    body: <span class="hljs-string">&#x27;&quot;LXGW WenKai Screen&quot;, sans-serif, &quot;system-ui&quot;, &quot;Microsoft Yahei&quot;, &quot;Segoe UI&quot;, -apple-system, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Arial, &quot;WenQuanYi Micro Hei&quot;, sans-serif&#x27;</span><br>    <br><span class="hljs-comment"># </span><br>inject:<br>  <span class="hljs-built_in">head</span>:<br>    - &lt;<span class="hljs-built_in">link</span> rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css&quot;</span> media=<span class="hljs-string">&quot;print&quot;</span> onload=<span class="hljs-string">&quot;this.media=&#x27;all&#x27;&quot;</span>&gt;<br>  script:<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CSS 中写入</span></span><br><span class="line">  font-family:</span><br><span class="line">    body: <span class="string">&#x27;&quot;LXGW WenKai Screen&quot;, sans-serif, &quot;system-ui&quot;, &quot;Microsoft Yahei&quot;, &quot;Segoe UI&quot;, -apple-system, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Arial, &quot;WenQuanYi Micro Hei&quot;, sans-serif&#x27;</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># </span></span><br><span class="line">inject:</span><br><span class="line">  <span class="built_in">head</span>:</span><br><span class="line">    - &lt;<span class="built_in">link</span> rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css&quot;</span> media=<span class="string">&quot;print&quot;</span> onload=<span class="string">&quot;this.media=&#x27;all&#x27;&quot;</span>&gt;</span><br><span class="line">  script:</span><br></pre></td></tr></table></figure>
 <p>PS：注意缩进，不然无法<code>hexo g</code>会报错</p>
 <h2 id="顶部-tab-栏">顶部 tab 栏</h2>
 <p><code>MyBlog\themes\stellar\_config.yml</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">nav_tabs:  <span class="hljs-comment"># 近期发布 分类 标签 专栏 归档 and ...</span><br>  <span class="hljs-comment"># &#x27;朋友文章&#x27;: /friends/rss/</span><br>    <span class="hljs-string">&#x27;安全资讯&#x27;</span>: /cybernews/index.html<br>    <span class="hljs-string">&#x27;留言板&#x27;</span>: /comments/index.html<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nav_tabs:  <span class="comment"># 近期发布 分类 标签 专栏 归档 and ...</span></span><br><span class="line">  <span class="comment"># &#x27;朋友文章&#x27;: /friends/rss/</span></span><br><span class="line">    <span class="string">&#x27;安全资讯&#x27;</span>: /cybernews/index.html</span><br><span class="line">    <span class="string">&#x27;留言板&#x27;</span>: /comments/index.html</span><br></pre></td></tr></table></figure>
 <h2 id="侧边栏配置">侧边栏配置</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">title: 网站名称<br>avatar: 头像<br><br>logo:<br>  subtitle: <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-comment"># &#x27;文字1 | 文字2&#x27; (鼠标放上去会切换到文字2)</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 网站名称</span><br><span class="line">avatar: 头像</span><br><span class="line"></span><br><span class="line">logo:</span><br><span class="line">  subtitle: <span class="string">&#x27;&#x27;</span> <span class="comment"># &#x27;文字1 | 文字2&#x27; (鼠标放上去会切换到文字2)</span></span><br></pre></td></tr></table></figure>
 <h2 id="评论">评论</h2>
 <p>……</p>
 
@@ -653,28 +650,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

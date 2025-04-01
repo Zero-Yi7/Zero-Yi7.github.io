@@ -84,10 +84,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -95,7 +91,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -238,7 +235,7 @@
 <ol>
 <li>
 <p>将已知的 csrfKey cookie 注入给被攻击者</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">/?search=<span class="hljs-built_in">test</span>%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None<br><span class="hljs-comment"># SameSite=None——显式设置 SameSite=None（一个新值），该值表示放弃对 Cookie 的 Same-Site 策略设置，通俗说就是“我不管了”。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/?search=<span class="built_in">test</span>%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None</span><br><span class="line"><span class="comment"># SameSite=None——显式设置 SameSite=None（一个新值），该值表示放弃对 Cookie 的 Same-Site 策略设置，通俗说就是“我不管了”。</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -307,7 +304,7 @@
 </li>
 <li>
 <p>在 script 中编辑 JavaScript</p>
-   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">history.<span class="hljs-title function_">pushState</span>(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/?0aac003b03b74a00c0510db300a200ff.web-security-academy.net&quot;</span>)<br></code></pre></td></tr></table></figure>
+   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history.<span class="title function_">pushState</span>(<span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;/?0aac003b03b74a00c0510db300a200ff.web-security-academy.net&quot;</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在头部添<code>Referrer-Policy: unsafe-url</code>，是因为需要请求中包含完整的 URL ，以此来覆盖浏览器的默认配置（默认从 Referer 标头中删除查询字符串）</p>
@@ -816,28 +813,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 

