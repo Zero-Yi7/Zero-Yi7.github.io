@@ -20,6 +20,16 @@
   
   <title>XSS-and-Security-Labs：xss-labs - Rabbit's Blog</title>
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3S2K79CLX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G3S2K79CLX');
+  </script>
+
   
     <meta name="description" content="do0dl3&#x2F;xss-labs: xss 跨站漏洞平台 (github.com)  level 1 观察地址栏得知是GET请求，参数是name，值为test 修改参数值定位位置，发现是在 h2标签内，判断为反射型xss 于是直接在把name参数赋值为： 1&lt;script&gt;alert(&#x27;xss&#x27;)&lt;&#x2F;script&gt; 从浏览器观察直接弹出来了，查看一下源码">
 <meta property="og:type" content="article">
