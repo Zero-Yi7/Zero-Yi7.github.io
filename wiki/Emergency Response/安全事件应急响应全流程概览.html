@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html><html lang="zh-CN" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>Emergency Response：安全事件响应全流程概览 - Rabbit's Blog</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G3S2K79CLX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G3S2K79CLX');
+  </script>
+
+  
+    <meta name="description" content="应急响应的第一目标不是立刻“修好问题”，而是尽快建立判断：这是不是安全事件？影响有多大？攻击是否仍在继续？哪些资产需要优先保护？接下来应该由谁接手？">
+<meta property="og:type" content="website">
+<meta property="og:title" content="安全事件响应全流程概览">
+<meta property="og:url" content="https://askrabbit.cn/wiki/Emergency%20Response/%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%A8%E6%B5%81%E7%A8%8B%E6%A6%82%E8%A7%88">
+<meta property="og:site_name" content="Rabbit&#39;s Blog">
+<meta property="og:description" content="应急响应的第一目标不是立刻“修好问题”，而是尽快建立判断：这是不是安全事件？影响有多大？攻击是否仍在继续？哪些资产需要优先保护？接下来应该由谁接手？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-09T12:46:25.000Z">
+<meta property="article:modified_time" content="2024-02-09T12:46:25.000Z">
+<meta property="article:author" content="Rabbit">
+<meta property="article:tag" content="应急">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+  
+    <link rel="shortcut icon" href="https://favorably-7690.oss-cn-beijing.aliyuncs.com/icon/%E5%85%94%E5%AD%90%20(2).png">
+  
+
+  
+
+  <link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css"
+  media="all"
+/>
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body>
+
+
+
+<div class="l_body s:aa content tech" id="start" layout="page" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/wiki/Emergency Response/数据安全_应急响应.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></div><a class="title" href="/wiki/Emergency%20Response/"><div class="main" ff="title">Emergency Response</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/Emergency Response/" placeholder="在文档中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item" title="主页" href="/"><span>主页</span></a><a class="nav-item active" title="探索" href="/wiki/"><span>探索</span></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Start</span></div><div class="widget-body fs14"><a class="link" href="/wiki/Emergency%20Response/#start"><span class="toc-text">应急响应</span></a></div><div class="widget-header dis-select"><span class="name">timeline</span></div><div class="widget-body fs14"><a class="link active" href="/wiki/Emergency%20Response/%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%85%A8%E6%B5%81%E7%A8%8B%E6%A6%82%E8%A7%88"><span class="toc-text">安全事件响应全流程概览</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><a class="link" href="/wiki/Emergency%20Response/Windows%20%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="toc-text">Windows 应急响应</span></a><a class="link" href="/wiki/Emergency%20Response/Linux%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BA%94%E6%80%A5%E5%A4%84%E7%BD%AE"><span class="toc-text">Linux 服务器应急处置</span></a><a class="link" href="/wiki/Emergency%20Response/DDoS%20%E6%94%BB%E5%87%BB"><span class="toc-text">DDoS 攻击</span></a></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/Zero-Yi7" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/></a><a class="social" onclick="switchTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" fill-rule="evenodd" d="M582.4 326.4c-140.8 0-256 115.2-256 256s115.2 256 256 256 256-115.2 256-256-115.2-256-256-256z m0 448c-70.4 0-131.2-36.8-164.8-92.8 12.8 3.2 27.2 4.8 40 4.8 121.6 0 219.2-99.2 219.2-219.2 0-17.6-1.6-35.2-6.4-52.8 60.8 32 102.4 96 102.4 169.6 1.6 104-84.8 190.4-190.4 190.4zM582.4 262.4c17.6 0 32-14.4 32-32v-128c0-17.6-14.4-32-32-32s-32 14.4-32 32v128c0 17.6 14.4 32 32 32zM262.4 582.4c0-17.6-14.4-32-32-32h-128c-17.6 0-32 14.4-32 32s14.4 32 32 32h128c17.6 0 32-14.4 32-32zM310.4 356.8c6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8l-91.2-91.2c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l91.2 91.2zM944 220.8c-12.8-12.8-32-12.8-44.8 0l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-33.6 0-44.8zM310.4 808l-91.2 91.2c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 14.4 9.6 22.4 9.6 8 0 16-3.2 22.4-9.6l91.2-91.2c12.8-12.8 12.8-32 0-44.8-11.2-11.2-32-11.2-44.8 0z"></path></svg></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/Emergency%20Response/">Emergency Response</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2024-02-09T12:46:25.000Z">2024-02-09</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>安全事件响应全流程概览</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>安全事件往往不是以“完整故事”的形式出现的。</p>
+<p>它可能是一条终端告警、一段异常流量、一封外部通报，也可能只是业务人员的一句反馈：系统变慢了、文件打不开了、某个账号出现了异常操作，或者有用户发现了不该看到的数据。</p>
+<p>在这些不完整、甚至相互矛盾的信息面前，应急响应的第一目标不是立刻“修好问题”，而是尽快建立判断：这是不是安全事件？影响有多大？攻击是否仍在继续？哪些资产需要优先保护？接下来应该由谁接手？</p>
+<p>本文是一篇总览型文章，重点介绍企业在面对安全事件时的通用响应思路。它不深入展开某一种攻击类型，也不讨论具体工具操作，而是提供一个可复用的框架，帮助技术团队快速理解应急响应的整体方法和价值。</p>
+<hr>
+<h2 id="一、应急响应首先解决的是“不确定性”">一、应急响应首先解决的是“不确定性”</h2>
+<p>很多组织在安全事件初期容易陷入两个极端。</p>
+<p>一种是过度乐观，把告警当成误报，直到影响扩大才开始重视。另一种是过度紧张，一上来就关机、重装、删除文件、封禁大量访问，结果虽然短期看似“止血”，却破坏了证据，也可能影响业务恢复和后续追责。</p>
+<p>成熟的应急响应，本质上是在有限时间内降低不确定性。它需要回答几个关键问题：</p>
+<p>第一，事件是否真实发生，而不是孤立误报或正常变更。</p>
+<p>第二，事件处于什么阶段，是扫描尝试、漏洞利用、单点失陷，还是已经出现横向移动、数据外发或业务破坏。</p>
+<p>第三，受影响范围有多大，是否涉及核心系统、敏感数据、关键身份或基础设施能力。</p>
+<p>第四，攻击是否仍在持续，是否需要立即隔离，还是应保留一定观察和取证窗口。</p>
+<p>第五，当前团队能力是否足够，是否需要升级到更高级别的安全、法务、合规、管理或外部支持团队。</p>
+<p>这几个问题决定了后续所有动作的优先级。</p>
+<hr>
+<h2 id="二、一个通用的响应框架：确认、控制、清除、恢复、跟踪">二、一个通用的响应框架：确认、控制、清除、恢复、跟踪</h2>
+<p>不同安全事件的技术细节差异很大，但处置逻辑通常可以抽象为五个阶段。</p>
+<h3 id="1-确认：把“异常现象”变成“事件判断”">1. 确认：把“异常现象”变成“事件判断”</h3>
+<p>确认阶段的核心不是追求完整结论，而是形成足够可靠的初判。</p>
+<p>团队需要收集告警来源、发现时间、受影响对象、近期变更、相关账号活动、网络连接、主机状态和业务反馈。此时应避免只依赖单一信号，而要把主机、网络、身份、应用、云平台和业务日志放在一起交叉验证。</p>
+<p>一个告警本身可能并不严重，但如果它同时伴随异常登录、可疑外联、权限变更或业务数据访问异常，事件级别就需要重新评估。</p>
+<h3 id="2-控制：阻止风险继续扩散">2. 控制：阻止风险继续扩散</h3>
+<p>控制阶段的目标是降低即时风险，而不是完成根治。</p>
+<p>常见控制手段包括终端隔离、网络访问限制、临时封禁外联目的地、关闭高风险接口、冻结可疑账号、限制异常访问频率、调整安全策略等。</p>
+<p>这里最重要的是选择合适的隔离粒度。对正在扩散的勒索、持续的数据外发、向核心系统横向移动等场景，应优先快速切断风险链路。对单点失陷、攻击已经停止或仍需保留现场的场景，则要尽量避免粗暴处置，以便保留取证条件。</p>
+<p>控制动作必须有记录，包括执行时间、执行人、影响范围、回滚方式和业务确认结果。</p>
+<h3 id="3-清除：找出入口和驻留点">3. 清除：找出入口和驻留点</h3>
+<p>清除阶段关注的是攻击者是否还具备再次进入或持续控制的能力。</p>
+<p>仅删除一个可疑文件通常是不够的。团队需要排查入口漏洞、异常账号、持久化机制、恶意进程、计划任务、启动项、异常密钥、可疑外联、脚本落地、横向移动痕迹，以及同类资产是否存在相同风险。</p>
+<p>对于涉及云资源、身份系统、构建发布链路或关键运维通道的事件，还需要额临时防护已经生效，监控规则已经部署，备份与回滚方案处于可用状态。</p>
+<p>业务恢复还需要安全团队与业务团队共同确认：功能是否正常，数据是否一致，关键接口是否可用，临时策略是否会影响正常访问，是否存在再次触发的风险。</p>
+<p>真正可靠的恢复，应当是“业务可用”和“安全可信”同时成立。</p>
+<h3 id="5-跟踪：防止事件以另一种形式回来">5. 跟踪：防止事件以另一种形式回来</h3>
+<p>很多安全事件的风险并不会在恢复上线那一刻结束。</p>
+<p>攻击者可能更换基础设施再次连接，也可能使用此前窃取的凭据重新登录；同类漏洞可能存在于其他系统；临时修复可能没有完全覆盖所有入口；某些低频异常需要更长时间才能被观察到。</p>
+<p>因此，恢复后应进入强化监控期。团队可以围绕本次事件形成检测规则、风险指标、资产清单、账号清单和复发检查项，并在一段时间内持续观察相关告警、访问行为和异常变更。</p>
+<p>跟踪阶段的价值，是把一次事件转化为组织能力的提升。</p>
+<hr>
+<h2 id="三、事件初判可以从四个维度展开">三、事件初判可以从四个维度展开</h2>
+<p>在应急响应入口阶段，不建议直接按“攻击名称”下结论。更稳妥的方式，是先从四个维度判断事件性质。</p>
+<h3 id="1-影响对象：什么被影响了">1. 影响对象：什么被影响了</h3>
+<p>首先要识别受影响对象的类型。</p>
+<p>是普通终端、服务器、业务应用、数据库、身份系统、云资源、网络设备，还是运维与发布相关的关键平台。不同对象的风险权重不同。即使同样是单点异常，发生在边缘测试环境和发生在核心身份系统上的处置优先级也完全不同。</p>
+<h3 id="2-攻击阶段：事情发展到哪一步">2. 攻击阶段：事情发展到哪一步</h3>
+<p>其次要判断事件所处阶段。</p>
+<p>如果只是扫描或尝试利用，重点是确认暴露面和防护有效性。如果已经出现可疑进程、异常登录、未知文件或外联行为，则需要按失陷场景处置。如果出现横向移动、权限提升、数据导出、文件加密或核心系统异常，则应立即升级响应级别。</p>
+<h3 id="3-数据风险：是否涉及敏感信息">3. 数据风险：是否涉及敏感信息</h3>
+<p>数据风险是定级的重要因素。</p>
+<p>只要出现疑似批量查询、异常导出、接口遍历、对象存储访问异常、数据库操作异常、用户信息被外部发现等迹象，就不能只按技术事件处理，还需要同步考虑合规、法务、客户沟通和证据保全要求。</p>
+<h3 id="4-持续性：攻击是否还在进行">4. 持续性：攻击是否还在进行</h3>
+<p>最后要判断攻击是否仍在发生。</p>
+<p>如果攻击者仍在线、恶意进程仍在通信、文件仍在被加密、数据仍在外发，控制动作要优先。如果事件已经停止，团队可以把更多精力放在证据固定、时间线还原和根因分析上。</p>
+<hr>
+<h2 id="四、现场处置的底线：先保全，再处置">四、现场处置的底线：先保全，再处置</h2>
+<p>应急响应中有几类动作需要格外谨慎。</p>
+<p>不要在未取证前直接重启、关机、格式化或重装系统。很多关键线索存在于内存、网络连接、临时文件、运行进程和短周期日志中，一旦被破坏，后续很难还原攻击过程。</p>
+<p>不要直接删除可疑文件。更好的做法是先保存样本、记录路径、计算校验值、关联进程和时间，再进行隔离或清除。</p>
+<p>不要使用疑似失陷主机上的账号继续访问其他系统。凭据可能已经泄露，这样做可能扩大影响范围。</p>
+<p>不要在未经授权的情况下对疑似攻击来源进行反向扫描、攻击或接触。这不仅可能带来法律风险，也可能干扰后续调查。</p>
+<p>不要公开发布尚未确认的事件细节、截图、指标或内部判断。安全事件往往涉及业务、客户、合规和声誉风险，对外信息应通过统一机制管理。</p>
+<p>这些底线看似保守，但它们决定了事件后续是否还能被准确分析、合规处理和有效复盘。</p>
+<hr>
+<h2 id="五、工具不是重点，证据链才是重点">五、工具不是重点，证据链才是重点</h2>
+<p>企业通常会部署多类安全与运维工具，例如终端检测、网络流量分析、日志平台、应用防护、主机安全、云审计、身份审计和威胁情报系统。</p>
+<p>在应急场景中，工具的价值不在于“看到多少告警”，而在于能否帮助团队建立证据链。</p>
+<p>一条可用的证据链通常包括：</p>
+<p>事件最早出现的时间；</p>
+<p>攻击入口或可疑触发点；</p>
+<p>受影响资产和账号范围；</p>
+<p>攻击过程中的关键行为；</p>
+<p>外联、下载、执行、提权、持久化或横向移动痕迹；</p>
+<p>可能涉及的数据访问或数据外发记录；</p>
+<p>已经采取的控制、清除和恢复动作；</p>
+<p>恢复后的监控与复发验证结果。</p>
+<p>当这些信息能够相互印证时，团队才有基础判断事件是否结束，以及是否需要扩大排查范围。</p>
+<hr>
+<h2 id="六、哪些情况必须升级">六、哪些情况必须升级</h2>
+<p>并不是所有事件都适合由一线人员独立完成。</p>
+<p>当事件涉及以下情况时，应及时升级到更高层级的安全团队或专项支持团队：</p>
+<p>涉及核心身份、运维通道、密钥、备份、构建发布、核心业务或敏感数据；</p>
+<p>出现勒索、批量数据外发、横向移动、权限提升或多点失陷迹象；</p>
+<p>安全设备没有明显告警，但存在外部通报、客户反馈或监管关注；</p>
+<p>怀疑存在未知漏洞利用、无文件攻击、隐蔽驻留或长期潜伏；</p>
+<p>攻击者仍在实时操作，且处置动作可能影响证据或业务；</p>
+<p>事件已经被外部感知，涉及客户、监管、媒体或公众沟通。</p>
+<p>升级不是推卸责任，而是确保事件在合适的授权、能力和资源下被处理。越复杂的事件，越需要安全、业务、运维、法务、合规和管理层协同决策。</p>
+<hr>
+<h2 id="七、应急响应的最终价值：让组织变得更难被再次攻破">七、应急响应的最终价值：让组织变得更难被再次攻破</h2>
+<p>一次安全事件的结束，不应只是系统恢复、告警关闭、报告归档。</p>
+<p>更重要的是，组织是否从事件中沉淀了新的能力：</p>
+<p>是否补齐了资产和暴露面盲区；</p>
+<p>是否修复了入口漏洞和同类问题；</p>
+<p>是否改进了账号、密钥和权限管理；</p>
+<p>是否提升了日志留存、监控覆盖和告警质量；</p>
+<p>是否完善了跨团队协作机制；</p>
+<p>是否形成了更清晰的分级、升级和决策流程；</p>
+<p>是否把本次事件的攻击特征转化为可持续检测能力。</p>
+<p>应急响应不是单次“救火”，而是一套组织级的风险管理机制。它连接了安全运营、基础设施、业务连续性、合规治理和管理决策。</p>
+<p>对于企业技术团队来说，建立一套清晰的应急响应框架，最大的价值并不是让每个人都成为安全专家，而是在事件发生时让团队知道：先做什么，不能做什么，什么时候升级，如何保护证据，怎样恢复业务，以及如何避免同类问题再次发生。</p>
+<p>后续文章将围绕不同类型的安全事件，进一步拆解具体场景下的排查重点、判断方法和处置思路。</p>
+
+<div class="article-footer fs14"></div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/Emergency%20Response/">应急响应</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/Emergency%20Response/Windows%20%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94">Windows 应急响应</a></div></section></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>评论</p>
+
+    </section>
+    <section class='body cmt-body giscus'>
+      
+  <section class='body cmt-body'>
+    <div id="giscus-container"></div>
+    <script src="https://giscus.app/client.js"
+      data-repo="Zero-Yi7/blog-comments"
+      data-repo-id="R_kgDOOUyZ3Q"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOOUyZ3c4Co1L-"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="preferred_color_scheme"
+      data-lang="zh-CN"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+
+
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><center>
+  <p>© <span id="copyright_year"></span> Rabbit 使用 Stellar 创建</p>
+  <p>✨ 营业：<span id="runtime_span"></span> ✨</p>
+  <p>共发表 <span id="blog_count">56</span> 篇Blog 🔸 总计 <span id="total_words">123.6k</span> 字</p>
+  <script type="text/javascript">
+    (function() {
+      // 动态年份
+      document.getElementById('copyright_year').textContent = new Date().getFullYear();
+
+      // 运行时长
+      const startDate = new Date('2023-12-20T00:00:00');
+      function updateRuntime() {
+        const now = new Date();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+        const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+        const minutes = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((diff % (60 * 1000)) / 1000);
+        document.getElementById('runtime_span').innerHTML =
+          `${days}天-${hours}小时-${minutes}分-${seconds}秒`; // 修改输出格式
+      }
+      setInterval(updateRuntime, 1000);
+      updateRuntime();
+
+      // 博客统计数据 (这里是静态示例，你可以根据实际情况手动更新或动态获取)
+      // document.getElementById('blog_count').textContent = '你的博客文章总数';
+      // document.getElementById('total_words').textContent = '你的博客文章总字数';
+    })();
+  </script>
+</center>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%A6%96%E5%85%88%E8%A7%A3%E5%86%B3%E7%9A%84%E6%98%AF%E2%80%9C%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E2%80%9D"><span class="toc-text">一、应急响应首先解决的是“不确定性”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E4%B8%AA%E9%80%9A%E7%94%A8%E7%9A%84%E5%93%8D%E5%BA%94%E6%A1%86%E6%9E%B6%EF%BC%9A%E7%A1%AE%E8%AE%A4%E3%80%81%E6%8E%A7%E5%88%B6%E3%80%81%E6%B8%85%E9%99%A4%E3%80%81%E6%81%A2%E5%A4%8D%E3%80%81%E8%B7%9F%E8%B8%AA"><span class="toc-text">二、一个通用的响应框架：确认、控制、清除、恢复、跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A1%AE%E8%AE%A4%EF%BC%9A%E6%8A%8A%E2%80%9C%E5%BC%82%E5%B8%B8%E7%8E%B0%E8%B1%A1%E2%80%9D%E5%8F%98%E6%88%90%E2%80%9C%E4%BA%8B%E4%BB%B6%E5%88%A4%E6%96%AD%E2%80%9D"><span class="toc-text">1. 确认：把“异常现象”变成“事件判断”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8E%A7%E5%88%B6%EF%BC%9A%E9%98%BB%E6%AD%A2%E9%A3%8E%E9%99%A9%E7%BB%A7%E7%BB%AD%E6%89%A9%E6%95%A3"><span class="toc-text">2. 控制：阻止风险继续扩散</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B8%85%E9%99%A4%EF%BC%9A%E6%89%BE%E5%87%BA%E5%85%A5%E5%8F%A3%E5%92%8C%E9%A9%BB%E7%95%99%E7%82%B9"><span class="toc-text">3. 清除：找出入口和驻留点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B7%9F%E8%B8%AA%EF%BC%9A%E9%98%B2%E6%AD%A2%E4%BA%8B%E4%BB%B6%E4%BB%A5%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%BD%A2%E5%BC%8F%E5%9B%9E%E6%9D%A5"><span class="toc-text">5. 跟踪：防止事件以另一种形式回来</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BA%8B%E4%BB%B6%E5%88%9D%E5%88%A4%E5%8F%AF%E4%BB%A5%E4%BB%8E%E5%9B%9B%E4%B8%AA%E7%BB%B4%E5%BA%A6%E5%B1%95%E5%BC%80"><span class="toc-text">三、事件初判可以从四个维度展开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BD%B1%E5%93%8D%E5%AF%B9%E8%B1%A1%EF%BC%9A%E4%BB%80%E4%B9%88%E8%A2%AB%E5%BD%B1%E5%93%8D%E4%BA%86"><span class="toc-text">1. 影响对象：什么被影响了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%94%BB%E5%87%BB%E9%98%B6%E6%AE%B5%EF%BC%9A%E4%BA%8B%E6%83%85%E5%8F%91%E5%B1%95%E5%88%B0%E5%93%AA%E4%B8%80%E6%AD%A5"><span class="toc-text">2. 攻击阶段：事情发展到哪一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E9%A3%8E%E9%99%A9%EF%BC%9A%E6%98%AF%E5%90%A6%E6%B6%89%E5%8F%8A%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF"><span class="toc-text">3. 数据风险：是否涉及敏感信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%8C%81%E7%BB%AD%E6%80%A7%EF%BC%9A%E6%94%BB%E5%87%BB%E6%98%AF%E5%90%A6%E8%BF%98%E5%9C%A8%E8%BF%9B%E8%A1%8C"><span class="toc-text">4. 持续性：攻击是否还在进行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%8E%B0%E5%9C%BA%E5%A4%84%E7%BD%AE%E7%9A%84%E5%BA%95%E7%BA%BF%EF%BC%9A%E5%85%88%E4%BF%9D%E5%85%A8%EF%BC%8C%E5%86%8D%E5%A4%84%E7%BD%AE"><span class="toc-text">四、现场处置的底线：先保全，再处置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%B7%A5%E5%85%B7%E4%B8%8D%E6%98%AF%E9%87%8D%E7%82%B9%EF%BC%8C%E8%AF%81%E6%8D%AE%E9%93%BE%E6%89%8D%E6%98%AF%E9%87%8D%E7%82%B9"><span class="toc-text">五、工具不是重点，证据链才是重点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%93%AA%E4%BA%9B%E6%83%85%E5%86%B5%E5%BF%85%E9%A1%BB%E5%8D%87%E7%BA%A7"><span class="toc-text">六、哪些情况必须升级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E7%9A%84%E6%9C%80%E7%BB%88%E4%BB%B7%E5%80%BC%EF%BC%9A%E8%AE%A9%E7%BB%84%E7%BB%87%E5%8F%98%E5%BE%97%E6%9B%B4%E9%9A%BE%E8%A2%AB%E5%86%8D%E6%AC%A1%E6%94%BB%E7%A0%B4"><span class="toc-text">七、应急响应的最终价值：让组织变得更难被再次攻破</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M10.46 1.25h3.08c1.603 0 2.86 0 3.864.095c1.023.098 1.861.3 2.6.752a5.75 5.75 0 0 1 1.899 1.899c.452.738.654 1.577.752 2.6c.095 1.004.095 2.261.095 3.865v1.067c0 1.141 0 2.036-.05 2.759c-.05.735-.153 1.347-.388 1.913a5.75 5.75 0 0 1-3.112 3.112c-.805.334-1.721.408-2.977.43a10.81 10.81 0 0 0-.929.036c-.198.022-.275.054-.32.08c-.047.028-.112.078-.224.232c-.121.166-.258.396-.476.764l-.542.916c-.773 1.307-2.69 1.307-3.464 0l-.542-.916a10.605 10.605 0 0 0-.476-.764c-.112-.154-.177-.204-.224-.232c-.045-.026-.122-.058-.32-.08c-.212-.023-.49-.03-.93-.037c-1.255-.021-2.171-.095-2.976-.429A5.75 5.75 0 0 1 1.688 16.2c-.235-.566-.338-1.178-.389-1.913c-.049-.723-.049-1.618-.049-2.76v-1.066c0-1.604 0-2.86.095-3.865c.098-1.023.3-1.862.752-2.6a5.75 5.75 0 0 1 1.899-1.899c.738-.452 1.577-.654 2.6-.752C7.6 1.25 8.857 1.25 10.461 1.25M6.739 2.839c-.914.087-1.495.253-1.959.537A4.25 4.25 0 0 0 3.376 4.78c-.284.464-.45 1.045-.537 1.96c-.088.924-.089 2.11-.089 3.761v1c0 1.175 0 2.019.046 2.685c.045.659.131 1.089.278 1.441a4.25 4.25 0 0 0 2.3 2.3c.515.214 1.173.294 2.429.316h.031c.398.007.747.013 1.037.045c.311.035.616.104.909.274c.29.17.5.395.682.645c.169.232.342.525.538.856l.559.944a.52.52 0 0 0 .882 0l.559-.944c.196-.331.37-.624.538-.856c.182-.25.392-.476.682-.645c.293-.17.598-.24.909-.274c.29-.032.639-.038 1.037-.045h.032c1.255-.022 1.913-.102 2.428-.316a4.25 4.25 0 0 0 2.3-2.3c.147-.352.233-.782.278-1.441c.046-.666.046-1.51.046-2.685v-1c0-1.651 0-2.837-.089-3.762c-.087-.914-.253-1.495-.537-1.959a4.25 4.25 0 0 0-1.403-1.403c-.464-.284-1.045-.45-1.96-.537c-.924-.088-2.11-.089-3.761-.089h-3c-1.651 0-2.837 0-3.762.089" clip-rule="evenodd"/><path fill="currentColor" d="M9 11a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0"/></svg><span>参与讨论</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+  <script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+    <script type="text/javascript">
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+    
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function(response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function(error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+  };
+</script>
+
+      <script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+        <script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+          <!-- required -->
+          <script src="/js/main.js?v=1.29.1" defer></script>
+
+          <script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    }
+  })()
+</script>
+
+
+            <!-- optional -->
+            
+  <script src="https://giscus.app/client.js"
+        data-repo="Zero-Yi7/blog-comments"
+        data-repo-id="R_kgDOOUyZ3Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOOUyZ3c4Co1L-"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+              <script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+  });
+</script>
+                
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+
+
+
+                  <!-- inject -->
+                  
+
+                    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+                    <script>
+                      hljs.highlightAll();  // 这段代码会自动找到页面中所有的代码块并进行高亮
+                    </script> --><script src="/js/plugins/copycode.js"></script>
+    <script type="text/javascript" 
+      color="220,220,220" 
+      opacity="0.7" 
+      zIndex="-2" 
+      count="200" 
+      src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+  </div></body></html>
